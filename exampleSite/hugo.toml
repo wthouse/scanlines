@@ -1,0 +1,157 @@
+# Scanlines Theme - Example Site Configuration
+# Requires Hugo Extended for SCSS processing
+
+baseURL = "https://example.com/"
+languageCode = "en-us"
+title = "SCANLINES"
+theme = "scanlines"
+
+# RSS outputs
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = false
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 4
+    ordered = false
+  [markup.highlight]
+    codeFences = true
+    noClasses = false
+    lineNos = true
+    lineNumbersInTable = true
+
+# Main navigation menu
+[menus]
+  [[menus.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
+  [[menus.main]]
+    name = "Posts"
+    url = "/posts/"
+    weight = 2
+  [[menus.main]]
+    name = "About"
+    url = "/about/"
+    weight = 3
+
+[params]
+  # Site description for SEO
+  description = "A retro terminal-inspired blog powered by Hugo and the Scanlines theme"
+  author = "Terminal User"
+
+  # ==========================================================================
+  # SCANLINES THEME CONFIGURATION
+  # All options are namespaced under [params.scanlines]
+  # ==========================================================================
+  [params.scanlines]
+    # Homepage style: "blog" (default) or "profile"
+    # "blog"    — site tagline + recent posts
+    # "profile" — profile header + buttons (landing page, nav hidden)
+    homepage = "blog"
+
+    # Text color scheme: "amber" (default), "green", "blue", "white"
+    colorScheme = "amber"
+
+    # NOTE: All sub-sections below must come after the above key/value pairs.
+    # Moving keys after a sub-section header will assign them to that sub-section.
+
+    # Profile/CV Page Settings
+    [params.scanlines.profile]
+      name = "Terminal User"
+      subtitle = "Systems Administrator"
+      avatar = ""
+      bio = "A passionate technologist who loves retro computing and terminal aesthetics."
+      # Buttons shown on profile homepage (profile mode only)
+      [[params.scanlines.profile.buttons]]
+        name = "Posts"
+        url = "/posts/"
+      [[params.scanlines.profile.buttons]]
+        name = "About"
+        url = "/about/"
+
+    # Custom color overrides (hex codes take precedence over schemes)
+    [params.scanlines.colors]
+      foreground = ""           # e.g., "#ffb000"
+      background = ""           # e.g., "#0d0a00"
+      backgroundSecondary = ""  # e.g., "#1a1400"
+      accent = ""               # e.g., "#ff8c00"
+      link = ""
+      linkHover = ""
+
+    # CRT Visual Effects
+    [params.scanlines.effects]
+      enabled = true           # Master toggle for all effects
+      scanlines = true         # Horizontal scanline overlay
+      scanlineOpacity = 0.4    # 0.0 - 1.0
+      flicker = false          # Screen flicker animation
+      flickerIntensity = 0.03  # 0.0 - 1.0 (0.03 barely visible, 0.15 subtle, 0.4 strong)
+      vignette = true          # Phosphor edge fade + subtle screen curvature
+      vignetteIntensity = 0.8  # 0.0 - 1.0 (0.3 subtle, 0.8 authentic, 1.0 heavy)
+      glow = true              # Text phosphor glow
+      glowIntensity = 0.8      # 0.0 - 2.0
+
+    # Accessibility Options
+    [params.scanlines.accessibility]
+      highContrast = false      # Boost contrast levels
+      reduceMotion = false      # Disable all animations
+      disableEffects = false    # Turn off all CRT effects entirely
+
+    # Header Configuration
+    [params.scanlines.header]
+      asciiFile = "ascii-header.txt"  # ASCII art file in static/ (leave empty for plain text title)
+      showBox = false                 # Show border around header (default: true)
+
+    # Layout Options
+    [params.scanlines.layout]
+      containerWidth = "1200px"   # Max width of the container
+      contentWidth = "720px"      # Max width of the content area (~80 columns)
+
+    # Typography Options
+    [params.scanlines.typography]
+      baseFontSize = "20px"       # Base font size (rem units scale from this)
+      fontFamily = "glass"        # "glass" (Glass_TTY_VT220) or "fira" (Fira Code)
+
+    # Syntax Highlighting
+    [params.scanlines.syntax]
+      colored = false             # false = monochrome (matches theme), true = multi-color
+
+    # Table of Contents
+    [params.scanlines.toc]
+      enabled = true
+      position = "sidebar"      # "sidebar" or "none"
+      collapsible = true        # Collapsible on mobile (toggle button)
+      title = "CONTENTS"
+
+    # Status Line (VT220 25th line)
+    [params.scanlines.statusLine]
+      enabled = true              # Show fixed status bar at bottom of screen
+
+    # Social Links (leave empty to hide)
+    [params.scanlines.social]
+      github = "wthouse"
+      twitter = ""
+      linkedin = ""
+      mastodon = ""
+      email = "user@example.com"
+      rss = true
+
+    # Footer theme link URL (shown as "Theme: Scanlines" in footer)
+    # Set to your fork/repo URL, or leave empty to omit the link
+    themeRepo = ""
+
+    # Favicon path (relative to static folder)
+    favicon = "/favicon.ico"
+
+    # Date format (Go date format string)
+    # See: https://gohugo.io/functions/time/format/
+    dateFormat = "2006-01-02"
+
+    # Show reading time on posts
+    showReadingTime = true
+

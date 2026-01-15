@@ -1,0 +1,27 @@
+{{ define "main" }}
+<div class="container">
+  <div class="content-wrapper">
+    <header class="terms-header">
+      <h1 class="terms-title">{{ .Title }}</h1>
+      {{- if .Pages }}
+      <p class="terms-count">[ {{ len .Pages }} {{ if eq (len .Pages) 1 }}tag{{ else }}tags{{ end }} ]</p>
+      {{- end }}
+    </header>
+
+    {{- if .Pages }}
+    <ul class="terms-list">
+      {{- range .Pages.ByTitle }}
+      <li class="terms-item">
+        <a href="{{ .RelPermalink }}" class="terms-link">
+          <span class="terms-name">#{{ .Title }}</span>
+          <span class="terms-item-count">({{ len .Pages }})</span>
+        </a>
+      </li>
+      {{- end }}
+    </ul>
+    {{- else }}
+    <p class="no-content">No tags found.</p>
+    {{- end }}
+  </div>
+</div>
+{{ end }}

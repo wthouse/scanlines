@@ -1,0 +1,12 @@
+name = "Scanlines"
+license = "MIT"
+licenselink = "https://github.com/wthouse/scanlines/blob/main/LICENSE"
+description = "A retro-inspired Hugo theme emulating classic CRT terminals like the DEC VT100 and VT220"
+homepage = "https://github.com/wthouse/scanlines"
+tags = ["retro", "terminal", "crt", "monochrome", "blog", "minimal"]
+features = ["syntax highlighting", "responsive", "accessible", "crt effects", "profile mode"]
+min_version = "0.120.0"
+
+[author]
+  name = "House"
+  homepage = "https://wt.house"

@@ -1,0 +1,21 @@
+{{ define "main" }}
+<div class="container">
+  <div class="content-wrapper">
+    <div class="error-page">
+      <h1 class="error-code">404</h1>
+      <p class="error-message">FILE NOT FOUND</p>
+
+      <div class="terminal-box">
+        <p>> The requested resource could not be located.</p>
+        <p>> Please verify the path and try again.</p>
+        <p>> Or return to <a href="{{ "/" | relURL }}">home directory</a>.</p>
+      </div>
+
+      <div class="error-actions">
+        <a href="{{ "/" | relURL }}" class="btn">RETURN HOME</a>
+        <a href="{{ "posts/" | relURL }}" class="btn">VIEW POSTS</a>
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }}

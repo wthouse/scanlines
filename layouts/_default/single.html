@@ -1,0 +1,36 @@
+{{ define "main" }}
+<div class="container">
+  {{- $toc := site.Params.scanlines.toc -}}
+  {{- $showToc := and (ne $toc.enabled false) .TableOfContents (ne $toc.position "none") (ne .Params.toc false) -}}
+  {{- $tocPosition := $toc.position | default "sidebar" -}}
+
+  {{- if and $showToc (eq $tocPosition "sidebar") }}
+  <div class="page-with-sidebar">
+    <div class="page-content">
+  {{- else }}
+  <div class="content-wrapper">
+  {{- end }}
+
+      <article class="article">
+        {{- partial "article-header.html" . -}}
+
+        <div class="article-content">
+          {{ .Content }}
+        </div>
+
+        {{- partial "article-footer.html" . -}}
+      </article>
+
+      {{- partial "post-nav.html" . -}}
+
+  {{- if and $showToc (eq $tocPosition "sidebar") }}
+    </div>
+    <aside class="page-sidebar">
+      {{- partial "toc.html" (dict "Page" . "Location" "sidebar") -}}
+    </aside>
+  </div>
+  {{- else }}
+  </div>
+  {{- end }}
+</div>
+{{ end }}

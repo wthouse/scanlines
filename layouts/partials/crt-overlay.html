@@ -1,0 +1,11 @@
+{{- $effects := site.Params.scanlines.effects -}}
+{{- if and $effects.enabled (not site.Params.scanlines.accessibility.disableEffects) -}}
+<div class="crt-overlay{{ if ne $effects.vignette false }} crt-vignette{{ end }}" aria-hidden="true" style="--vignette-intensity: {{ $effects.vignetteIntensity | default 0.8 }};">
+  {{- if $effects.scanlines -}}
+  <div class="crt-scanlines" style="--scanline-opacity: {{ $effects.scanlineOpacity | default 0.15 }};"></div>
+  {{- end -}}
+  {{- if $effects.flicker -}}
+  <div class="crt-flicker"></div>
+  {{- end -}}
+</div>
+{{- end -}}

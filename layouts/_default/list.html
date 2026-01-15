@@ -1,0 +1,47 @@
+{{ define "main" }}
+{{- $dateFormat := site.Params.scanlines.dateFormat | default "2006-01-02" -}}
+<div class="container">
+  <div class="content-wrapper">
+    <header class="list-header">
+      <h1 class="list-title">{{ .Title }}</h1>
+      {{- with .Description }}
+      <p class="list-description">{{ . }}</p>
+      {{- end }}
+      {{- if .Pages }}
+      <p class="list-count">[ {{ len .Pages }} {{ if eq (len .Pages) 1 }}entry{{ else }}entries{{ end }} ]</p>
+      {{- end }}
+    </header>
+
+    {{- if .Pages }}
+    <ul class="post-list">
+      {{- range .Pages.ByDate.Reverse }}
+      <li class="post-list-item">
+        <article>
+          <h2 class="post-list-title">
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          </h2>
+          <div class="post-list-meta">
+            <time class="post-list-date" datetime="{{ .Date.Format "2006-01-02" }}">
+              {{ .Date.Format $dateFormat }}
+            </time>
+          </div>
+          {{- with .Description }}
+          <p class="post-list-excerpt">{{ . }}</p>
+          {{- else }}
+          {{- with .Summary }}
+          <p class="post-list-excerpt">{{ . | plainify | truncate 200 }}</p>
+          {{- end }}
+          {{- end }}
+        </article>
+      </li>
+      {{- end }}
+    </ul>
+
+    {{- /* Pagination */ -}}
+    {{- template "_internal/pagination.html" . }}
+    {{- else }}
+    <p class="no-content">No content found.</p>
+    {{- end }}
+  </div>
+</div>
+{{ end }}

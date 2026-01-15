@@ -1,0 +1,22 @@
+<footer class="site-footer">
+  <div class="footer-inner container">
+    <div class="footer-content">
+      {{- $isProfileHome := and (eq (site.Params.scanlines.homepage | default "blog") "profile") .IsHome -}}
+      {{- if not $isProfileHome -}}
+        {{- partial "social-icons.html" . -}}
+      {{- end -}}
+
+      <div class="footer-meta">
+        <p class="copyright">
+          &copy; {{ now.Year }} {{ .Site.Title }}
+        </p>
+        <p class="powered-by">
+          Powered by <a href="https://gohugo.io/" rel="noopener">Hugo</a>
+          {{- $themeRepo := site.Params.scanlines.themeRepo | default "#" -}}
+          &bull; Theme: <a href="{{ $themeRepo }}" rel="noopener">Scanlines</a>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</footer>

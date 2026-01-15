@@ -1,0 +1,37 @@
+{{- $statusLine := site.Params.scanlines.statusLine -}}
+{{- if ne $statusLine.enabled false -}}
+{{- $colorScheme := site.Params.scanlines.colorScheme | default "amber" -}}
+<div class="status-line" role="contentinfo" aria-label="Status line">
+  {{- /* Left: Site title with blinking cursor */ -}}
+  <span class="status-line-left">{{ .Site.Title }}<span class="status-cursor">_</span></span>
+
+  {{- /* Center: Current section */ -}}
+  <span class="status-line-center">
+    {{- if .IsHome -}}
+      HOME
+    {{- else if .Section -}}
+      {{ .Section | upper }}
+    {{- else -}}
+      {{ .Title | upper }}
+    {{- end -}}
+  </span>
+
+  {{- /* Right: Contextual info */ -}}
+  <span class="status-line-right">
+    {{- if .IsPage -}}
+      {{ partial "reading-time.html" (dict "page" . "short" true) }}
+    {{- else if eq .Kind "term" -}}
+      {{ len .Pages }} POSTS
+    {{- else if eq .Kind "taxonomy" -}}
+      {{ len .Pages }} TAGS
+    {{- else if eq .Kind "section" -}}
+      {{ len .Pages }} POSTS
+    {{- else -}}
+      {{- if eq $colorScheme "amber" -}}P3 AMBER
+      {{- else if eq $colorScheme "green" -}}P1 GREEN
+      {{- else -}}{{ $colorScheme | upper }}
+      {{- end -}}
+    {{- end -}}
+  </span>
+</div>
+{{- end -}}

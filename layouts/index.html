@@ -1,0 +1,50 @@
+{{ define "main" }}
+{{- $mode := site.Params.scanlines.homepage | default "blog" -}}
+<div class="container">
+  <div class="content-wrapper">
+    {{- if eq $mode "profile" -}}
+      {{- partial "profile-header.html" (dict "site" site) -}}
+    {{- else -}}
+      {{- with .Site.Params.description }}
+      <p class="hero-tagline">{{ . }}</p>
+      {{- end }}
+
+      {{- /* Recent Posts */ -}}
+      {{- $dateFormat := site.Params.scanlines.dateFormat | default "2006-01-02" -}}
+      {{- $posts := where .Site.RegularPages "Section" "posts" | first 5 -}}
+
+      {{- if $posts }}
+      <ul class="post-list">
+        {{- range $posts }}
+        <li class="post-list-item">
+          <article>
+            <h3 class="post-list-title">
+              <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            </h3>
+            <div class="post-list-meta">
+              <time class="post-list-date" datetime="{{ .Date.Format "2006-01-02" }}">
+                {{ .Date.Format $dateFormat }}
+              </time>
+              {{- if .Params.tags }}
+              <span class="post-list-tags">
+                {{- range first 3 .Params.tags }}
+                <a href="{{ "tags/" | relURL }}{{ . | urlize }}/" class="tag-inline">#{{ . }}</a>
+                {{- end }}
+              </span>
+              {{- end }}
+            </div>
+          </article>
+        </li>
+        {{- end }}
+      </ul>
+
+      <p class="home-more">
+        <a href="{{ "posts/" | relURL }}" class="home-more-link">&gt; all posts</a>
+      </p>
+      {{- else }}
+      <p class="no-posts">No posts yet. Start writing!</p>
+      {{- end }}
+    {{- end }}
+  </div>
+</div>
+{{ end }}

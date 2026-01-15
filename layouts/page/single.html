@@ -1,0 +1,32 @@
+{{- /* Static page layout - simpler than posts, no date/tags */ -}}
+{{ define "main" }}
+<div class="container">
+  <div class="content-wrapper">
+    <article class="article page">
+      <header class="article-header">
+        <h1 class="article-title">{{ .Title }}</h1>
+        {{- with .Description }}
+        <p class="page-description">{{ . }}</p>
+        {{- end }}
+      </header>
+
+      <div class="article-content">
+        {{ .Content }}
+      </div>
+    </article>
+  </div>
+</div>
+
+<style>
+  .page-description {
+    font-size: 1.1rem;
+    color: var(--color-fg);
+    margin-top: var(--spacing-sm);
+  }
+
+  .page-description::before {
+    content: "// ";
+    color: var(--color-fg-dim);
+  }
+</style>
+{{ end }}

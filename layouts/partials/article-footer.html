@@ -1,0 +1,12 @@
+{{- /* Shared article footer partial - tags */ -}}
+{{- with .Params.tags }}
+<footer class="article-footer">
+  <nav aria-label="Tags">
+    <ul class="article-tags">
+      {{- range . }}
+      <li><a href="{{ "tags/" | relURL }}{{ . | urlize }}/" class="tag">{{ . }}</a></li>
+      {{- end }}
+    </ul>
+  </nav>
+</footer>
+{{- end }}

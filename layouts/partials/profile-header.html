@@ -1,0 +1,44 @@
+{{- /* profile-header.html
+     Called as: partial "profile-header.html" (dict "page" $p "site" site)
+     $p may be nil — falls back to site.Params.scanlines.profile config */ -}}
+
+{{- /* Seed defaults from site config, then override from page if present */ -}}
+{{- $name     := .site.Params.scanlines.profile.name -}}
+{{- $avatar   := .site.Params.scanlines.profile.avatar   | default "" -}}
+{{- $subtitle := .site.Params.scanlines.profile.subtitle | default "" -}}
+{{- $bio      := .site.Params.scanlines.profile.bio      | default "" -}}
+{{- $social   := .site.Params.scanlines.social -}}
+
+{{- with .page -}}
+  {{- $name     = .Params.name     | default $name | default .Title -}}
+  {{- $avatar   = .Params.avatar   | default $avatar -}}
+  {{- $subtitle = .Params.subtitle | default $subtitle -}}
+  {{- $bio      = .Params.bio      | default $bio -}}
+  {{- $social   = .Params.social   | default $social -}}
+{{- end -}}
+
+{{- /* Final fallback: use site title if no name from page or config */ -}}
+{{- if not $name -}}{{- $name = .site.Title -}}{{- end -}}
+
+<header class="profile-header">
+  {{- with $avatar }}
+  <img src="{{ . }}" alt="{{ $name }}" class="profile-avatar">
+  {{- end }}
+  {{- with $name }}
+  <h1 class="profile-name">{{ . }}</h1>
+  {{- end }}
+  {{- with $subtitle }}
+  <p class="profile-subtitle">{{ . }}</p>
+  {{- end }}
+  {{- with $bio }}
+  <div class="profile-bio">{{ . | markdownify }}</div>
+  {{- end }}
+  {{- partial "social-icons.html" (dict "social" $social "class" "profile-social" "hideLabels" true) -}}
+  {{- with .site.Params.scanlines.profile.buttons }}
+  <nav class="profile-buttons" aria-label="Quick links">
+    {{- range . }}
+    <a href="{{ .url }}" class="profile-btn"{{ if strings.Contains .url "://" }} rel="noopener" target="_blank"{{ end }}>{{ .name }}</a>
+    {{- end }}
+  </nav>
+  {{- end }}
+</header>

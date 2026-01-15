@@ -1,0 +1,22 @@
+# Hugo build output
+exampleSite/public/
+exampleSite/resources/
+exampleSite/.hugo_build.lock
+resources/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Development tooling
+.superpowers/
+docs/superpowers/
+
+# Claude Code
+.claude/

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+{{- $colorScheme := site.Params.scanlines.colorScheme | default "amber" -}}
+{{- $effects := site.Params.scanlines.effects -}}
+{{- $typography := site.Params.scanlines.typography -}}
+{{- $layout := site.Params.scanlines.layout -}}
+{{- $syntax := site.Params.scanlines.syntax -}}
+<html lang="{{ .Site.LanguageCode | default "en" }}" data-color-scheme="{{ $colorScheme }}">
+<head>
+  {{- partial "head.html" . -}}
+
+  {{- /* Custom color overrides */ -}}
+  {{- $colors := site.Params.scanlines.colors -}}
+  {{- if $colors -}}
+  <style>
+    :root {
+      {{- with $colors.foreground }}--color-fg: {{ . }}; --color-fg-bright: {{ . }};{{ end }}
+      {{- with $colors.background }}--color-bg: {{ . }};{{ end }}
+      {{- with $colors.backgroundSecondary }}--color-bg-secondary: {{ . }};{{ end }}
+      {{- with $colors.accent }}--color-accent: {{ . }};{{ end }}
+      {{- with $colors.link }}--color-link: {{ . }};{{ end }}
+      {{- with $colors.linkHover }}--color-link-hover: {{ . }};{{ end }}
+    }
+  </style>
+  {{- end -}}
+
+  {{- /* Layout and typography CSS variables (Issues 9, 13) */ -}}
+  {{- if or $layout.containerWidth $layout.contentWidth $typography.baseFontSize $effects.glowIntensity $effects.flickerIntensity -}}
+  <style>
+    :root {
+      {{- with $layout.containerWidth }}--container-max: {{ . }};{{ end }}
+      {{- with $layout.contentWidth }}--content-max: {{ . }};{{ end }}
+      {{- with $typography.baseFontSize }}--base-font-size: {{ . }};{{ end }}
+      {{- with $effects.glowIntensity }}--glow-intensity: {{ . }};{{ end }}
+      {{- with $effects.flickerIntensity }}--flicker-intensity: {{ . }};{{ end }}
+    }
+  </style>
+  {{- end -}}
+</head>
+<body class="scanlines-body
+  {{- if $effects.enabled }} crt-enabled{{ end -}}
+  {{- if $effects.glow }} crt-glow{{ end -}}
+  {{- if ne $effects.vignette false }} crt-vignette-enabled{{ end -}}
+  {{- if site.Params.scanlines.accessibility.disableEffects }} effects-disabled{{ end -}}
+  {{- if site.Params.scanlines.accessibility.reduceMotion }} reduce-motion{{ end -}}
+  {{- if site.Params.scanlines.accessibility.highContrast }} high-contrast{{ end -}}
+  {{- if $syntax.colored }} syntax-colored{{ end -}}
+  {{- if eq $typography.fontFamily "fira" }} font-fira{{ end -}}
+">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  {{- partial "crt-overlay.html" . -}}
+
+  <div class="site-wrapper{{- if ne (site.Params.scanlines.statusLine.enabled) false }} status-line-active{{ end -}}">
+    {{- partial "header.html" . -}}
+
+    <main class="main-content" id="main-content">
+      {{- block "main" . }}{{- end }}
+    </main>
+
+    {{- partial "footer.html" . -}}
+  </div>
+
+  {{- partial "status-line.html" . -}}
+
+  {{- partial "custom_footer.html" . -}}
+</body>
+</html>

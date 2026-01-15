@@ -1,0 +1,498 @@
+// =============================================================================
+// BASE - Reset, Typography, and Fundamental Styles
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Font Face Declarations
+// -----------------------------------------------------------------------------
+@font-face {
+  font-family: "Glass_TTY_VT220";
+  src: url("../fonts/Glass_TTY_VT220.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; // Show fallback immediately, swap when loaded
+}
+
+@font-face {
+  font-family: "Fira Code";
+  src: url("../fonts/FiraCode-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+// -----------------------------------------------------------------------------
+// CSS Reset (Minimal)
+// -----------------------------------------------------------------------------
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: var(--base-font-size, 16px);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+
+  @media (prefers-reduced-motion: reduce) {
+    scroll-behavior: auto;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Body
+// -----------------------------------------------------------------------------
+body {
+  font-family: var(--font-terminal);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-fg);
+  background-color: var(--color-bg);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+// -----------------------------------------------------------------------------
+// Selection
+// -----------------------------------------------------------------------------
+::selection {
+  background-color: var(--color-selection-bg);
+  color: var(--color-selection-fg);
+}
+
+// -----------------------------------------------------------------------------
+// Typography
+// -----------------------------------------------------------------------------
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-terminal);
+  font-weight: normal;
+  line-height: 1.3;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-fg-bright);
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: var(--spacing-lg);
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+h4 {
+  font-size: 1.125rem;
+}
+
+h5, h6 {
+  font-size: 1rem;
+}
+
+p {
+  margin-bottom: var(--spacing-md);
+}
+
+// -----------------------------------------------------------------------------
+// Links
+// -----------------------------------------------------------------------------
+a {
+  color: var(--color-link);
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover,
+  &:focus {
+    color: var(--color-link-hover);
+  }
+
+  &:focus {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Scrollbar
+// Styled to match terminal aesthetic; falls back to OS default on unsupported browsers
+// -----------------------------------------------------------------------------
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+
+  &:hover {
+    background: var(--color-fg-dim);
+  }
+}
+
+// Firefox
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) var(--color-bg-secondary);
+}
+
+// -----------------------------------------------------------------------------
+// Lists
+// -----------------------------------------------------------------------------
+ul, ol {
+  margin-bottom: var(--spacing-md);
+  padding-left: var(--spacing-xl);
+}
+
+li {
+  margin-bottom: var(--spacing-xs);
+}
+
+ul {
+  list-style-type: none;
+
+  > li::before {
+    content: "> ";
+    color: var(--color-fg-dim);
+    margin-left: calc(-1 * var(--spacing-lg));
+  }
+}
+
+ol {
+  list-style-type: decimal;
+
+  > li::marker {
+    color: var(--color-fg-dim);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Code
+// -----------------------------------------------------------------------------
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background-color: var(--color-code-bg);
+  padding: 0.15em 0.4em;
+  border-radius: 2px;
+  border: 1px solid var(--color-border);
+}
+
+pre {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  background-color: var(--color-code-bg);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+
+  code {
+    background: none;
+    padding: 0;
+    border: none;
+    font-size: inherit;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Blockquotes
+// -----------------------------------------------------------------------------
+blockquote {
+  border-left: 3px solid var(--color-accent);
+  padding: var(--spacing-sm) var(--spacing-md);
+  margin: var(--spacing-md) 0;
+  color: var(--color-fg-dim);
+  font-style: italic;
+  background: rgba(255, 255, 255, 0.01);
+
+  &::before {
+    content: ">> ";
+    color: var(--color-accent);
+    font-style: normal;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Horizontal Rule
+// Terminal-style divider with decorative center
+// -----------------------------------------------------------------------------
+hr {
+  border: none;
+  margin: var(--spacing-xl) 0;
+  text-align: center;
+  overflow: hidden;
+  font-family: var(--font-terminal);
+  color: var(--color-border);
+  font-size: 0.85rem;
+  line-height: 1;
+
+  &::before {
+    content: "================================[ * ]================================";
+    display: block;
+    white-space: nowrap;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Images
+// -----------------------------------------------------------------------------
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+figure {
+  margin: var(--spacing-md) 0;
+
+  img {
+    margin-bottom: var(--spacing-sm);
+  }
+
+  figcaption {
+    font-size: 0.875rem;
+    color: var(--color-fg-dim);
+    text-align: center;
+
+    &::before {
+      content: "[ ";
+    }
+
+    &::after {
+      content: " ]";
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Tables
+// -----------------------------------------------------------------------------
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: var(--spacing-md);
+  font-size: 0.9rem;
+  border: 1px solid var(--color-border);
+}
+
+th, td {
+  padding: var(--spacing-sm) var(--spacing-md);
+  text-align: left;
+  border: 1px solid var(--color-border);
+}
+
+th {
+  background-color: var(--color-bg-secondary);
+  color: var(--color-fg-bright);
+  font-weight: normal;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid var(--color-border);
+}
+
+tr {
+  transition: background-color 0.15s ease;
+}
+
+tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+tr:hover td {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+// -----------------------------------------------------------------------------
+// Footnotes (Goldmark-generated)
+// Terminal-style footnote references and back-references
+// -----------------------------------------------------------------------------
+.footnotes {
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-md);
+  border-top: 1px dashed var(--color-border);
+  font-size: 0.85rem;
+  color: var(--color-fg-dim);
+
+  &::before {
+    content: "[ NOTES ]";
+    display: block;
+    font-size: 0.75rem;
+    color: var(--color-fg-dim);
+    letter-spacing: 0.1em;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  ol {
+    padding-left: var(--spacing-lg);
+    list-style-type: decimal;
+  }
+
+  li {
+    margin-bottom: var(--spacing-sm);
+  }
+
+  p {
+    margin-bottom: var(--spacing-xs);
+  }
+}
+
+// Footnote reference links in body text
+.footnote-ref {
+  font-size: 0.75em;
+  vertical-align: super;
+  line-height: 0;
+
+  a {
+    color: var(--color-accent);
+    text-decoration: none;
+
+    &::before {
+      content: "[";
+    }
+
+    &::after {
+      content: "]";
+    }
+
+    &:hover {
+      color: var(--color-fg-bright);
+    }
+  }
+}
+
+// Back-reference arrow
+.footnote-backref {
+  color: var(--color-accent);
+  text-decoration: none;
+  margin-left: var(--spacing-xs);
+
+  &:hover {
+    color: var(--color-fg-bright);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Form Elements
+// -----------------------------------------------------------------------------
+input,
+textarea,
+select,
+button {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+// -----------------------------------------------------------------------------
+// Skip Link (Accessibility)
+// -----------------------------------------------------------------------------
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  background: var(--color-fg);
+  color: var(--color-bg);
+  padding: var(--spacing-sm) var(--spacing-md);
+  z-index: 1000;
+
+  &:focus {
+    top: 0;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Utility Classes
+// -----------------------------------------------------------------------------
+.hidden {
+  display: none !important;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// -----------------------------------------------------------------------------
+// Print Styles
+// -----------------------------------------------------------------------------
+@media print {
+  .crt-overlay,
+  .nav-toggle,
+  .site-nav,
+  .social-links {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+
+  a {
+    color: black;
+    text-decoration: underline;
+  }
+
+  .site-header,
+  .site-footer {
+    border-color: #ccc;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Focus Visible (VT220-style reverse video)
+// Base: outline ring for all elements (safe for images, inputs, SVGs).
+// Enhancement: reverse-video on text-based interactive elements.
+// -----------------------------------------------------------------------------
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+a:focus-visible,
+button:focus-visible,
+.nav-link:focus-visible,
+.profile-btn:focus-visible {
+  outline: none;
+  background-color: var(--color-fg);
+  color: var(--color-bg);
+  box-shadow: 0 0 0 2px var(--color-fg);
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}

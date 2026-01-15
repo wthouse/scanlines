@@ -1,0 +1,51 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+{{- partial "meta.html" . -}}
+
+<link rel="canonical" href="{{ .Permalink }}">
+
+<title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+
+{{- /* Preload the configured font */ -}}
+{{- $fontFamily := site.Params.scanlines.typography.fontFamily | default "glass" -}}
+{{- if eq $fontFamily "fira" -}}
+<link rel="preload" href="{{ "fonts/FiraCode-Regular.ttf" | relURL }}" as="font" type="font/ttf" crossorigin>
+{{- else -}}
+<link rel="preload" href="{{ "fonts/Glass_TTY_VT220.ttf" | relURL }}" as="font" type="font/ttf" crossorigin>
+{{- end -}}
+
+{{- /* Process SCSS with Hugo Pipes */ -}}
+{{- $options := dict "targetPath" "css/main.css" "outputStyle" "compressed" -}}
+{{- $style := resources.Get "scss/main.scss" | toCSS $options -}}
+{{- if hugo.IsProduction -}}
+  {{- $style = $style | minify | fingerprint -}}
+{{- end -}}
+<link rel="stylesheet" href="{{ $style.RelPermalink }}">
+
+{{- /* User custom CSS hook */ -}}
+{{- $customCSS := resources.Get "css/custom.css" -}}
+{{- if $customCSS -}}
+  {{- if hugo.IsProduction -}}
+    {{- $customCSS = $customCSS | minify | fingerprint -}}
+  {{- end -}}
+  <link rel="stylesheet" href="{{ $customCSS.RelPermalink }}">
+{{- else -}}
+  {{- /* Check static folder fallback */ -}}
+  {{- if (fileExists "static/css/custom.css") -}}
+    <link rel="stylesheet" href="{{ "css/custom.css" | relURL }}">
+  {{- end -}}
+{{- end -}}
+
+{{- /* RSS Feed */ -}}
+{{- range .AlternativeOutputFormats -}}
+  {{- printf `<link rel="%s" type="%s" href="%s" title="%s">` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+{{- end -}}
+
+{{- /* Favicon */ -}}
+{{- $favicon := site.Params.scanlines.favicon | default "/favicon.ico" -}}
+<link rel="icon" type="image/x-icon" href="{{ $favicon | relURL }}">
+
+{{- /* User extensibility hook */ -}}
+{{- partial "custom_head.html" . -}}

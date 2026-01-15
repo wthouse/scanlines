@@ -1,0 +1,163 @@
+// =============================================================================
+// VARIABLES - CSS Custom Properties and SCSS Variables
+// =============================================================================
+// Historically accurate color schemes based on DEC VT220 phosphor types:
+// - Amber (P3): Peak wavelength 602nm
+// - Green (P1): Peak wavelength 525nm
+// - Blue/White: Various implementations
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Font Stacks
+// -----------------------------------------------------------------------------
+$font-terminal: "Glass_TTY_VT220", "Consolas", "Monaco", monospace;
+$font-mono: "Glass_TTY_VT220", "Consolas", "Monaco", "Courier New", monospace;
+$font-fira: "Fira Code", "Consolas", "Monaco", "Courier New", monospace;
+
+// -----------------------------------------------------------------------------
+// Breakpoints (Mobile-first)
+// -----------------------------------------------------------------------------
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+// -----------------------------------------------------------------------------
+// Spacing Scale
+// -----------------------------------------------------------------------------
+$spacing-xs: 0.25rem;
+$spacing-sm: 0.5rem;
+$spacing-md: 1rem;
+$spacing-lg: 1.5rem;
+$spacing-xl: 2rem;
+$spacing-xxl: 3rem;
+
+// -----------------------------------------------------------------------------
+// CSS Custom Properties (Theme Colors)
+// These are set via data attributes based on configuration
+// -----------------------------------------------------------------------------
+:root {
+  // Font declarations
+  --font-terminal: #{$font-terminal};
+  --font-mono: #{$font-mono};
+  --font-fira: #{$font-fira};
+
+  // Spacing
+  --spacing-xs: #{$spacing-xs};
+  --spacing-sm: #{$spacing-sm};
+  --spacing-md: #{$spacing-md};
+  --spacing-lg: #{$spacing-lg};
+  --spacing-xl: #{$spacing-xl};
+  --spacing-xxl: #{$spacing-xxl};
+
+  // Container widths
+  --container-max: 1200px;
+  --content-max: 720px;
+
+  // CRT effect defaults
+  --scanline-opacity: 0.15;
+  --flicker-intensity: 0.03;
+  --glow-intensity: 0.8;
+
+  // =========================================================================
+  // AMBER COLOR SCHEME (Default) - P3 Phosphor ~602nm
+  // Historically accurate DEC VT220 amber terminal
+  // =========================================================================
+  --color-bg: #0d0a00;
+  --color-bg-secondary: #1a1400;
+  --color-fg: #ffb000;
+  --color-fg-dim: #cc8c00;
+  --color-fg-bright: #ffd966;
+  --color-accent: #ff8c00;
+  --color-link: #ffb000;
+  --color-link-hover: #ffd966;
+  --color-border: #4d3600;
+  --color-selection-bg: #ffb000;
+  --color-selection-fg: #0d0a00;
+  --color-code-bg: #1a1400;
+
+  // Glow color (matches phosphor)
+  --color-glow: #ffb000;
+}
+
+// =============================================================================
+// GREEN COLOR SCHEME - P1 Phosphor ~525nm
+// Classic green-screen terminal
+// =============================================================================
+[data-color-scheme="green"] {
+  --color-bg: #001a00;
+  --color-bg-secondary: #002600;
+  --color-fg: #33ff66;
+  --color-fg-dim: #29cc52;
+  --color-fg-bright: #66ff8c;
+  --color-accent: #00ff41;
+  --color-link: #33ff66;
+  --color-link-hover: #66ff8c;
+  --color-border: #1a4d26;
+  --color-selection-bg: #33ff66;
+  --color-selection-fg: #001a00;
+  --color-code-bg: #002600;
+  --color-glow: #33ff66;
+}
+
+// =============================================================================
+// BLUE COLOR SCHEME - Cool white/blue terminals
+// Based on later monochrome displays
+// =============================================================================
+[data-color-scheme="blue"] {
+  --color-bg: #000a1a;
+  --color-bg-secondary: #001326;
+  --color-fg: #6aafff;
+  --color-fg-dim: #4d8ad4;
+  --color-fg-bright: #99ccff;
+  --color-accent: #3d9eff;
+  --color-link: #6aafff;
+  --color-link-hover: #99ccff;
+  --color-border: #1f4a7a;
+  --color-selection-bg: #6aafff;
+  --color-selection-fg: #000a1a;
+  --color-code-bg: #001326;
+  --color-glow: #6aafff;
+}
+
+// =============================================================================
+// WHITE COLOR SCHEME - Paper white terminals
+// Later DEC terminals with white phosphor
+// =============================================================================
+[data-color-scheme="white"] {
+  --color-bg: #1a1a1a;
+  --color-bg-secondary: #262626;
+  --color-fg: #e6e6e6;
+  --color-fg-dim: #b3b3b3;
+  --color-fg-bright: #ffffff;
+  --color-accent: #cccccc;
+  --color-link: #e6e6e6;
+  --color-link-hover: #ffffff;
+  --color-border: #4d4d4d;
+  --color-selection-bg: #e6e6e6;
+  --color-selection-fg: #1a1a1a;
+  --color-code-bg: #262626;
+  --color-glow: #e6e6e6;
+}
+
+// =============================================================================
+// HIGH CONTRAST MODE
+// Accessibility enhancement
+// =============================================================================
+.high-contrast {
+  --color-fg: #ffffff;
+  --color-fg-dim: #e6e6e6;
+  --color-fg-bright: #ffffff;
+  --color-link: #ffffff;
+  --color-link-hover: #ffffff;
+  --color-border: #666666;
+}
+
+// =============================================================================
+// FONT OVERRIDE - Fira Code
+// =============================================================================
+.font-fira {
+  --font-terminal: var(--font-fira);
+  --font-mono: var(--font-fira);
+}
+

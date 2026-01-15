@@ -1,0 +1,17 @@
+{{- /* Shared post navigation partial - prev/next links */ -}}
+<nav class="post-nav" aria-label="Post navigation">
+  <div class="post-nav-inner">
+    {{- with .PrevInSection }}
+    <a href="{{ .RelPermalink }}" class="post-nav-link post-nav-prev">
+      <span class="post-nav-label">&lt;&lt; PREV</span>
+      <span class="post-nav-title">{{ .Title | truncate 40 }}</span>
+    </a>
+    {{- end }}
+    {{- with .NextInSection }}
+    <a href="{{ .RelPermalink }}" class="post-nav-link post-nav-next">
+      <span class="post-nav-label">NEXT &gt;&gt;</span>
+      <span class="post-nav-title">{{ .Title | truncate 40 }}</span>
+    </a>
+    {{- end }}
+  </div>
+</nav>

@@ -1,0 +1,30 @@
+{{- /* Shared article header partial - used by _default/single.html */ -}}
+<header class="article-header">
+  <h1 class="article-title">{{ .Title }}</h1>
+  {{- with .Params.description }}
+  <p class="article-description">{{ . }}</p>
+  {{- end }}
+  {{- $dateFormat := site.Params.scanlines.dateFormat | default "2006-01-02" -}}
+  {{- $showReadingTime := ne site.Params.scanlines.showReadingTime false -}}
+  {{- $author := .Params.author | default site.Params.author -}}
+  <div class="article-meta">
+    <time class="article-date" datetime="{{ .Date.Format "2006-01-02" }}">
+      {{ .Date.Format $dateFormat }}
+    </time>
+    {{- with $author }}
+    <span class="article-author">{{ . }}</span>
+    {{- end }}
+    {{- if $showReadingTime }}
+    <span class="article-reading-time">{{ partial "reading-time.html" (dict "page" . "short" false) }}</span>
+    {{- end }}
+  </div>
+
+  {{- $toc := site.Params.scanlines.toc -}}
+  {{- $showToc := and (ne $toc.enabled false) .TableOfContents (ne $toc.position "none") (ne .Params.toc false) -}}
+  {{- $tocPosition := $toc.position | default "sidebar" -}}
+  {{- if and $showToc (eq $tocPosition "sidebar") }}
+    <div class="toc-mobile-only">
+      {{- partial "toc.html" (dict "Page" . "Location" "mobile") -}}
+    </div>
+  {{- end }}
+</header>

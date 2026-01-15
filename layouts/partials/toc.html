@@ -1,0 +1,30 @@
+{{- $page := .Page | default . -}}
+{{- $location := .Location | default "default" -}}
+{{- $toc := site.Params.scanlines.toc -}}
+{{- if and (ne $toc.enabled false) $page.TableOfContents -}}
+  {{- $position := $toc.position | default "sidebar" -}}
+  {{- $title := $toc.title | default "CONTENTS" -}}
+  {{- $collapsible := ne $toc.collapsible false -}}
+  {{- $id := printf "toc-%s-%s" $location (anchorize $page.RelPermalink) -}}
+
+  {{- if $collapsible }}
+  <div class="toc toc-{{ $position }} toc-collapsible" aria-label="Table of contents">
+    <input type="checkbox" id="{{ $id }}" class="toc-checkbox" aria-hidden="true">
+    <label for="{{ $id }}" class="toc-toggle" role="button">
+      <span class="toc-title">{{ $title }}</span>
+      <span class="toc-icon">[+]</span>
+    </label>
+    <nav class="toc-nav">
+      {{ $page.TableOfContents }}
+    </nav>
+  </div>
+  {{- else }}
+  <aside class="toc toc-{{ $position }}" aria-label="Table of contents">
+    <h2 class="toc-title">{{ $title }}</h2>
+    <nav class="toc-nav">
+      {{ $page.TableOfContents }}
+    </nav>
+  </aside>
+  {{- end }}
+
+{{- end -}}

@@ -1,0 +1,4 @@
+{{- $wc := .page.WordCount -}}
+{{- $mins := div $wc 200 -}}
+{{- if lt $mins 1 }}{{ $mins = 1 }}{{ end -}}
+{{- if .short -}}~{{ $mins }} MIN{{- else -}}~{{ $mins }} min read{{- end -}}

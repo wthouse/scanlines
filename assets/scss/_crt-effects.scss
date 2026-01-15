@@ -1,0 +1,337 @@
+// =============================================================================
+// CRT EFFECTS - Scanlines, Flicker, Glow, and Phosphor Effects
+// =============================================================================
+// Based on authentic DEC VT220 terminal characteristics:
+// - 60Hz refresh rate with visible scanlines
+// - Phosphor persistence causing soft glow
+// - Dot stretching creating bold character appearance
+// - Color separation from convergence issues
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// CRT Overlay Container
+// -----------------------------------------------------------------------------
+.crt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 9999;
+
+  // Phosphor vignette — toggled via .crt-vignette class, intensity via CSS variable.
+  // Simulates CRT phosphor brightness falloff (cos^4 pattern) at screen edges.
+  &.crt-vignette {
+    background: radial-gradient(
+      ellipse at center,
+      transparent 30%,
+      rgba(0, 0, 0, calc(0.4 * var(--vignette-intensity, 0.8))) 65%,
+      rgba(0, 0, 0, calc(0.8 * var(--vignette-intensity, 0.8))) 100%
+    );
+  }
+
+  // Disable overlay when effects are disabled
+  .effects-disabled & {
+    display: none;
+  }
+
+  // Respect reduced motion preferences
+  .reduce-motion & {
+    .crt-scanlines {
+      animation: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .crt-scanlines {
+      animation: none;
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Scanlines Effect
+// Simulates the horizontal scan lines visible on CRT displays
+// The VT220's 60Hz refresh created characteristic line patterns
+// -----------------------------------------------------------------------------
+.crt-scanlines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(0, 0, 0, var(--scanline-opacity, 0.15)) 50%
+  );
+  background-size: 100% 2px;
+  pointer-events: none;
+
+  // Optional: subtle moving scanline for extra authenticity
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: linear-gradient(
+      0deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.03) 50%,
+      transparent 100%
+    );
+    background-size: 100% 200%;
+    animation: scanline-sweep 8s linear infinite;
+    pointer-events: none;
+  }
+
+  .reduce-motion &,
+  .effects-disabled & {
+    &::after {
+      animation: none;
+      display: none;
+    }
+  }
+}
+
+@keyframes scanline-sweep {
+  0% {
+    background-position: 0 100%;
+  }
+  100% {
+    background-position: 0 -100%;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Screen Flicker Effect
+// Simulates the subtle brightness variations in CRT displays
+// The VT220's 60Hz refresh was on the edge of human flicker perception
+// flickerIntensity: 0.0-1.0, recommended 0.1-0.3 for visible effect
+// -----------------------------------------------------------------------------
+.crt-flicker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  // CSS variable in background property is reliable; avoid vars in @keyframes (unreliable).
+  // Scale factor 0.25: config 0.15 → ~4% max white, config 0.4 → ~10% max white.
+  // Keeps the effect atmospheric rather than a visible strobe at any config value.
+  background: rgba(255, 255, 255, calc(var(--flicker-intensity, 0.03) * 0.25));
+  opacity: 0;
+  // ease-in-out at 0.2s gives ~5Hz organic variation — perceptible but not strobing
+  animation: crt-flicker 0.2s ease-in-out infinite;
+
+  .reduce-motion &,
+  .effects-disabled & {
+    animation: none;
+    display: none;
+  }
+
+  // Note: @media (prefers-reduced-motion: reduce) intentionally omitted here.
+  // Windows "Animate windows" OS setting triggers this media query globally,
+  // which would hide flicker even when explicitly configured. Users who need
+  // reduced motion should use accessibility.reduceMotion = true in hugo.toml.
+}
+
+// Organic phosphor brightness variation — irregular waveform avoids strobe feel.
+// No CSS variables here — vars in @keyframes resolve unreliably across browsers.
+@keyframes crt-flicker {
+  0%   { opacity: 0;   }
+  12%  { opacity: 1;   }
+  28%  { opacity: 0.3; }
+  50%  { opacity: 0.8; }
+  68%  { opacity: 0.1; }
+  85%  { opacity: 0.6; }
+  100% { opacity: 0;   }
+}
+
+// -----------------------------------------------------------------------------
+// Phosphor Glow Effect
+// Simulates the characteristic glow of phosphor-coated CRT screens
+// The VT220's slow phosphor created visible persistence/glow
+// Requires both .crt-enabled and .crt-glow classes
+// -----------------------------------------------------------------------------
+.crt-enabled.crt-glow {
+  // Apply glow to text elements
+  h1, h2, h3, h4, h5, h6,
+  p, li, a, span, td, th,
+  code, pre, blockquote,
+  .site-title, .nav-link {
+    text-shadow:
+      0 0 calc(var(--glow-intensity, 0.8) * 2px) var(--color-glow),
+      0 0 calc(var(--glow-intensity, 0.8) * 4px) var(--color-glow);
+  }
+
+  // Brighter glow for headings and important elements
+  h1, h2, .site-title, .ascii-header {
+    text-shadow:
+      0 0 calc(var(--glow-intensity, 0.8) * 3px) var(--color-glow),
+      0 0 calc(var(--glow-intensity, 0.8) * 6px) var(--color-glow),
+      0 0 calc(var(--glow-intensity, 0.8) * 10px) var(--color-glow);
+  }
+
+  // No glow on dim UI elements — bright glow clashes with intentionally dim text
+  .article-meta,
+  .article-meta * {
+    text-shadow: none;
+  }
+
+  // Disable glow when effects disabled
+  &.effects-disabled {
+    h1, h2, h3, h4, h5, h6,
+    p, li, a, span, td, th,
+    code, pre, blockquote,
+    .site-title, .nav-link,
+    .ascii-header {
+      text-shadow: none;
+    }
+  }
+}
+
+
+// -----------------------------------------------------------------------------
+// Image CRT Treatment
+// Photos look jarring on a phosphor screen. Apply a monochrome tint + scanline
+// overlay so images feel like they're being displayed on the terminal.
+// Only applies when CRT effects are enabled.
+// -----------------------------------------------------------------------------
+.crt-enabled:not(.effects-disabled) {
+  .article-content img,
+  .article-content figure img {
+    filter: grayscale(60%) contrast(1.1) brightness(0.95);
+    border: 1px solid var(--color-border);
+    transition: filter 0.3s ease;
+
+    &:hover {
+      filter: grayscale(20%) contrast(1.05) brightness(1);
+    }
+  }
+
+  // Scanline overlay on images via figure wrapper
+  .article-content figure {
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        to bottom,
+        transparent 50%,
+        rgba(0, 0, 0, 0.08) 50%
+      );
+      background-size: 100% 2px;
+      pointer-events: none;
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// CRT Screen Curvature (body class, applied via vignette config toggle)
+// Simulates the convex glass of a CRT monitor using a subtle barrel distortion.
+// Real VT220 screens had ~5-10mm of curvature across a 12" diagonal —
+// enough to catch reflections but not enough to warp text readability.
+// -----------------------------------------------------------------------------
+.crt-vignette-enabled {
+  // Outer wrapper: subtle inward pinch at edges via border-radius + overflow
+  .site-wrapper {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow:
+      inset 0 0 60px rgba(0, 0, 0, 0.15),
+      inset 0 0 120px rgba(0, 0, 0, 0.08);
+  }
+
+  // CRT overlay inherits curvature
+  .crt-overlay {
+    border-radius: 8px;
+  }
+
+  // Curvature is static (border-radius + box-shadow), not animated.
+  // No need to disable for reduce-motion — only effects-disabled removes it.
+  &.effects-disabled {
+    .site-wrapper {
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .crt-overlay {
+      border-radius: 0;
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Vignette Effect
+// Darkens the edges of the screen like a CRT
+// -----------------------------------------------------------------------------
+.site-wrapper {
+  position: relative;
+
+  .crt-enabled:not(.effects-disabled) & {
+    &::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(
+        ellipse at center,
+        transparent 60%,
+        rgba(0, 0, 0, 0.15) 100%
+      );
+      pointer-events: none;
+      z-index: 9995;
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Reduced Motion & Accessibility Overrides
+// -----------------------------------------------------------------------------
+// Note: prefers-reduced-motion is triggered by OS-level animation settings
+// (e.g., Windows "Animate windows and apps"). We scope overrides to CRT effects
+// only — a global * rule would kill all animations including the boot screen.
+// Users who want to disable effects should use accessibility.reduceMotion = true.
+@media (prefers-reduced-motion: reduce) {
+  .crt-scanlines::after,
+  .crt-vignette-enabled .site-wrapper,
+  .crt-vignette-enabled .main-content {
+    animation: none !important;
+  }
+}
+
+.reduce-motion {
+  .crt-scanlines::after,
+  &.crt-enabled::before,
+  .crt-flicker {
+    animation: none !important;
+    display: none !important;
+  }
+}
+
+.effects-disabled {
+  .crt-overlay,
+  &.crt-enabled::before,
+  .site-wrapper::before {
+    display: none !important;
+  }
+}
+
+// Phosphor vignette is applied as background on .crt-overlay above.
+// Simulates CRT phosphor brightness falloff at screen edges. On a real VT220,
+// three compounding effects darken the edges: increased beam travel distance,
+// oblique phosphor incidence angle, and spot size degradation. Combined, these
+// follow roughly a cos^4 falloff — corners drop to ~70-80% of center brightness,
+// edges to ~85-90%. The effect is a smooth radial gradient, not a sharp border,
+// becoming noticeable in the outer ~20% of the screen area.
