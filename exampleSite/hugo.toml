@@ -58,6 +58,16 @@ theme = "scanlines"
     # Text color scheme: "amber" (default), "green", "blue", "white"
     colorScheme = "amber"
 
+    # Favicon path (relative to static folder)
+    favicon = "/favicon.ico"
+
+    # Date format (Go date format string)
+    # See: https://gohugo.io/functions/time/format/
+    dateFormat = "2006-01-02"
+
+    # Show reading time on posts
+    showReadingTime = true
+
     # NOTE: All sub-sections below must come after the above key/value pairs.
     # Moving keys after a sub-section header will assign them to that sub-section.
 
@@ -146,18 +156,4 @@ theme = "scanlines"
       steam = ""
       email = "user@example.com"
       rss = true
-
-    # Footer theme link URL (shown as "Theme: Scanlines" in footer)
-    # Set to your fork/repo URL, or leave empty to omit the link
-    themeRepo = ""
-
-    # Favicon path (relative to static folder)
-    favicon = "/favicon.ico"
-
-    # Date format (Go date format string)
-    # See: https://gohugo.io/functions/time/format/
-    dateFormat = "2006-01-02"
-
-    # Show reading time on posts
-    showReadingTime = true
 

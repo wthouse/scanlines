@@ -261,6 +261,11 @@ theme = "scanlines"
     # Homepage style: "blog" (default) or "profile"
     homepage = "blog"
 
+    # Misc
+    favicon = "/favicon.ico"
+    dateFormat = "2006-01-02"
+    showReadingTime = true
+
     # Custom color overrides (optional)
     [params.scanlines.colors]
       foreground = ""        # e.g., "#FFB000"
@@ -345,13 +350,6 @@ theme = "scanlines"
       #   name = "Posts"
       #   url = "/posts/"
 
-    # Footer
-    themeRepo = ""           # URL for "Theme: Scanlines" link in footer
-
-    # Misc
-    favicon = "/favicon.ico"
-    dateFormat = "2006-01-02"
-    showReadingTime = true
 ```
 
 ## Customization
