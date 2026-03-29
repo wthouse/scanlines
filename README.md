@@ -35,7 +35,7 @@ Add to your `hugo.toml`:
 ```
 
 ```bash
-# Download the theme and start the server (requires hugo-extended)
+# Download/update the theme and start the server (requires hugo-extended)
 hugo mod get -u
 hugo server
 ```
@@ -151,8 +151,6 @@ The theme also respects the `prefers-reduced-motion` media query automatically.
 ```
 
 To use ASCII art, create a text file in your `static/` folder (e.g., `static/ascii-header.txt`). If no file is set, the site title displays as plain text.
-
-Generate ASCII art at [patorjk.com/software/taag](https://patorjk.com/software/taag/#p=display&f=Big).
 
 ### Table of Contents
 
