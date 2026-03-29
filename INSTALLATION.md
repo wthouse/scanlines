@@ -324,6 +324,12 @@ theme = "scanlines"
       twitter = ""
       linkedin = ""
       mastodon = ""
+      medium = ""
+      hackthebox = ""
+      bluesky = ""
+      youtube = ""
+      discord = ""
+      steam = ""
       email = ""
       rss = true
 

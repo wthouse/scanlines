@@ -204,6 +204,12 @@ The VT220's signature 25th line, shown as a fixed bar at the bottom of the scree
   twitter = ""
   linkedin = ""
   mastodon = ""              # Full URL for Mastodon
+  medium = ""                # Username (without @)
+  hackthebox = ""            # Profile ID number
+  bluesky = ""               # Handle (e.g., "you.bsky.social")
+  youtube = ""               # Channel handle (without @)
+  discord = ""               # User ID
+  steam = ""                 # Custom URL ID
   email = "you@example.com"
   rss = true
 ```
