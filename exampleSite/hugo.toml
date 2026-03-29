@@ -114,6 +114,7 @@ theme = "scanlines"
 
     # Header Configuration
     [params.scanlines.header]
+      showTitle = true                 # Show site title or ASCII art (default: true)
       asciiFile = "ascii-header.txt"  # ASCII art file in static/ (leave empty for plain text title)
       showBox = false                 # Show border around header (default: true)
 

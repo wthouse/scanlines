@@ -522,6 +522,7 @@
 .status-line-left,
 .status-line-center,
 .status-line-right {
+  flex: 1;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

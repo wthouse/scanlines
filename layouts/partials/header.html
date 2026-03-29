@@ -1,6 +1,7 @@
 {{- $isProfileHome := and (eq (site.Params.scanlines.homepage | default "blog") "profile") .IsHome -}}
 <header class="site-header{{ if ne (site.Params.scanlines.header.showBox) true }} header-no-box{{ end }}{{ if $isProfileHome }} header-profile-home{{ end }}">
   <div class="header-inner container">
+    {{- if ne site.Params.scanlines.header.showTitle false -}}
     <div class="site-branding">
       {{- $asciiFile := site.Params.scanlines.header.asciiFile | default "" -}}
       {{- if and $asciiFile (fileExists (printf "static/%s" $asciiFile)) -}}
@@ -12,6 +13,7 @@
         <a href="{{ "/" | relURL }}" class="site-title">{{ .Site.Title }}</a>
       {{- end -}}
     </div>
+    {{- end -}}
 
     <input type="checkbox" id="nav-toggle" class="nav-checkbox" aria-hidden="true">
     <label for="nav-toggle" class="nav-toggle" role="button" aria-label="Toggle navigation">

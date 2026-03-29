@@ -295,6 +295,7 @@ theme = "scanlines"
 
     # Header
     [params.scanlines.header]
+      showTitle = true       # Show site title or ASCII art (default: true)
       asciiFile = ""         # ASCII art file in static/ (leave empty for plain text title)
       showBox = true         # Show border around header
 

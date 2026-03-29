@@ -145,6 +145,7 @@ The theme also respects the `prefers-reduced-motion` media query automatically.
 
 ```toml
 [params.scanlines.header]
+  showTitle = true                  # Show site title or ASCII art (default: true)
   asciiFile = "ascii-header.txt"  # ASCII art file in static/ (leave empty for plain text title)
   showBox = true                  # Show border around header (default: true)
 ```
