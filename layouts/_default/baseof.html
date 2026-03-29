@@ -37,8 +37,8 @@
   {{- end -}}
 </head>
 <body class="scanlines-body
-  {{- if $effects.enabled }} crt-enabled{{ end -}}
-  {{- if $effects.glow }} crt-glow{{ end -}}
+  {{- if ne $effects.enabled false }} crt-enabled{{ end -}}
+  {{- if ne $effects.glow false }} crt-glow{{ end -}}
   {{- if ne $effects.vignette false }} crt-vignette-enabled{{ end -}}
   {{- if site.Params.scanlines.accessibility.disableEffects }} effects-disabled{{ end -}}
   {{- if site.Params.scanlines.accessibility.reduceMotion }} reduce-motion{{ end -}}

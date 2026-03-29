@@ -1,5 +1,5 @@
 {{- $isProfileHome := and (eq (site.Params.scanlines.homepage | default "blog") "profile") .IsHome -}}
-<header class="site-header{{ if eq (site.Params.scanlines.header.showBox | default true) false }} header-no-box{{ end }}{{ if $isProfileHome }} header-profile-home{{ end }}">
+<header class="site-header{{ if ne (site.Params.scanlines.header.showBox) true }} header-no-box{{ end }}{{ if $isProfileHome }} header-profile-home{{ end }}">
   <div class="header-inner container">
     <div class="site-branding">
       {{- $asciiFile := site.Params.scanlines.header.asciiFile | default "" -}}
