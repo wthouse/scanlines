@@ -11,7 +11,7 @@
   font-family: var(--font-terminal);
   font-size: 0.9rem;
   color: var(--color-fg);
-  background: var(--color-bg-secondary);
+  background: transparent;
   border: 1px solid var(--color-border);
   text-decoration: none;
   text-transform: uppercase;
@@ -185,11 +185,13 @@
 // Terminal Box (for special content)
 // -----------------------------------------------------------------------------
 .terminal-box {
+  display: inline-block;
   background: var(--color-bg);
-  border: 1px solid var(--color-border);
+  border: none;
   padding: var(--spacing-md);
   margin: var(--spacing-md) 0;
   font-family: var(--font-terminal);
+  text-align: left;
 
   &::before {
     content: "┌─[ OUTPUT ]─────────────────────────────────────────┐";
@@ -254,7 +256,7 @@
 // -----------------------------------------------------------------------------
 .error-page {
   text-align: center;
-  padding: var(--spacing-xxl) 0;
+  padding: 0 0 var(--spacing-xxl);
 }
 
 .error-code {
