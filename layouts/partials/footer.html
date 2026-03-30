@@ -8,7 +8,7 @@
 
       <div class="footer-meta">
         <p class="copyright">
-          &copy; {{ now.Year }} {{ .Site.Title }}
+          &copy; {{ now.Year }} {{ .Site.Params.author | default .Site.Title }}
         </p>
         <p class="powered-by">
           Powered by <a href="https://gohugo.io/" rel="noopener">Hugo</a>
