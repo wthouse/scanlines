@@ -64,46 +64,10 @@
   background: linear-gradient(
     to bottom,
     transparent 50%,
-    rgba(0, 0, 0, var(--scanline-opacity, 0.15)) 50%
+    rgba(0, 0, 0, var(--scanline-opacity, 0.4)) 50%
   );
-  background-size: 100% 2px;
+  background-size: 100% 3px;
   pointer-events: none;
-
-  // Optional: subtle moving scanline for extra authenticity
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 100%;
-    background: linear-gradient(
-      0deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.03) 50%,
-      transparent 100%
-    );
-    background-size: 100% 200%;
-    animation: scanline-sweep 8s linear infinite;
-    pointer-events: none;
-  }
-
-  .reduce-motion &,
-  .effects-disabled & {
-    &::after {
-      animation: none;
-      display: none;
-    }
-  }
-}
-
-@keyframes scanline-sweep {
-  0% {
-    background-position: 0 100%;
-  }
-  100% {
-    background-position: 0 -100%;
-  }
 }
 
 // -----------------------------------------------------------------------------
@@ -304,7 +268,6 @@
 // only — a global * rule would kill all animations including the boot screen.
 // Users who want to disable effects should use accessibility.reduceMotion = true.
 @media (prefers-reduced-motion: reduce) {
-  .crt-scanlines::after,
   .crt-vignette-enabled .site-wrapper,
   .crt-vignette-enabled .main-content {
     animation: none !important;
@@ -312,7 +275,6 @@
 }
 
 .reduce-motion {
-  .crt-scanlines::after,
   &.crt-enabled::before,
   .crt-flicker {
     animation: none !important;
