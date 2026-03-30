@@ -1,6 +1,6 @@
 # Scanlines
 
-A retro terminal-inspired Hugo theme inspired by the look and feel of classic CRT terminals like the DEC VT220 and VT100. Features historically accurate phosphor color schemes, authentic CRT visual effects, and a clean, minimal design.
+A retro Hugo theme inspired by the look and feel of classic CRT terminals like the DEC VT220 and VT100. Features historically accurate phosphor color schemes, authentic CRT visual effects, and a clean, minimal design.
 
 ![Scanlines theme - Blog homepage](images/homepage_blog.png)
 
