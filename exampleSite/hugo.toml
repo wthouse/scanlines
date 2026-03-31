@@ -73,6 +73,9 @@ enableEmoji = true
     # Show reading time on posts
     showReadingTime = true
 
+    # Show tags on post listings
+    showTags = true
+
     # NOTE: All sub-sections below must come after the above key/value pairs.
     # Moving keys after a sub-section header will assign them to that sub-section.
 

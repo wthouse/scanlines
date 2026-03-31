@@ -1,6 +1,7 @@
 {{ define "main" }}
 {{- $dateFormat := site.Params.scanlines.dateFormat | default "2006-01-02" -}}
 {{- $showReadingTime := ne site.Params.scanlines.showReadingTime false -}}
+{{- $showTags := ne site.Params.scanlines.showTags false -}}
 <div class="container">
   <div class="content-wrapper">
     <header class="list-header">
@@ -24,6 +25,13 @@
             </time>
             {{- if $showReadingTime }}
             <span class="post-list-reading-time">{{ partial "reading-time.html" (dict "page" . "short" true) }}</span>
+            {{- end }}
+            {{- if and $showTags .Params.tags }}
+            <span class="post-list-tags">
+              {{- range first 3 .Params.tags }}
+              <a href="{{ "tags/" | relURL }}{{ . | urlize }}/" class="tag-inline">#{{ . }}</a>
+              {{- end }}
+            </span>
             {{- end }}
           </div>
           {{- with .Params.summary }}

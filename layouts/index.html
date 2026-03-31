@@ -11,6 +11,8 @@
 
       {{- /* Recent Posts */ -}}
       {{- $dateFormat := site.Params.scanlines.dateFormat | default "2006-01-02" -}}
+      {{- $showReadingTime := ne site.Params.scanlines.showReadingTime false -}}
+      {{- $showTags := ne site.Params.scanlines.showTags false -}}
       {{- $posts := where .Site.RegularPages "Section" "posts" | first 5 -}}
 
       {{- if $posts }}
@@ -25,7 +27,10 @@
               <time class="post-list-date" datetime="{{ .Date.Format "2006-01-02" }}">
                 {{ .Date.Format $dateFormat }}
               </time>
-              {{- if .Params.tags }}
+              {{- if $showReadingTime }}
+              <span class="post-list-reading-time">{{ partial "reading-time.html" (dict "page" . "short" true) }}</span>
+              {{- end }}
+              {{- if and $showTags .Params.tags }}
               <span class="post-list-tags">
                 {{- range first 3 .Params.tags }}
                 <a href="{{ "tags/" | relURL }}{{ . | urlize }}/" class="tag-inline">#{{ . }}</a>
@@ -33,6 +38,13 @@
               </span>
               {{- end }}
             </div>
+            {{- with .Params.summary }}
+            <p class="post-list-excerpt">{{ . }}</p>
+            {{- else }}
+            {{- with .Description }}
+            <p class="post-list-excerpt">{{ . }}</p>
+            {{- end }}
+            {{- end }}
           </article>
         </li>
         {{- end }}
