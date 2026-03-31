@@ -5,6 +5,7 @@ baseURL = "https://example.com/"
 languageCode = "en-us"
 title = "SCANLINES"
 theme = "scanlines"
+enableEmoji = true
 
 # RSS outputs
 [outputs]
