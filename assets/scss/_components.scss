@@ -506,10 +506,6 @@
 }
 
 .archive-title {
-  &::before {
-    content: ">> ";
-    color: var(--color-fg-dim);
-  }
 }
 
 .archive-count {
