@@ -301,6 +301,13 @@ The theme uses two self-hosted fonts:
 - [Glass TTY VT220 Font](https://github.com/svofski/glasstty) by Viacheslav Slavinsky
 - [Fira Code](https://github.com/tonsky/FiraCode) by Nikita Prokopov
 
+### Themes That Inspired This One
+
+- [PaperMod](https://github.com/adityatelange/hugo-PaperMod) by Aditya Telange - Clean layout patterns, profile mode, and archive page design
+- [Terminal](https://github.com/panr/hugo-theme-terminal) by Radek Kozieł - Terminal aesthetic and monospace-first typography
+- [BOOTSTRA.386](https://github.com/kristopolous/BOOTSTRA.386) by Chris McKenzie - Proof that retro computing aesthetics belong on the modern web
+- [Chicago7](https://github.com/akopdev/hugo-theme-chicago7) by Akop Karapetyan - Retro UI inspiration and nostalgic design sensibility
+
 ## License
 
 MIT License - see [LICENSE](LICENSE) for details.
