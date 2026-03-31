@@ -3,10 +3,10 @@
 {{- $posts := where site.RegularPages "Section" "posts" -}}
 <div class="container">
   <div class="content-wrapper">
-    <header class="archive-header">
-      <h1 class="archive-title">ARCHIVE</h1>
+    <header class="list-header">
+      <h1 class="list-title">ARCHIVE</h1>
       {{- if $posts }}
-      <p class="archive-count">[ {{ len $posts }} {{ if eq (len $posts) 1 }}post{{ else }}posts{{ end }} ]</p>
+      <p class="list-count">[ {{ len $posts }} {{ if eq (len $posts) 1 }}post{{ else }}posts{{ end }} ]</p>
       {{- end }}
     </header>
 
