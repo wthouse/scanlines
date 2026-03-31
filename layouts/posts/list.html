@@ -1,31 +1,42 @@
 {{ define "main" }}
 {{- $dateFormat := site.Params.scanlines.dateFormat | default "2006-01-02" -}}
+{{- $showReadingTime := ne site.Params.scanlines.showReadingTime false -}}
 <div class="container">
   <div class="content-wrapper">
-    <header class="archive-header">
-      <h1 class="archive-title">POST ARCHIVE</h1>
+    <header class="list-header">
+      <h1 class="list-title">POSTS</h1>
       {{- if .Pages }}
-      <p class="archive-count">[ {{ len .Pages }} {{ if eq (len .Pages) 1 }}post{{ else }}posts{{ end }} ]</p>
+      <p class="list-count">[ {{ len .Pages }} {{ if eq (len .Pages) 1 }}post{{ else }}posts{{ end }} ]</p>
       {{- end }}
     </header>
 
     {{- if .Pages }}
-    {{- /* Group posts by year */ -}}
-    {{- range .Pages.GroupByDate "2006" }}
-    <section class="archive-year">
-      <h2 class="archive-year-title">{{ .Key }}</h2>
-      <ul class="archive-list">
-        {{- range .Pages }}
-        <li class="archive-item">
-          <time class="archive-date" datetime="{{ .Date.Format "2006-01-02" }}">
-            {{ .Date.Format $dateFormat }}
-          </time>
-          <a href="{{ .RelPermalink }}" class="archive-link">{{ .Title }}</a>
-        </li>
-        {{- end }}
-      </ul>
-    </section>
-    {{- end }}
+    <ul class="post-list">
+      {{- range .Pages.ByDate.Reverse }}
+      <li class="post-list-item">
+        <article>
+          <h2 class="post-list-title">
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          </h2>
+          <div class="post-list-meta">
+            <time class="post-list-date" datetime="{{ .Date.Format "2006-01-02" }}">
+              {{ .Date.Format $dateFormat }}
+            </time>
+            {{- if $showReadingTime }}
+            <span class="post-list-reading-time">{{ partial "reading-time.html" (dict "page" . "short" true) }}</span>
+            {{- end }}
+          </div>
+          {{- with .Description }}
+          <p class="post-list-excerpt">{{ . }}</p>
+          {{- else }}
+          {{- with .Summary }}
+          <p class="post-list-excerpt">{{ . | plainify | truncate 200 }}</p>
+          {{- end }}
+          {{- end }}
+        </article>
+      </li>
+      {{- end }}
+    </ul>
 
     {{- /* Pagination */ -}}
     {{- template "_internal/pagination.html" . }}

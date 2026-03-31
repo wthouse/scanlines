@@ -133,6 +133,7 @@ theme = "scanlines"  # Not needed if using Hugo Modules
     lineNumbersInTable = true
 
 # Navigation menu
+# Note: "Posts" link is auto-hidden in blog homepage mode
 [menus]
   [[menus.main]]
     name = "Home"
@@ -143,9 +144,13 @@ theme = "scanlines"  # Not needed if using Hugo Modules
     url = "/posts/"
     weight = 2
   [[menus.main]]
+    name = "Archive"
+    url = "/archive/"
+    weight = 3
+  [[menus.main]]
     name = "About"
     url = "/about/"
-    weight = 3
+    weight = 4
 
 [params]
   description = "Your site description"
@@ -177,6 +182,14 @@ hugo new posts/hello-world.md
 
 # Create an about page
 hugo new about.md
+
+# Create the archive page
+cat > content/archive.md << 'EOF'
+---
+title: "Archive"
+layout: "archives"
+---
+EOF
 ```
 
 ### 3. Start Development Server
@@ -246,9 +259,13 @@ theme = "scanlines"
     url = "/posts/"
     weight = 2
   [[menus.main]]
+    name = "Archive"
+    url = "/archive/"
+    weight = 3
+  [[menus.main]]
     name = "About"
     url = "/about/"
-    weight = 3
+    weight = 4
 
 [params]
   description = "Your site description for SEO"

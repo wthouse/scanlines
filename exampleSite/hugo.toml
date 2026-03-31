@@ -37,9 +37,13 @@ enableEmoji = true
     url = "/posts/"
     weight = 2
   [[menus.main]]
+    name = "Archive"
+    url = "/archive/"
+    weight = 3
+  [[menus.main]]
     name = "About"
     url = "/about/"
-    weight = 3
+    weight = 4
 
 [params]
   # Site description for SEO
@@ -54,7 +58,7 @@ enableEmoji = true
     # Homepage style: "blog" (default) or "profile"
     # "blog"    — site tagline + recent posts
     # "profile" — profile header + buttons (landing page, nav hidden)
-    homepage = "blog"
+    homepage = "profile"
 
     # Text color scheme: "amber" (default), "green", "blue", "white"
     colorScheme = "amber"
