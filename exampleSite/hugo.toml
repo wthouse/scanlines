@@ -136,8 +136,7 @@ enableEmoji = true
     # Table of Contents
     [params.scanlines.toc]
       enabled = true
-      position = "sidebar"      # "sidebar" or "none"
-      collapsible = true        # Collapsible on mobile (toggle button)
+      collapsible = true        # Collapsible toggle button
       title = "CONTENTS"
 
     # Status Line (VT220 25th line)

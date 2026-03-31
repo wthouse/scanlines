@@ -364,34 +364,6 @@
 }
 
 // -----------------------------------------------------------------------------
-// Page Layout with Sidebar (for TOC)
-// -----------------------------------------------------------------------------
-// Sidebar width: 250px provides optimal TOC readability while leaving
-// sufficient content area. Balances line-length for headings vs content space.
-.page-with-sidebar {
-  display: grid;
-  gap: var(--spacing-xl);
-  grid-template-columns: 1fr;
-  max-width: calc(var(--content-max) + 250px + var(--spacing-xl));
-  margin: 0 auto;
-
-  @media (min-width: $breakpoint-lg) {
-    grid-template-columns: 1fr 250px;
-  }
-}
-
-.page-content {
-  min-width: 0; // Prevent overflow
-  max-width: var(--content-max);
-}
-
-.page-sidebar {
-  @media (max-width: #{$breakpoint-lg - 1px}) {
-    display: none;
-  }
-}
-
-// -----------------------------------------------------------------------------
 // Article Layout
 // -----------------------------------------------------------------------------
 .article {

@@ -157,8 +157,7 @@ To use ASCII art, create a text file in your `static/` folder (e.g., `static/asc
 ```toml
 [params.scanlines.toc]
   enabled = true
-  position = "sidebar"      # "sidebar" or "none"
-  collapsible = true        # Collapsible on mobile (< 992px)
+  collapsible = true        # Collapsible toggle
   title = "CONTENTS"
 ```
 

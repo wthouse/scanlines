@@ -21,11 +21,8 @@
 
   {{- $toc := site.Params.scanlines.toc -}}
   {{- $hasTocContent := and .TableOfContents (gt (len (.TableOfContents | plainify)) 0) -}}
-  {{- $showToc := and (ne $toc.enabled false) $hasTocContent (ne $toc.position "none") (ne .Params.toc false) -}}
-  {{- $tocPosition := $toc.position | default "sidebar" -}}
-  {{- if and $showToc (eq $tocPosition "sidebar") }}
-    <div class="toc-mobile-only">
-      {{- partial "toc.html" (dict "Page" . "Location" "mobile") -}}
-    </div>
+  {{- $showToc := and (ne $toc.enabled false) $hasTocContent (ne .Params.toc false) -}}
+  {{- if $showToc }}
+    {{- partial "toc.html" (dict "Page" . "Location" "inline") -}}
   {{- end }}
 </header>

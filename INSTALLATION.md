@@ -302,7 +302,6 @@ theme = "scanlines"
     # Table of Contents
     [params.scanlines.toc]
       enabled = true
-      position = "sidebar"   # "sidebar" or "none"
       collapsible = true
       title = "CONTENTS"
 
