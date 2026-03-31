@@ -20,7 +20,8 @@
   </div>
 
   {{- $toc := site.Params.scanlines.toc -}}
-  {{- $showToc := and (ne $toc.enabled false) .TableOfContents (ne $toc.position "none") (ne .Params.toc false) -}}
+  {{- $hasTocContent := and .TableOfContents (gt (len (.TableOfContents | plainify)) 0) -}}
+  {{- $showToc := and (ne $toc.enabled false) $hasTocContent (ne $toc.position "none") (ne .Params.toc false) -}}
   {{- $tocPosition := $toc.position | default "sidebar" -}}
   {{- if and $showToc (eq $tocPosition "sidebar") }}
     <div class="toc-mobile-only">
