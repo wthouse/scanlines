@@ -26,11 +26,15 @@
             <span class="post-list-reading-time">{{ partial "reading-time.html" (dict "page" . "short" true) }}</span>
             {{- end }}
           </div>
+          {{- with .Params.summary }}
+          <p class="post-list-excerpt">{{ . }}</p>
+          {{- else }}
           {{- with .Description }}
           <p class="post-list-excerpt">{{ . }}</p>
           {{- else }}
           {{- with .Summary }}
           <p class="post-list-excerpt">{{ . | plainify | truncate 200 }}</p>
+          {{- end }}
           {{- end }}
           {{- end }}
         </article>
