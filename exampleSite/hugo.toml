@@ -58,7 +58,7 @@ enableEmoji = true
     # Homepage style: "blog" (default) or "profile"
     # "blog"    — site tagline + recent posts
     # "profile" — profile header + buttons (landing page, nav hidden)
-    homepage = "profile"
+    homepage = "blog"
 
     # Text color scheme: "amber" (default), "green", "blue", "white"
     colorScheme = "amber"
