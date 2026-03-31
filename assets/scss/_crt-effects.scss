@@ -3,9 +3,9 @@
 // =============================================================================
 // Based on authentic DEC VT220 terminal characteristics:
 // - 60Hz refresh rate with visible scanlines
-// - Phosphor persistence causing soft glow
+// - P3 amber phosphor persistence causing soft glow
 // - Dot stretching creating bold character appearance
-// - Color separation from convergence issues
+// - Brightness falloff at screen edges (cos^4 pattern)
 // =============================================================================
 
 // -----------------------------------------------------------------------------
