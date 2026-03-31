@@ -282,6 +282,7 @@ theme = "scanlines"
     favicon = "/favicon.ico"
     dateFormat = "2006-01-02"
     showReadingTime = true
+    showTags = true
 
     # Custom color overrides (optional)
     [params.scanlines.colors]
