@@ -42,7 +42,7 @@ hugo server
 
 ## Requirements
 
-- **Hugo Extended** v0.120.0 or later (for SCSS processing)
+- **Hugo Extended** v0.145.0 or later (for SCSS processing)
 - No external build tools required
 
 ## Configuration Reference
