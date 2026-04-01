@@ -1,0 +1,35 @@
+{{ define "main" }}
+{{- $dateFormat := site.Params.scanlines.dateFormat | default "2006-01-02" -}}
+{{- $posts := where site.RegularPages "Section" "posts" -}}
+<div class="container">
+  <div class="content-wrapper">
+    <header class="list-header">
+      <h1 class="list-title">ARCHIVE</h1>
+      {{- if $posts }}
+      <p class="list-count">[ {{ len $posts }} {{ if eq (len $posts) 1 }}post{{ else }}posts{{ end }} ]</p>
+      {{- end }}
+    </header>
+
+    {{- if $posts }}
+    {{- /* Group posts by year */ -}}
+    {{- range $posts.GroupByDate "2006" }}
+    <section class="archive-year">
+      <h2 class="archive-year-title">{{ .Key }}</h2>
+      <ul class="archive-list">
+        {{- range .Pages }}
+        <li class="archive-item">
+          <time class="archive-date" datetime="{{ .Date.Format "2006-01-02" }}">
+            {{ .Date.Format $dateFormat }}
+          </time>
+          <a href="{{ .RelPermalink }}" class="archive-link">{{ .Title }}</a>
+        </li>
+        {{- end }}
+      </ul>
+    </section>
+    {{- end }}
+    {{- else }}
+    <p class="no-posts">No posts yet. Start writing!</p>
+    {{- end }}
+  </div>
+</div>
+{{ end }}
