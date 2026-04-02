@@ -13,10 +13,11 @@
 // -----------------------------------------------------------------------------
 .crt-overlay {
   position: fixed;
-  top: 0;
+  top: -5vh;
   left: 0;
   right: 0;
-  bottom: 0;
+  height: 110vh;
+  height: 110dvh;
   pointer-events: none;
   z-index: 9999;
 
