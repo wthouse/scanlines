@@ -591,6 +591,13 @@
 // -----------------------------------------------------------------------------
 // Profile Header (homepage "profile" mode)
 // -----------------------------------------------------------------------------
+.profile-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 8rem);
+}
+
 .profile-header {
   text-align: center;
   margin-bottom: var(--spacing-xl);

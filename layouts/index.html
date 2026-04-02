@@ -3,7 +3,9 @@
 <div class="container">
   <div class="content-wrapper">
     {{- if eq $mode "profile" -}}
+    <div class="profile-center">
       {{- partial "profile-header.html" (dict "site" site) -}}
+    </div>
     {{- else -}}
       {{- with .Site.Params.description }}
       <p class="hero-tagline">{{ . }}</p>
