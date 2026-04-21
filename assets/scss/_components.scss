@@ -377,11 +377,27 @@
 }
 
 .home-more-link {
-  color: var(--color-fg-dim);
+  color: var(--color-fg);
   text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
 
-  &:hover {
+  &::before {
+    content: "[ ";
+    color: var(--color-fg-dim);
+  }
+
+  &::after {
+    content: " ]";
+    color: var(--color-fg-dim);
+  }
+
+  &:hover,
+  &:focus {
     color: var(--color-fg-bright);
+    text-decoration: none;
   }
 }
 
