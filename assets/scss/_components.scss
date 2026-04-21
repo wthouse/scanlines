@@ -293,13 +293,13 @@
 .post-nav-link {
   display: flex;
   flex-direction: column;
-  padding: var(--spacing-sm);
-  border: 1px solid var(--color-border);
+  padding: var(--spacing-sm) 0;
   text-decoration: none;
   max-width: 45%;
+  transition: color 0.2s ease;
 
-  &:hover {
-    border-color: var(--color-fg);
+  &:hover,
+  &:focus {
     text-decoration: none;
   }
 }
