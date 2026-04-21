@@ -563,7 +563,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: calc(100vh - 8rem);
+  // Cap the centered band so content sits higher than dead-center —
+  // with a tall ASCII header above, full-viewport centering felt floaty.
+  min-height: 60vh;
+  padding: var(--spacing-xl) 0;
 }
 
 .profile-header {
