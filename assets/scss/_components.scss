@@ -236,21 +236,6 @@
   }
 }
 
-.notice-info::before {
-  content: "[ INFO ]";
-  color: var(--color-fg);
-}
-
-.notice-warning::before {
-  content: "[ WARNING ]";
-  color: var(--color-accent);
-}
-
-.notice-error::before {
-  content: "[ ERROR ]";
-  color: #ff4444;
-}
-
 // -----------------------------------------------------------------------------
 // 404 Page
 // -----------------------------------------------------------------------------
@@ -499,21 +484,6 @@
 // -----------------------------------------------------------------------------
 // Archive
 // -----------------------------------------------------------------------------
-.archive-header {
-  margin-bottom: var(--spacing-xl);
-  padding-bottom: var(--spacing-md);
-  border-bottom: 1px dashed var(--color-border);
-}
-
-.archive-title {
-}
-
-.archive-count {
-  font-size: 0.85rem;
-  color: var(--color-fg-dim);
-  margin: 0;
-}
-
 .archive-year {
   margin-bottom: var(--spacing-xl);
 }

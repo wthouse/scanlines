@@ -182,7 +182,7 @@ The VT220's signature 25th line, shown as a fixed bar at the bottom of the scree
 
 ```toml
 [params.scanlines.typography]
-  baseFontSize = "16px"       # Base font size (rem units scale from this)
+  baseFontSize = "20px"       # Base font size (rem units scale from this)
   fontFamily = "glass"        # "glass" (Glass_TTY_VT220) or "fira" (Fira Code)
 ```
 
@@ -219,10 +219,10 @@ Configurable as either a blog listing or profile landing page (see Homepage Mode
 
 ### Blog Posts
 Create posts in `content/posts/`. Supports:
-- Table of contents (sidebar)
+- Inline, collapsible table of contents
 - Tags
 - Reading time
-- Post navigation (prev/next)
+- Post summaries (front-matter `summary` or `description`)
 
 ### Static Pages
 Create pages in `content/` (e.g., `content/about.md`).
@@ -262,14 +262,16 @@ Create `layouts/partials/custom_footer.html`:
 
 ## Color Schemes
 
-The theme includes four historically accurate phosphor color schemes:
+The theme includes four historically accurate phosphor color schemes. All foreground/background pairs meet WCAG AA for normal text; amber, green, and white also meet AAA.
 
-| Scheme | Phosphor | Foreground | Background |
-|--------|----------|------------|------------|
-| Amber  | P3 (~602nm) | `#FFB000` | `#0D0A00` |
-| Green  | P1 (~525nm) | `#33FF66` | `#001A00` |
-| Blue   | Cool white  | `#6AAFFF` | `#000A1A` |
-| White  | Paper white | `#E6E6E6` | `#1A1A1A` |
+| Scheme | Phosphor    | Foreground | Background | Contrast |
+|--------|-------------|------------|------------|----------|
+| Amber  | P3 (~602nm) | `#FFB000`  | `#0D0A00`  | ~12.5:1 (AAA) |
+| Green  | P1 (~525nm) | `#33FF66`  | `#001A00`  | ~14.8:1 (AAA) |
+| Blue   | Cool white  | `#6AAFFF`  | `#000A1A`  | ~7.7:1 (AAA)  |
+| White  | Paper white | `#E6E6E6`  | `#1A1A1A`  | ~13.5:1 (AAA) |
+
+If you set custom colors via `[params.scanlines.colors]`, verify contrast with a tool like [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/). Values are validated against `^#[0-9a-fA-F]{3,8}$` and silently dropped if malformed — invalid hex falls back to the scheme default.
 
 | Green | Blue | White |
 |-------|------|-------|

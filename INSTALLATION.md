@@ -334,7 +334,7 @@ theme = "scanlines"
 
     # Typography
     [params.scanlines.typography]
-      baseFontSize = "16px"
+      baseFontSize = "20px"
       fontFamily = "glass"     # "glass" or "fira"
 
     # Syntax Highlighting
@@ -428,6 +428,45 @@ Check that fonts exist in `themes/scanlines/static/fonts/`:
 1. Ensure Hugo Extended v0.120.0+
 2. Run `hugo --cleanDestinationDir`
 3. Check for TOML syntax errors
+
+## Content Security Policy
+
+The theme emits a small inline `<style>` block when you define
+`[params.scanlines.colors]` or layout/typography overrides. If you deploy
+with a strict CSP, you'll need `style-src 'self' 'unsafe-inline'` — or
+move custom colors into `static/css/custom.css` and omit the overrides
+from `hugo.toml`.
+
+A minimal working CSP for a Scanlines-themed site:
+
+```
+default-src 'self';
+style-src   'self' 'unsafe-inline';
+script-src  'self';
+img-src     'self' data:;
+font-src    'self';
+```
+
+The theme bundles no external requests — fonts and CSS are all
+self-hosted, so no third-party origins are needed.
+
+## Pagination
+
+The blog list (`/posts/`) and taxonomy pages call Hugo's built-in
+pagination partial. To enable paging, set at the top level of your
+`hugo.toml`:
+
+```toml
+# Legacy syntax, works on all Hugo versions >= 0.120
+paginate = 10
+
+# OR, on Hugo 0.128+ only:
+[pagination]
+  pagerSize = 10
+```
+
+Without a paging config, Hugo's default (10 per page) is used and the
+pagination partial renders nothing if you have fewer posts than that.
 
 ## Updating the Theme
 
