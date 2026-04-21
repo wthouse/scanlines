@@ -628,27 +628,35 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-md);
   margin-top: var(--spacing-lg);
 }
 
+// Mirrors .nav-link (see _layout.scss) so profile-mode buttons read as nav,
+// not as UI chrome — click affordance comes from the [ ] brackets.
 .profile-btn {
   display: inline-block;
-  padding: var(--spacing-xs) var(--spacing-md);
+  padding: var(--spacing-sm) 0;
   color: var(--color-fg);
-  border: 1px solid var(--color-border);
-  text-decoration: none;
-  font-size: 0.9rem;
+  text-transform: uppercase;
   letter-spacing: 0.05em;
-  transition: border-color 0.2s ease, color 0.2s ease;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
 
   &::before {
-    content: "> ";
+    content: "[ ";
     color: var(--color-fg-dim);
   }
 
-  &:hover {
+  &::after {
+    content: " ]";
+    color: var(--color-fg-dim);
+  }
+
+  &:hover,
+  &:focus {
     color: var(--color-fg-bright);
-    border-color: var(--color-fg);
+    text-decoration: none;
   }
 }
