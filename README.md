@@ -148,6 +148,7 @@ The theme also respects the `prefers-reduced-motion` media query automatically.
   showTitle = true                  # Show site title or ASCII art (default: true)
   asciiFile = "ascii-header.txt"  # ASCII art file in static/ (leave empty for plain text title)
   showBox = true                  # Show border around header (default: true)
+  asciiScale = 1.0                # Multiplier for ASCII art size (1.5 = 50% larger)
 ```
 
 To use ASCII art, create a text file in your `static/` folder (e.g., `static/ascii-header.txt`). If no file is set, the site title displays as plain text.

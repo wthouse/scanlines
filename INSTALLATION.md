@@ -316,6 +316,7 @@ theme = "scanlines"
       showTitle = true       # Show site title or ASCII art (default: true)
       asciiFile = ""         # ASCII art file in static/ (leave empty for plain text title)
       showBox = true         # Show border around header
+      asciiScale = 1.0       # Size multiplier for ASCII art (1.5 = 50% larger, 0.75 = 25% smaller)
 
     # Table of Contents
     [params.scanlines.toc]

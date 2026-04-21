@@ -146,7 +146,9 @@
 
 .ascii-header {
   font-family: var(--font-terminal);
-  font-size: 0.5rem;
+  // --ascii-scale multiplier is injected by baseof.html from
+  // params.scanlines.header.asciiScale (defaults to 1 if unset).
+  font-size: calc(0.5rem * var(--ascii-scale, 1));
   line-height: 1.1;
   color: var(--color-fg-bright);
   white-space: pre;
@@ -159,11 +161,11 @@
   box-shadow: none;
 
   @media (min-width: $breakpoint-md) {
-    font-size: 0.65rem;
+    font-size: calc(0.65rem * var(--ascii-scale, 1));
   }
 
   @media (min-width: $breakpoint-lg) {
-    font-size: 0.75rem;
+    font-size: calc(0.75rem * var(--ascii-scale, 1));
   }
 }
 

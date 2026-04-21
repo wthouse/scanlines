@@ -4,6 +4,7 @@
 {{- $typography := site.Params.scanlines.typography -}}
 {{- $layout := site.Params.scanlines.layout -}}
 {{- $syntax := site.Params.scanlines.syntax -}}
+{{- $header := site.Params.scanlines.header -}}
 <html lang="{{ .Site.LanguageCode | default "en" }}" data-color-scheme="{{ $colorScheme }}">
 <head>
   {{- partial "head.html" . -}}
@@ -25,7 +26,7 @@
   {{- end -}}
 
   {{- /* Layout and typography CSS variables (Issues 9, 13) */ -}}
-  {{- if or $layout.containerWidth $layout.contentWidth $typography.baseFontSize $effects.glowIntensity $effects.flickerIntensity -}}
+  {{- if or $layout.containerWidth $layout.contentWidth $typography.baseFontSize $effects.glowIntensity $effects.flickerIntensity $header.asciiScale -}}
   <style>
     :root {
       {{- with $layout.containerWidth }}--container-max: {{ . }};{{ end }}
@@ -33,6 +34,7 @@
       {{- with $typography.baseFontSize }}--base-font-size: {{ . }};{{ end }}
       {{- with $effects.glowIntensity }}--glow-intensity: {{ . }};{{ end }}
       {{- with $effects.flickerIntensity }}--flicker-intensity: {{ . }};{{ end }}
+      {{- with $header.asciiScale }}--ascii-scale: {{ float . }};{{ end }}
     }
   </style>
   {{- end -}}

@@ -125,6 +125,7 @@ enableEmoji = true
       showTitle = true                 # Show site title or ASCII art (default: true)
       asciiFile = "ascii-header.txt"  # ASCII art file in static/ (leave empty for plain text title)
       showBox = false                 # Show border around header (default: true)
+      asciiScale = 1.0                # Scale multiplier for ASCII art (1.5 = 50% larger, 0.75 = 25% smaller)
 
     # Layout Options
     [params.scanlines.layout]
