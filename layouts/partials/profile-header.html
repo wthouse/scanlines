@@ -21,8 +21,11 @@
 {{- if not $name -}}{{- $name = .site.Title -}}{{- end -}}
 
 <header class="profile-header">
-  {{- with $avatar }}
+  {{- with $avatar -}}
+    {{- $u := urls.Parse . -}}
+    {{- if or (eq $u.Scheme "http") (eq $u.Scheme "https") (eq $u.Scheme "") }}
   <img src="{{ . }}" alt="{{ $name }}" class="profile-avatar">
+    {{- end }}
   {{- end }}
   {{- with $name }}
   <h1 class="profile-name">{{ . }}</h1>
@@ -36,8 +39,12 @@
   {{- partial "social-icons.html" (dict "social" $social "class" "profile-social" "hideLabels" true) -}}
   {{- with .site.Params.scanlines.profile.buttons }}
   <nav class="profile-buttons" aria-label="Quick links">
-    {{- range . }}
+    {{- range . -}}
+      {{- $u := urls.Parse .url -}}
+      {{- /* Only render http/https/mailto or site-relative (empty scheme) — blocks javascript:/data: */ -}}
+      {{- if or (eq $u.Scheme "http") (eq $u.Scheme "https") (eq $u.Scheme "mailto") (eq $u.Scheme "") }}
     <a href="{{ .url }}" class="profile-btn"{{ if strings.Contains .url "://" }} rel="noopener" target="_blank"{{ end }}>{{ .name }}</a>
+      {{- end -}}
     {{- end }}
   </nav>
   {{- end }}

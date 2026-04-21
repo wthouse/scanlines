@@ -8,17 +8,18 @@
 <head>
   {{- partial "head.html" . -}}
 
-  {{- /* Custom color overrides */ -}}
+  {{- /* Custom color overrides — values validated as hex to prevent CSS context injection */ -}}
   {{- $colors := site.Params.scanlines.colors -}}
+  {{- $hexRE := `^#[0-9a-fA-F]{3,8}$` -}}
   {{- if $colors -}}
   <style>
     :root {
-      {{- with $colors.foreground }}--color-fg: {{ . }}; --color-fg-bright: {{ . }};{{ end }}
-      {{- with $colors.background }}--color-bg: {{ . }};{{ end }}
-      {{- with $colors.backgroundSecondary }}--color-bg-secondary: {{ . }};{{ end }}
-      {{- with $colors.accent }}--color-accent: {{ . }};{{ end }}
-      {{- with $colors.link }}--color-link: {{ . }};{{ end }}
-      {{- with $colors.linkHover }}--color-link-hover: {{ . }};{{ end }}
+      {{- with $colors.foreground }}{{- if findRE $hexRE . 1 }}--color-fg: {{ . }}; --color-fg-bright: {{ . }};{{ end }}{{ end }}
+      {{- with $colors.background }}{{- if findRE $hexRE . 1 }}--color-bg: {{ . }};{{ end }}{{ end }}
+      {{- with $colors.backgroundSecondary }}{{- if findRE $hexRE . 1 }}--color-bg-secondary: {{ . }};{{ end }}{{ end }}
+      {{- with $colors.accent }}{{- if findRE $hexRE . 1 }}--color-accent: {{ . }};{{ end }}{{ end }}
+      {{- with $colors.link }}{{- if findRE $hexRE . 1 }}--color-link: {{ . }};{{ end }}{{ end }}
+      {{- with $colors.linkHover }}{{- if findRE $hexRE . 1 }}--color-link-hover: {{ . }};{{ end }}{{ end }}
     }
   </style>
   {{- end -}}

@@ -57,7 +57,10 @@
       </a>
     </li>
     {{- end }}
-    {{- with $social.mastodon }}
+    {{- with $social.mastodon -}}
+      {{- $u := urls.Parse . -}}
+      {{- /* Mastodon is a full URL — restrict to http/https to block javascript:/data: */ -}}
+      {{- if or (eq $u.Scheme "http") (eq $u.Scheme "https") }}
     <li>
       <a href="{{ . }}" rel="me noopener" target="_blank" aria-label="Mastodon">
         <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -66,6 +69,7 @@
         <span class="social-label">Mastodon</span>
       </a>
     </li>
+      {{- end -}}
     {{- end }}
     {{- with $social.medium }}
     <li>

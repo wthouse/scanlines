@@ -4,7 +4,8 @@
     {{- if ne site.Params.scanlines.header.showTitle false -}}
     <div class="site-branding">
       {{- $asciiFile := site.Params.scanlines.header.asciiFile | default "" -}}
-      {{- if and $asciiFile (fileExists (printf "static/%s" $asciiFile)) -}}
+      {{- /* Reject path traversal — asciiFile is resolved under static/ */ -}}
+      {{- if and $asciiFile (not (strings.Contains $asciiFile "..")) (fileExists (printf "static/%s" $asciiFile)) -}}
         {{- $content := readFile (printf "static/%s" $asciiFile) -}}
         <a href="{{ "/" | relURL }}" class="ascii-header-link">
           <pre class="ascii-header" aria-label="{{ $.Site.Title }}">{{ $content }}</pre>
