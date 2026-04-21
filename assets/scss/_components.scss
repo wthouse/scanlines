@@ -168,15 +168,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--spacing-sm);
+  padding: var(--spacing-xs);
   color: var(--color-fg);
-  border: 1px solid var(--color-border);
-  transition: all 0.2s ease;
+  transition: color 0.2s ease;
 
   &:hover,
   &:focus {
     color: var(--color-fg-bright);
-    border-color: var(--color-fg);
     text-decoration: none;
   }
 }
