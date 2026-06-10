@@ -48,3 +48,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   available and add `og:locale`, `og:image:alt`, and `article:author`/`section`.
 - Removed the obsolete `X-UA-Compatible` meta tag and trimmed the Hugo version
   from the `generator` meta.
+- **Minimum Hugo version is now 0.146.0** — the markdown render hooks live in
+  `layouts/_markup/`, which requires the Hugo 0.146+ template system.
+- **TOC defaults are now section-aware**: posts show a TOC by default; other
+  pages opt in with `toc: true`. Previously any page with headings got one.
+- Root pages (e.g. `/about/`) no longer render a zero date (`0001-01-01`) or
+  prev/next post navigation chaining to unrelated sibling pages.
+- `og:locale` now emits the correct `language_TERRITORY` casing (`en_US`).
+- Removed the placeholder `static/css/custom.css` the theme shipped — it caused
+  an extra render-blocking request on every downstream site. Sites create their
+  own as documented.
+- Removed dead `layouts/page/` templates that the Hugo 0.146 template system no
+  longer resolves; `layouts/_default/` was already handling those pages.
+- Added `go.mod` (proper Hugo Module path) and theme-gallery screenshots at the
+  required dimensions (`images/screenshot.png` 1500×1000, `images/tn.png`
+  900×600).

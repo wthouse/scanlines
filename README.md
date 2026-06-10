@@ -44,7 +44,7 @@ hugo server
 
 ## Requirements
 
-- **Hugo Extended** v0.120.0 or later (for SCSS processing)
+- **Hugo Extended** v0.146.0 or later (SCSS processing; render hooks use the 0.146+ template system)
 - No external build tools required
 
 ## Configuration Reference
@@ -174,6 +174,10 @@ To use ASCII art, create a text file in your `static/` folder (e.g., `static/asc
   collapsible = true        # Collapsible toggle
   title = "CONTENTS"
 ```
+
+Posts show a TOC by default when they have headings; other pages (e.g.
+`/about/`) opt in with `toc: true` front matter. A page-level `toc: false`
+always hides it.
 
 ### Status Line
 

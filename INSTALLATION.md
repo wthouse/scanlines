@@ -14,9 +14,9 @@ This theme requires **Hugo Extended** (not the standard Hugo build) because it u
 hugo version
 ```
 
-Look for `+extended` in the output:
+Look for `+extended` in the output (v0.146.0 or later required):
 ```
-hugo v0.120.0+extended linux/amd64 BuildDate=...
+hugo v0.146.0+extended linux/amd64 BuildDate=...
 ```
 
 #### Installing Hugo Extended
@@ -283,6 +283,8 @@ theme = "scanlines"
     dateFormat = "2006-01-02"
     showReadingTime = true
     showTags = true
+    contentSection = "posts"  # Section holding your posts (homepage/archive/404)
+    ogImage = ""              # Default Open Graph/Twitter share image
 
     # Custom color overrides (optional)
     [params.scanlines.colors]
@@ -415,8 +417,8 @@ Install Hugo Extended version.
 ### Fonts Not Loading
 
 Check that fonts exist in `themes/scanlines/static/fonts/`:
-- `Glass_TTY_VT220.ttf`
-- `FiraCode-Regular.ttf`
+- `Glass_TTY_VT220.woff2` (and `.ttf` fallback)
+- `FiraCode-Regular.woff2` (and `.ttf` fallback)
 
 ### Effects Not Showing
 
@@ -426,7 +428,7 @@ Check that fonts exist in `themes/scanlines/static/fonts/`:
 
 ### Build Errors
 
-1. Ensure Hugo Extended v0.120.0+
+1. Ensure Hugo Extended v0.146.0+
 2. Run `hugo --cleanDestinationDir`
 3. Check for TOML syntax errors
 
@@ -453,21 +455,16 @@ self-hosted, so no third-party origins are needed.
 
 ## Pagination
 
-The blog list (`/posts/`) and taxonomy pages call Hugo's built-in
-pagination partial. To enable paging, set at the top level of your
-`hugo.toml`:
+The blog list (`/posts/`) and taxonomy pages are paginated. To set the
+page size, add to your `hugo.toml`:
 
 ```toml
-# Legacy syntax, works on all Hugo versions >= 0.120
-paginate = 10
-
-# OR, on Hugo 0.128+ only:
 [pagination]
   pagerSize = 10
 ```
 
 Without a paging config, Hugo's default (10 per page) is used and the
-pagination partial renders nothing if you have fewer posts than that.
+pagination controls render nothing if you have fewer posts than that.
 
 ## Updating the Theme
 

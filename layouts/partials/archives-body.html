@@ -1,7 +1,5 @@
-{{- /* Archive page body — shared between layouts/_default/archives.html and
-       layouts/page/archives.html. Both stubs exist because Hugo's layout
-       lookup resolves root-level pages (e.g. /archive.md) against
-       layouts/page/ before layouts/_default/. */ -}}
+{{- /* Archive page body — rendered via layouts/_default/archives.html for
+       pages with `layout: "archives"` front matter (e.g. /archive.md). */ -}}
 {{- $dateFormat := site.Params.scanlines.dateFormat | default "2006-01-02" -}}
 {{- $section := site.Params.scanlines.contentSection | default "posts" -}}
 {{- $posts := where site.RegularPages "Section" $section -}}

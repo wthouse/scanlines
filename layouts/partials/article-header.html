@@ -8,9 +8,11 @@
   {{- $showReadingTime := ne site.Params.scanlines.showReadingTime false -}}
   {{- $author := .Params.author | default site.Params.author -}}
   <div class="article-meta">
+    {{- if not .Date.IsZero }}
     <time class="article-date" datetime="{{ .Date.Format "2006-01-02" }}">
       {{ .Date.Format $dateFormat }}
     </time>
+    {{- end }}
     {{- with $author }}
     <span class="article-author">{{ . }}</span>
     {{- end }}
@@ -21,7 +23,11 @@
 
   {{- $toc := site.Params.scanlines.toc -}}
   {{- $hasTocContent := and .TableOfContents (gt (len (.TableOfContents | plainify)) 0) -}}
-  {{- $showToc := and (ne $toc.enabled false) $hasTocContent (ne .Params.toc false) -}}
+  {{- /* Posts show a TOC by default; other pages opt in with `toc: true`.
+         An explicit page-level `toc` value always wins. */ -}}
+  {{- $pageToc := eq .Section (site.Params.scanlines.contentSection | default "posts") -}}
+  {{- if isset .Params "toc" }}{{ $pageToc = .Params.toc }}{{ end -}}
+  {{- $showToc := and (ne $toc.enabled false) $hasTocContent $pageToc -}}
   {{- if $showToc }}
     {{- partial "toc.html" (dict "Page" . "Location" "inline") -}}
   {{- end }}

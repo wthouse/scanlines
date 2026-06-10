@@ -4,7 +4,12 @@
 {{- $title := .Title | default .Site.Title -}}
 {{- /* Per-page image, falling back to a site-wide default (scanlines.ogImage) */ -}}
 {{- $image := .Params.image | default site.Params.scanlines.ogImage -}}
-{{- $ogLocale := replace (site.LanguageCode | default "en-US") "-" "_" -}}
+{{- /* og:locale wants language_TERRITORY, e.g. en_US */ -}}
+{{- $lcParts := split (site.LanguageCode | default "en-US") "-" -}}
+{{- $ogLocale := index $lcParts 0 -}}
+{{- if gt (len $lcParts) 1 -}}
+  {{- $ogLocale = printf "%s_%s" (index $lcParts 0) (upper (index $lcParts 1)) -}}
+{{- end -}}
 
 {{- /* Basic meta */ -}}
 <meta name="description" content="{{ $description }}">

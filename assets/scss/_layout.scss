@@ -414,11 +414,20 @@
   &::before {
     content: " | AUTHOR: ";
   }
+
+  // No leading separator when there's no date before it (dateless pages)
+  &:first-child::before {
+    content: "AUTHOR: ";
+  }
 }
 
 .article-reading-time {
   &::before {
     content: " | READ: ";
+  }
+
+  &:first-child::before {
+    content: "READ: ";
   }
 }
 

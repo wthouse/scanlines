@@ -23,6 +23,8 @@ opinionated — the guidelines below are short on purpose.
    ```
 
    Build must pass with no warnings: `hugo --themesDir ../..`.
+   CI runs this same check on every push and PR
+   (`.github/workflows/build.yml`).
 3. Keep changes focused. One feature or fix per PR.
 4. If you're adding a config option, update both `INSTALLATION.md` and
    `exampleSite/hugo.toml` so the reference stays in sync.
