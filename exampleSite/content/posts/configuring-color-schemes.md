@@ -3,6 +3,7 @@ title: "Configuring Color Schemes"
 date: 2024-01-10
 description: "How to customize the color scheme in the Scanlines theme"
 tags: ["configuration", "colors", "customization"]
+categories: ["Guides"]
 toc: true
 ---
 

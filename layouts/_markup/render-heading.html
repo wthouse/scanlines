@@ -1,0 +1,6 @@
+{{- /* Heading render hook: keeps Hugo's auto-generated anchor id and adds a
+       hover-revealed permalink so readers can deep-link sections. */ -}}
+<h{{ .Level }} id="{{ .Anchor }}">
+  {{- .Text | safeHTML -}}
+  <a class="heading-anchor" href="#{{ .Anchor }}" aria-label="{{ or (i18n "anchorLabel") "Link to this section" }}">#</a>
+</h{{ .Level }}>

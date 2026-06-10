@@ -29,7 +29,7 @@
   flex-direction: column;
   min-height: 100vh;
   position: relative;
-  z-index: 1;
+  z-index: $z-content;
 }
 
 // -----------------------------------------------------------------------------
@@ -473,6 +473,41 @@
   }
 }
 
+// Categories — same chip as tags but a directory-style "/" marker
+.article-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+// Space between the categories nav and the tags nav when both are present
+.article-taxonomy + .article-taxonomy {
+  margin-top: var(--spacing-sm);
+}
+
+.category {
+  display: inline-block;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  font-size: 0.8rem;
+  color: var(--color-fg);
+
+  &::before {
+    content: "/";
+    color: var(--color-fg-dim);
+  }
+
+  &:hover {
+    background: var(--color-border);
+    color: var(--color-fg-bright);
+    text-decoration: none;
+  }
+}
+
 // -----------------------------------------------------------------------------
 // Status Line (VT220 25th Line)
 // Fixed bar at the bottom of the viewport showing site title, current section,
@@ -484,7 +519,7 @@
   left: 0;
   right: 0;
   height: 1.5rem;
-  z-index: 100;
+  z-index: $z-status-line;
   display: none;
   justify-content: space-between;
   align-items: center;

@@ -2,30 +2,39 @@
 
 {{- $description := .Description | default .Site.Params.description | default "" -}}
 {{- $title := .Title | default .Site.Title -}}
+{{- /* Per-page image, falling back to a site-wide default (scanlines.ogImage) */ -}}
+{{- $image := .Params.image | default site.Params.scanlines.ogImage -}}
+{{- $ogLocale := replace (site.LanguageCode | default "en-US") "-" "_" -}}
 
 {{- /* Basic meta */ -}}
 <meta name="description" content="{{ $description }}">
 <meta name="author" content="{{ .Site.Params.author | default "" }}">
-<meta name="generator" content="Hugo {{ hugo.Version }}">
+<meta name="generator" content="Hugo">
 
 {{- /* Open Graph */ -}}
 <meta property="og:title" content="{{ $title }}">
 <meta property="og:description" content="{{ $description }}">
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:locale" content="{{ $ogLocale }}">
 {{- if .Site.Title }}
 <meta property="og:site_name" content="{{ .Site.Title }}">
 {{- end }}
-{{- with .Params.image }}
+{{- with $image }}
 <meta property="og:image" content="{{ . | absURL }}">
+<meta property="og:image:alt" content="{{ $title }}">
 {{- end }}
 
-{{- /* Twitter Card */ -}}
-<meta name="twitter:card" content="summary">
+{{- /* Twitter Card — large image when one is available, otherwise a plain summary */ -}}
+<meta name="twitter:card" content="{{ if $image }}summary_large_image{{ else }}summary{{ end }}">
 <meta name="twitter:title" content="{{ $title }}">
 <meta name="twitter:description" content="{{ $description }}">
-{{- with .Params.image }}
+{{- with $image }}
 <meta name="twitter:image" content="{{ . | absURL }}">
+{{- end }}
+{{- with site.Params.scanlines.social.twitter }}
+<meta name="twitter:creator" content="@{{ . }}">
+<meta name="twitter:site" content="@{{ . }}">
 {{- end }}
 
 {{- /* Article-specific meta */ -}}
@@ -35,6 +44,12 @@
   {{- end }}
   {{- if not .Lastmod.IsZero }}
 <meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">
+  {{- end }}
+  {{- with (.Params.author | default site.Params.author) }}
+<meta property="article:author" content="{{ . }}">
+  {{- end }}
+  {{- with .Section }}
+<meta property="article:section" content="{{ . }}">
   {{- end }}
   {{- with .Params.tags }}
     {{- range . }}

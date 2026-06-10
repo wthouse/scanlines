@@ -1,6 +1,5 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 {{- partial "meta.html" . -}}
 
@@ -11,9 +10,9 @@
 {{- /* Preload the configured font */ -}}
 {{- $fontFamily := site.Params.scanlines.typography.fontFamily | default "glass" -}}
 {{- if eq $fontFamily "fira" -}}
-<link rel="preload" href="{{ "fonts/FiraCode-Regular.ttf" | relURL }}" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="{{ "fonts/FiraCode-Regular.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
 {{- else -}}
-<link rel="preload" href="{{ "fonts/Glass_TTY_VT220.ttf" | relURL }}" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="{{ "fonts/Glass_TTY_VT220.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
 {{- end -}}
 
 {{- /* Process SCSS with Hugo Pipes */ -}}
@@ -46,6 +45,9 @@
 {{- /* Favicon */ -}}
 {{- $favicon := site.Params.scanlines.favicon | default "/favicon.ico" -}}
 <link rel="icon" type="image/x-icon" href="{{ $favicon | relURL }}">
+
+{{- /* Structured data (JSON-LD) */ -}}
+{{- partial "schema.html" . -}}
 
 {{- /* User extensibility hook */ -}}
 {{- partial "custom_head.html" . -}}

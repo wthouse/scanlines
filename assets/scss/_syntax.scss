@@ -75,7 +75,7 @@
 }
 
 .hl {
-  background-color: rgba(255, 176, 0, 0.1);
+  background-color: var(--color-hl);
   display: block;
 }
 
@@ -92,12 +92,12 @@
 
 /* Error */
 .chroma .err {
-  color: #ff6b6b;
+  color: var(--color-error);
 }
 
 /* LineHighlight */
 .chroma .hl {
-  background-color: rgba(255, 176, 0, 0.1);
+  background-color: var(--color-hl);
 }
 
 /* LineNumbers */
@@ -209,7 +209,7 @@
 
 /* Generic */
 .chroma .gd   /* GenericDeleted */ {
-  color: #ff6b6b;
+  color: var(--color-error);
   background-color: rgba(255, 107, 107, 0.1);
 }
 
@@ -223,7 +223,7 @@
 }
 
 .chroma .gi   /* GenericInserted */ {
-  color: #69ff69;
+  color: var(--color-success);
   background-color: rgba(105, 255, 105, 0.1);
 }
 

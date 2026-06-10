@@ -7,6 +7,8 @@
       {{- partial "profile-header.html" (dict "site" site) -}}
     </div>
     {{- else -}}
+      {{- /* sr-only h1 gives the blog homepage a valid heading outline (post titles are h2) */ -}}
+      <h1 class="sr-only">{{ .Site.Title }}</h1>
       {{- with .Site.Params.description }}
       <p class="hero-tagline">{{ . }}</p>
       {{- end }}
@@ -15,16 +17,17 @@
       {{- $dateFormat := site.Params.scanlines.dateFormat | default "2006-01-02" -}}
       {{- $showReadingTime := ne site.Params.scanlines.showReadingTime false -}}
       {{- $showTags := ne site.Params.scanlines.showTags false -}}
-      {{- $posts := where .Site.RegularPages "Section" "posts" | first 5 -}}
+      {{- $section := site.Params.scanlines.contentSection | default "posts" -}}
+      {{- $posts := where .Site.RegularPages "Section" $section | first 5 -}}
 
       {{- if $posts }}
       <ul class="post-list">
         {{- range $posts }}
         <li class="post-list-item">
           <article>
-            <h3 class="post-list-title">
+            <h2 class="post-list-title">
               <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-            </h3>
+            </h2>
             <div class="post-list-meta">
               <time class="post-list-date" datetime="{{ .Date.Format "2006-01-02" }}">
                 {{ .Date.Format $dateFormat }}
@@ -53,10 +56,10 @@
       </ul>
 
       <p class="home-more">
-        <a href="{{ "posts/" | relURL }}" class="home-more-link">all posts</a>
+        <a href="{{ (printf "%s/" $section) | relURL }}" class="home-more-link">{{ or (i18n "allPosts") "all posts" }}</a>
       </p>
       {{- else }}
-      <p class="no-posts">No posts yet. Start writing!</p>
+      <p class="no-posts">{{ or (i18n "noPosts") "No posts yet. Start writing!" }}</p>
       {{- end }}
     {{- end }}
   </div>

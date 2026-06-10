@@ -19,7 +19,7 @@
   height: 110vh;
   height: 110dvh;
   pointer-events: none;
-  z-index: 9999;
+  z-index: $z-crt-overlay;
 
   // Phosphor vignette — toggled via .crt-vignette class, intensity via CSS variable.
   // Simulates CRT phosphor brightness falloff (cos^4 pattern) at screen edges.
@@ -256,7 +256,7 @@
         rgba(0, 0, 0, 0.15) 100%
       );
       pointer-events: none;
-      z-index: 9995;
+      z-index: $z-vignette;
     }
   }
 }

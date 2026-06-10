@@ -7,7 +7,8 @@
 // -----------------------------------------------------------------------------
 @font-face {
   font-family: "Glass_TTY_VT220";
-  src: url("../fonts/Glass_TTY_VT220.ttf") format("truetype");
+  src: url("../fonts/Glass_TTY_VT220.woff2") format("woff2"),
+       url("../fonts/Glass_TTY_VT220.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap; // Show fallback immediately, swap when loaded
@@ -15,7 +16,8 @@
 
 @font-face {
   font-family: "Fira Code";
-  src: url("../fonts/FiraCode-Regular.ttf") format("truetype");
+  src: url("../fonts/FiraCode-Regular.woff2") format("woff2"),
+       url("../fonts/FiraCode-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -119,6 +121,37 @@ a {
     outline: 2px solid var(--color-accent);
     outline-offset: 2px;
   }
+}
+
+// -----------------------------------------------------------------------------
+// Heading permalink anchors (added by the heading render hook) &
+// external-link affordance (added by the link render hook)
+// -----------------------------------------------------------------------------
+.article-content {
+  h1, h2, h3, h4, h5, h6 {
+    .heading-anchor {
+      opacity: 0;
+      margin-left: 0.3em;
+      font-size: 0.8em;
+      color: var(--color-fg-dim);
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+
+    &:hover .heading-anchor {
+      opacity: 1;
+    }
+  }
+
+  .heading-anchor:focus {
+    opacity: 1;
+  }
+}
+
+.external-marker {
+  font-size: 0.75em;
+  vertical-align: super;
+  opacity: 0.7;
 }
 
 // -----------------------------------------------------------------------------
@@ -428,7 +461,7 @@ button {
   background: var(--color-fg);
   color: var(--color-bg);
   padding: var(--spacing-sm) var(--spacing-md);
-  z-index: 1000;
+  z-index: $z-skip-link;
 
   &:focus {
     top: 0;
@@ -499,6 +532,23 @@ button:focus-visible,
   background-color: var(--color-fg);
   color: var(--color-bg);
   box-shadow: 0 0 0 2px var(--color-fg);
+}
+
+// Multi-coloured toggle controls (nav / TOC) reverse-video poorly because of
+// their child spans, so give them a strong accent ring instead.
+.nav-toggle:focus-visible,
+.toc-toggle:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-color: var(--color-fg);
+  color: var(--color-fg-bright);
+}
+
+// Fallback for browsers without :focus-visible support — links already have
+// a :focus outline (see Links), buttons did not.
+button:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
 :focus:not(:focus-visible) {

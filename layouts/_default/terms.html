@@ -1,10 +1,15 @@
 {{ define "main" }}
+{{- /* Label this taxonomy by its own name (tags, categories, …) instead of
+       hardcoding "tags". .Data.Singular/.Plural come from the taxonomy config. */ -}}
+{{- $singular := .Data.Singular | default "term" -}}
+{{- $plural := .Data.Plural | default "terms" -}}
+{{- $isTags := eq $plural "tags" -}}
 <div class="container">
   <div class="content-wrapper">
     <header class="terms-header">
       <h1 class="terms-title">{{ .Title }}</h1>
       {{- if .Pages }}
-      <p class="terms-count">[ {{ len .Pages }} {{ if eq (len .Pages) 1 }}tag{{ else }}tags{{ end }} ]</p>
+      <p class="terms-count">[ {{ len .Pages }} {{ if eq (len .Pages) 1 }}{{ $singular }}{{ else }}{{ $plural }}{{ end }} ]</p>
       {{- end }}
     </header>
 
@@ -13,14 +18,14 @@
       {{- range .Pages.ByTitle }}
       <li class="terms-item">
         <a href="{{ .RelPermalink }}" class="terms-link">
-          <span class="terms-name">#{{ .Title }}</span>
+          <span class="terms-name">{{ if $isTags }}#{{ end }}{{ .Title }}</span>
           <span class="terms-item-count">({{ len .Pages }})</span>
         </a>
       </li>
       {{- end }}
     </ul>
     {{- else }}
-    <p class="no-content">No tags found.</p>
+    <p class="no-content">{{ printf "No %s found." $plural }}</p>
     {{- end }}
   </div>
 </div>

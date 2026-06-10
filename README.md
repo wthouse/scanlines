@@ -13,10 +13,12 @@ A retro Hugo theme inspired by the look and feel of classic CRT terminals like t
 - **Two Homepage Modes** - Blog (recent posts) or Profile (landing page with buttons)
 - **Responsive Design** - Mobile-first with collapsible navigation and TOC
 - **Syntax Highlighting** - Chroma integration with monochrome or colored modes
-- **SEO Optimized** - Semantic HTML, meta tags, Open Graph, RSS
+- **SEO Optimized** - Semantic HTML, meta tags, Open Graph, Twitter cards, JSON-LD structured data, RSS
 - **Fully Configurable** - All options namespaced under `params.scanlines`
-- **No External Dependencies** - Self-hosted fonts and assets
+- **No External Dependencies** - Self-hosted WOFF2 fonts and assets
 - **No JavaScript** - Pure CSS effects and interactions
+- **Translatable** - All UI strings run through Hugo's i18n system (ships `i18n/en.toml`)
+- **Render Hooks** - Lazy-loaded images, external-link markers, and heading permalinks
 - **Accessibility** - Respects `prefers-reduced-motion`, configurable contrast, VT220-style reverse-video focus
 
 ## Quick Start
@@ -69,6 +71,17 @@ All theme options are namespaced under `[params.scanlines]` in your `hugo.toml`.
 
   # Show reading time on posts
   showReadingTime = true
+
+  # Show tags on post listings
+  showTags = true
+
+  # Section that holds your posts. The homepage, archive and 404 read from it —
+  # change this if your content lives in e.g. content/articles/.
+  contentSection = "posts"
+
+  # Default Open Graph / Twitter share image, used when a page sets no `image`.
+  # Pages with a `summary_large_image` card need this (or a per-page image).
+  ogImage = "/images/og-default.png"
 
 ```
 
@@ -219,11 +232,14 @@ The VT220's signature 25th line, shown as a fixed bar at the bottom of the scree
 Configurable as either a blog listing or profile landing page (see Homepage Modes above).
 
 ### Blog Posts
-Create posts in `content/posts/`. Supports:
+Create posts in `content/posts/` (or your configured `contentSection`). Supports:
 - Inline, collapsible table of contents
-- Tags
+- Tags and categories (both render on the post and generate taxonomy pages)
 - Reading time
 - Post summaries (front-matter `summary` or `description`)
+
+Tags use a `#name` chip; categories use a `/name` chip. Both link to their
+taxonomy term pages, which are labelled automatically.
 
 ### Static Pages
 Create pages in `content/` (e.g., `content/about.md`).
@@ -260,6 +276,13 @@ Create `layouts/partials/custom_footer.html`:
 ```html
 <script src="/js/custom.js"></script>
 ```
+
+### Translations
+
+All interface strings run through Hugo's i18n system. To translate the theme,
+copy the bundled `i18n/en.toml` into your site as `i18n/<lang>.toml`, translate
+the values, and set `defaultContentLanguage` in your config. Templates fall back
+to English for any missing keys, so partial translations are safe.
 
 ## Color Schemes
 

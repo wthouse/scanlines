@@ -1,0 +1,38 @@
+name: Build exampleSite
+
+# Enforces the CONTRIBUTING.md rule that the exampleSite builds cleanly with no
+# warnings on every push and pull request.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (named "scanlines" so themesDir ../.. resolves)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Hugo (extended)
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: latest
+          extended: true
+
+      - name: Build exampleSite, fail on any warning
+        run: |
+          set -euo pipefail
+          hugo --source exampleSite --themesDir ../.. \
+            --gc --minify --printI18nWarnings --printPathWarnings \
+            --logLevel info 2>&1 | tee build.log
+          if grep -qiE "WARN|deprecated" build.log; then
+            echo "::error::Hugo emitted warnings — see log above"
+            exit 1
+          fi

@@ -1,12 +1,25 @@
-{{- /* Shared article footer partial - tags */ -}}
-{{- with .Params.tags }}
+{{- /* Shared article footer partial — categories and tags */ -}}
+{{- $cats := .Params.categories -}}
+{{- $tags := .Params.tags -}}
+{{- if or $cats $tags }}
 <footer class="article-footer">
-  <nav aria-label="Tags">
+  {{- with $cats }}
+  <nav class="article-taxonomy" aria-label="{{ or (i18n "categories") "Categories" }}">
+    <ul class="article-categories">
+      {{- range . }}
+      <li><a href="{{ "categories/" | relURL }}{{ . | urlize }}/" class="category">{{ . }}</a></li>
+      {{- end }}
+    </ul>
+  </nav>
+  {{- end }}
+  {{- with $tags }}
+  <nav class="article-taxonomy" aria-label="{{ or (i18n "tags") "Tags" }}">
     <ul class="article-tags">
       {{- range . }}
       <li><a href="{{ "tags/" | relURL }}{{ . | urlize }}/" class="tag">{{ . }}</a></li>
       {{- end }}
     </ul>
   </nav>
+  {{- end }}
 </footer>
 {{- end }}

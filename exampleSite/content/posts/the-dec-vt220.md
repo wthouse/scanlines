@@ -3,6 +3,7 @@ title: "The DEC VT220: A Terminal Icon"
 date: 2024-01-05
 description: "A look at the DEC VT220 terminal that inspired this theme"
 tags: ["history", "hardware", "dec", "vt220"]
+categories: ["Hardware"]
 toc: true
 ---
 

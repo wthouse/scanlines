@@ -3,13 +3,14 @@
        lookup resolves root-level pages (e.g. /archive.md) against
        layouts/page/ before layouts/_default/. */ -}}
 {{- $dateFormat := site.Params.scanlines.dateFormat | default "2006-01-02" -}}
-{{- $posts := where site.RegularPages "Section" "posts" -}}
+{{- $section := site.Params.scanlines.contentSection | default "posts" -}}
+{{- $posts := where site.RegularPages "Section" $section -}}
 <div class="container">
   <div class="content-wrapper">
     <header class="list-header">
-      <h1 class="list-title">ARCHIVE</h1>
+      <h1 class="list-title">{{ or (i18n "archiveTitle") "ARCHIVE" }}</h1>
       {{- if $posts }}
-      <p class="list-count">[ {{ len $posts }} {{ if eq (len $posts) 1 }}post{{ else }}posts{{ end }} ]</p>
+      <p class="list-count">[ {{ i18n "postCount" (len $posts) }} ]</p>
       {{- end }}
     </header>
 
@@ -30,7 +31,7 @@
     </section>
     {{- end }}
     {{- else }}
-    <p class="no-posts">No posts yet. Start writing!</p>
+    <p class="no-posts">{{ or (i18n "noPosts") "No posts yet. Start writing!" }}</p>
     {{- end }}
   </div>
 </div>

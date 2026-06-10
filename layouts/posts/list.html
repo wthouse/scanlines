@@ -5,15 +5,16 @@
 <div class="container">
   <div class="content-wrapper">
     <header class="list-header">
-      <h1 class="list-title">POSTS</h1>
+      <h1 class="list-title">{{ or (i18n "postsTitle") "POSTS" }}</h1>
       {{- if .Pages }}
-      <p class="list-count">[ {{ len .Pages }} {{ if eq (len .Pages) 1 }}post{{ else }}posts{{ end }} ]</p>
+      <p class="list-count">[ {{ i18n "postCount" (len .Pages) }} ]</p>
       {{- end }}
     </header>
 
     {{- if .Pages }}
+    {{- $paginator := .Paginate (.Pages.ByDate.Reverse) -}}
     <ul class="post-list">
-      {{- range .Pages.ByDate.Reverse }}
+      {{- range $paginator.Pages }}
       <li class="post-list-item">
         <article>
           <h2 class="post-list-title">
@@ -53,7 +54,7 @@
     {{- /* Pagination */ -}}
     {{- template "_internal/pagination.html" . }}
     {{- else }}
-    <p class="no-posts">No posts yet. Start writing!</p>
+    <p class="no-posts">{{ or (i18n "noPosts") "No posts yet. Start writing!" }}</p>
     {{- end }}
   </div>
 </div>

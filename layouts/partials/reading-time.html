@@ -1,4 +1,4 @@
 {{- $wc := .page.WordCount -}}
 {{- $mins := div $wc 200 -}}
 {{- if lt $mins 1 }}{{ $mins = 1 }}{{ end -}}
-{{- if .short -}}~{{ $mins }} MIN{{- else -}}~{{ $mins }} min read{{- end -}}
+{{- if .short -}}~{{ or (i18n "readingTimeShort" $mins) (printf "%d MIN" $mins) }}{{- else -}}~{{ or (i18n "readingTime" $mins) (printf "%d min read" $mins) }}{{- end -}}

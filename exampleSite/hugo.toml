@@ -76,6 +76,12 @@ enableEmoji = true
     # Show tags on post listings
     showTags = true
 
+    # Section that holds your posts (homepage, archive and 404 read from it)
+    contentSection = "posts"
+
+    # Default Open Graph / Twitter share image (leave empty to omit)
+    ogImage = ""
+
     # NOTE: All sub-sections below must come after the above key/value pairs.
     # Moving keys after a sub-section header will assign them to that sub-section.
 

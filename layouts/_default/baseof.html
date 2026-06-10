@@ -34,7 +34,8 @@
       {{- with $typography.baseFontSize }}--base-font-size: {{ . }};{{ end }}
       {{- with $effects.glowIntensity }}--glow-intensity: {{ . }};{{ end }}
       {{- with $effects.flickerIntensity }}--flicker-intensity: {{ . }};{{ end }}
-      {{- with $header.asciiScale }}--ascii-scale: {{ float . }};{{ end }}
+      {{- /* Validate numeric before float() so a typo (e.g. "large") can't abort the build — mirrors the hex validation above */ -}}
+      {{- with $header.asciiScale }}{{ if findRE `^[0-9]*\.?[0-9]+$` (printf "%v" .) }}--ascii-scale: {{ float . }};{{ end }}{{ end }}
     }
   </style>
   {{- end -}}
@@ -49,7 +50,7 @@
   {{- if $syntax.colored }} syntax-colored{{ end -}}
   {{- if eq $typography.fontFamily "fira" }} font-fira{{ end -}}
 ">
-  <a class="skip-link" href="#main-content">Skip to content</a>
+  <a class="skip-link" href="#main-content">{{ or (i18n "skipToContent") "Skip to content" }}</a>
 
   {{- partial "crt-overlay.html" . -}}
 

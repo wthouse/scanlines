@@ -1,0 +1,46 @@
+{{- /* JSON-LD structured data.
+       BlogPosting on single pages, WebSite on the home page, plus a Person
+       node when the home page is in profile mode. Built as dicts and piped
+       through `jsonify` so all values are safely escaped. */ -}}
+
+{{- if .IsPage -}}
+  {{- $author := .Params.author | default site.Params.author | default site.Title -}}
+  {{- $desc := .Description | default (.Summary | plainify) | chomp -}}
+  {{- $schema := dict
+      "@context" "https://schema.org"
+      "@type" "BlogPosting"
+      "headline" .Title
+      "url" .Permalink
+      "mainEntityOfPage" .Permalink
+      "author" (dict "@type" "Person" "name" $author)
+      "publisher" (dict "@type" "Organization" "name" site.Title)
+  -}}
+  {{- with $desc }}{{ $schema = merge $schema (dict "description" .) }}{{ end -}}
+  {{- if not .PublishDate.IsZero }}{{ $schema = merge $schema (dict "datePublished" (.PublishDate.Format "2006-01-02T15:04:05Z07:00")) }}{{ end -}}
+  {{- if not .Lastmod.IsZero }}{{ $schema = merge $schema (dict "dateModified" (.Lastmod.Format "2006-01-02T15:04:05Z07:00")) }}{{ end -}}
+  {{- with (.Params.image | default site.Params.scanlines.ogImage) }}{{ $schema = merge $schema (dict "image" (. | absURL)) }}{{ end -}}
+  {{- with .Params.tags }}{{ $schema = merge $schema (dict "keywords" (delimit . ", ")) }}{{ end -}}
+<script type="application/ld+json">{{ $schema | jsonify | safeJS }}</script>
+{{- else if .IsHome -}}
+  {{- $website := dict
+      "@context" "https://schema.org"
+      "@type" "WebSite"
+      "name" site.Title
+      "url" site.BaseURL
+  -}}
+  {{- with site.Params.description }}{{ $website = merge $website (dict "description" .) }}{{ end -}}
+<script type="application/ld+json">{{ $website | jsonify | safeJS }}</script>
+  {{- if eq (site.Params.scanlines.homepage | default "blog") "profile" -}}
+    {{- $profile := site.Params.scanlines.profile -}}
+    {{- $person := dict
+        "@context" "https://schema.org"
+        "@type" "Person"
+        "name" ($profile.name | default site.Title)
+        "url" site.BaseURL
+    -}}
+    {{- with $profile.subtitle }}{{ $person = merge $person (dict "jobTitle" .) }}{{ end -}}
+    {{- with $profile.bio }}{{ $person = merge $person (dict "description" (. | plainify | chomp)) }}{{ end -}}
+    {{- with $profile.avatar }}{{ $person = merge $person (dict "image" (. | absURL)) }}{{ end -}}
+<script type="application/ld+json">{{ $person | jsonify | safeJS }}</script>
+  {{- end -}}
+{{- end -}}

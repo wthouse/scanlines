@@ -33,6 +33,15 @@ $spacing-xl: 2rem;
 $spacing-xxl: 3rem;
 
 // -----------------------------------------------------------------------------
+// Z-index Scale (documented stacking order, lowest → highest)
+// -----------------------------------------------------------------------------
+$z-content: 1;          // .site-wrapper — base content layer
+$z-status-line: 100;    // fixed VT220 status bar
+$z-skip-link: 1000;     // skip-to-content link when focused
+$z-vignette: 9995;      // CRT edge vignette overlay
+$z-crt-overlay: 9999;   // scanline / flicker overlay (topmost)
+
+// -----------------------------------------------------------------------------
 // CSS Custom Properties (Theme Colors)
 // These are set via data attributes based on configuration
 // -----------------------------------------------------------------------------
@@ -78,6 +87,12 @@ $spacing-xxl: 3rem;
 
   // Glow color (matches phosphor)
   --color-glow: #ffb000;
+
+  // Syntax helpers — line-highlight tints to the active phosphor; diff
+  // add/delete keep conventional green/red but are overridable here.
+  --color-hl: rgba(255, 176, 0, 0.1);
+  --color-error: #ff6b6b;
+  --color-success: #69ff69;
 }
 
 // =============================================================================
@@ -98,6 +113,7 @@ $spacing-xxl: 3rem;
   --color-selection-fg: #001a00;
   --color-code-bg: #002600;
   --color-glow: #33ff66;
+  --color-hl: rgba(51, 255, 102, 0.1);
 }
 
 // =============================================================================
@@ -118,6 +134,7 @@ $spacing-xxl: 3rem;
   --color-selection-fg: #000a1a;
   --color-code-bg: #001326;
   --color-glow: #6aafff;
+  --color-hl: rgba(106, 175, 255, 0.1);
 }
 
 // =============================================================================
@@ -138,6 +155,7 @@ $spacing-xxl: 3rem;
   --color-selection-fg: #1a1a1a;
   --color-code-bg: #262626;
   --color-glow: #e6e6e6;
+  --color-hl: rgba(230, 230, 230, 0.08);
 }
 
 // =============================================================================
@@ -151,6 +169,9 @@ $spacing-xxl: 3rem;
   --color-link: #ffffff;
   --color-link-hover: #ffffff;
   --color-border: #666666;
+  // Accent drives focus outlines, blockquote borders and notices — the scheme
+  // defaults are too low-contrast here, so force a high-contrast yellow.
+  --color-accent: #ffff00;
 }
 
 // =============================================================================

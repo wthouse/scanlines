@@ -8,13 +8,14 @@
       <p class="list-description">{{ . }}</p>
       {{- end }}
       {{- if .Pages }}
-      <p class="list-count">[ {{ len .Pages }} {{ if eq (len .Pages) 1 }}entry{{ else }}entries{{ end }} ]</p>
+      <p class="list-count">[ {{ i18n "entryCount" (len .Pages) }} ]</p>
       {{- end }}
     </header>
 
     {{- if .Pages }}
+    {{- $paginator := .Paginate (.Pages.ByDate.Reverse) -}}
     <ul class="post-list">
-      {{- range .Pages.ByDate.Reverse }}
+      {{- range $paginator.Pages }}
       <li class="post-list-item">
         <article>
           <h2 class="post-list-title">
@@ -40,7 +41,7 @@
     {{- /* Pagination */ -}}
     {{- template "_internal/pagination.html" . }}
     {{- else }}
-    <p class="no-content">No content found.</p>
+    <p class="no-content">{{ or (i18n "noContent") "No content found." }}</p>
     {{- end }}
   </div>
 </div>

@@ -1,0 +1,4 @@
+{{- /* Link render hook: external links open in a new tab (with safe rel) and
+       get a small ↗ affordance. Internal links are untouched. */ -}}
+{{- $external := or (strings.HasPrefix .Destination "http://") (strings.HasPrefix .Destination "https://") -}}
+<a href="{{ .Destination }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $external }} rel="noopener noreferrer" target="_blank"{{ end }}>{{ .Text | safeHTML }}{{ if $external }} <span class="external-marker" aria-hidden="true">↗</span>{{ end }}</a>

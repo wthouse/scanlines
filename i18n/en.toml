@@ -1,0 +1,76 @@
+# English strings for the Scanlines theme.
+# Copy this file to i18n/<lang>.toml in your site to translate the UI.
+# Templates fall back to the English text inline, so missing keys degrade gracefully.
+
+[skipToContent]
+other = "Skip to content"
+
+[allPosts]
+other = "all posts"
+
+[noPosts]
+other = "No posts yet. Start writing!"
+
+[noContent]
+other = "No content found."
+
+[categories]
+other = "Categories"
+
+[tags]
+other = "Tags"
+
+[anchorLabel]
+other = "Link to this section"
+
+[postsTitle]
+other = "POSTS"
+
+[archiveTitle]
+other = "ARCHIVE"
+
+[readingTime]
+one = "{{ .Count }} min read"
+other = "{{ .Count }} min read"
+
+[readingTimeShort]
+one = "{{ .Count }} MIN"
+other = "{{ .Count }} MIN"
+
+# Prev/next post navigation
+[prevPost]
+other = "<< PREV"
+
+[nextPost]
+other = "NEXT >>"
+
+# 404 page
+[notFoundTitle]
+other = "FILE NOT FOUND"
+
+[notFoundLine1]
+other = "%SYSTEM-W-NOTFOUND, page not found"
+
+[notFoundLine2]
+other = "%SYSTEM-I-VERIFY, check path and retry"
+
+[notFoundSuggestPre]
+other = "%SYSTEM-I-SUGGEST, return to "
+
+[notFoundHomeLink]
+other = "home directory"
+
+[returnHome]
+other = "RETURN HOME"
+
+[viewPosts]
+other = "VIEW POSTS"
+
+# Counts (pluralized via the supplied number)
+[entryCount]
+one = "{{ .Count }} entry"
+other = "{{ .Count }} entries"
+
+[postCount]
+one = "{{ .Count }} post"
+other = "{{ .Count }} posts"

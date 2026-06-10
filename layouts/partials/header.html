@@ -1,5 +1,5 @@
 {{- $isProfileHome := and (eq (site.Params.scanlines.homepage | default "blog") "profile") .IsHome -}}
-<header class="site-header{{ if ne (site.Params.scanlines.header.showBox) true }} header-no-box{{ end }}{{ if $isProfileHome }} header-profile-home{{ end }}">
+<header class="site-header{{ if not (site.Params.scanlines.header.showBox | default true) }} header-no-box{{ end }}{{ if $isProfileHome }} header-profile-home{{ end }}">
   <div class="header-inner container">
     {{- if ne site.Params.scanlines.header.showTitle false -}}
     <div class="site-branding">
@@ -25,8 +25,9 @@
     <nav class="site-nav" aria-label="Main navigation">
       <ul class="nav-list">
         {{- $isBlogMode := eq (site.Params.scanlines.homepage | default "blog") "blog" -}}
+        {{- $sectionURL := printf "/%s/" (site.Params.scanlines.contentSection | default "posts") -}}
         {{- range .Site.Menus.main }}
-        {{- if not (and $isBlogMode (eq .URL "/posts/")) }}
+        {{- if not (and $isBlogMode (eq .URL $sectionURL)) }}
         <li class="nav-item">
           <a href="{{ .URL | relURL }}" class="nav-link{{ if $.IsMenuCurrent "main" . }} active{{ end }}">
             {{ .Name }}
