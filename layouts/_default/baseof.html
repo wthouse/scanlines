@@ -5,7 +5,7 @@
 {{- $layout := site.Params.scanlines.layout -}}
 {{- $syntax := site.Params.scanlines.syntax -}}
 {{- $header := site.Params.scanlines.header -}}
-<html lang="{{ .Site.LanguageCode | default "en" }}" data-color-scheme="{{ $colorScheme }}">
+<html lang="{{ partial "site-language.html" . | default "en" }}" data-color-scheme="{{ $colorScheme }}">
 <head>
   {{- partial "head.html" . -}}
 

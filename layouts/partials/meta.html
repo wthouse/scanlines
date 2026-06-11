@@ -5,7 +5,7 @@
 {{- /* Per-page image, falling back to a site-wide default (scanlines.ogImage) */ -}}
 {{- $image := .Params.image | default site.Params.scanlines.ogImage -}}
 {{- /* og:locale wants language_TERRITORY, e.g. en_US */ -}}
-{{- $lcParts := split (site.LanguageCode | default "en-US") "-" -}}
+{{- $lcParts := split ((partial "site-language.html" .) | default "en-US") "-" -}}
 {{- $ogLocale := index $lcParts 0 -}}
 {{- if gt (len $lcParts) 1 -}}
   {{- $ogLocale = printf "%s_%s" (index $lcParts 0) (upper (index $lcParts 1)) -}}

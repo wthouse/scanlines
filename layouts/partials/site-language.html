@@ -1,0 +1,12 @@
+{{- /* Returns the site's language code (e.g. "en-us"), version-safely.
+       Hugo 0.158 deprecated every LanguageCode spelling in favor of
+       .Language.Locale — which doesn't exist before 0.158 and would
+       hard-error old builds. Branch on the running Hugo version; only
+       the taken branch is evaluated, so both sides are safe. */ -}}
+{{- $code := "" -}}
+{{- if ge hugo.Version "0.158.0" -}}
+  {{- $code = site.Language.Locale -}}
+{{- else -}}
+  {{- $code = site.Language.LanguageCode -}}
+{{- end -}}
+{{- return $code -}}

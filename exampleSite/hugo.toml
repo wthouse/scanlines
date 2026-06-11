@@ -2,7 +2,8 @@
 # Requires Hugo Extended for SCSS processing
 
 baseURL = "https://example.com/"
-languageCode = "en-us"
+# Hugo >= 0.158 language config; on older Hugo use: languageCode = "en-us"
+locale = "en-us"
 title = "SCANLINES"
 theme = "scanlines"
 enableEmoji = true

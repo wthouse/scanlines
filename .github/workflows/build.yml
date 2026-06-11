@@ -14,6 +14,12 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # Guard both ends of the supported range: the theme's min_version
+        # and whatever Hugo just released (catches new deprecations early).
+        hugo-version: ['0.146.7', 'latest']
     steps:
       - name: Checkout (named "scanlines" so themesDir ../.. resolves)
         uses: actions/checkout@v4
@@ -23,7 +29,7 @@ jobs:
       - name: Setup Hugo (extended)
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: latest
+          hugo-version: ${{ matrix.hugo-version }}
           extended: true
 
       - name: Build exampleSite, fail on any warning

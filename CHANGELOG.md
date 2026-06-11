@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed (post-push CI follow-up)
+- Hugo 0.158+ deprecation warnings that failed the first CI run: Hugo 0.158
+  deprecated every `LanguageCode` spelling, but the replacement
+  `.Language.Locale` hard-errors on Hugo < 0.158. Templates now read the
+  language through a version-branched `partials/site-language.html`, and the
+  exampleSite/docs use the `locale` config key (with a `languageCode` note for
+  older Hugo).
+- CI now builds against a version matrix — the theme's `min_version` (0.146.7)
+  and `latest` — so both ends of the supported range stay guarded.
+
 ### Added
 - **JSON-LD structured data** — `BlogPosting` on posts, `WebSite` on the home
   page, and a `Person` node in profile mode (`partials/schema.html`).

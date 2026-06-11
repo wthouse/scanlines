@@ -108,7 +108,7 @@ Add `theme = "scanlines"` to your `hugo.toml`.
 
 ```toml
 baseURL = "https://example.com/"
-languageCode = "en-us"
+locale = "en-us"   # Hugo < 0.158: use languageCode = "en-us" instead
 title = "Your Site Title"
 theme = "scanlines"  # Not needed if using Hugo Modules
 
@@ -227,7 +227,7 @@ Here's a complete `hugo.toml` with all available options:
 
 ```toml
 baseURL = "https://example.com/"
-languageCode = "en-us"
+locale = "en-us"   # Hugo < 0.158: use languageCode = "en-us" instead
 title = "TERMINAL"
 theme = "scanlines"
 
