@@ -6,16 +6,17 @@
   {{- $id := printf "toc-%s" (anchorize $page.RelPermalink) -}}
 
   {{- if $collapsible }}
-  <div class="toc toc-collapsible" aria-label="Table of contents">
-    <input type="checkbox" id="{{ $id }}" class="toc-checkbox" aria-hidden="true">
-    <label for="{{ $id }}" class="toc-toggle" role="button">
+  {{- /* Native <details> is keyboard-operable and announces expanded/collapsed
+         state — no checkbox hack, no JavaScript. */ -}}
+  <details class="toc toc-collapsible" id="{{ $id }}">
+    <summary class="toc-toggle">
       <span class="toc-title">{{ $title }}</span>
-      <span class="toc-icon">[+]</span>
-    </label>
-    <nav class="toc-nav">
+      <span class="toc-icon" aria-hidden="true">[+]</span>
+    </summary>
+    <nav class="toc-nav" aria-label="{{ $title }}">
       {{ $page.TableOfContents }}
     </nav>
-  </div>
+  </details>
   {{- else }}
   <aside class="toc" aria-label="Table of contents">
     <h2 class="toc-title">{{ $title }}</h2>

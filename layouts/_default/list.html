@@ -22,9 +22,11 @@
             <a href="{{ .RelPermalink }}">{{ .Title }}</a>
           </h2>
           <div class="post-list-meta">
+            {{- if not .Date.IsZero }}
             <time class="post-list-date" datetime="{{ .Date.Format "2006-01-02" }}">
               {{ .Date.Format $dateFormat }}
             </time>
+            {{- end }}
           </div>
           {{- with .Description }}
           <p class="post-list-excerpt">{{ . }}</p>
@@ -39,7 +41,7 @@
     </ul>
 
     {{- /* Pagination */ -}}
-    {{- template "_internal/pagination.html" . }}
+    {{- partial "pagination.html" $paginator }}
     {{- else }}
     <p class="no-content">{{ or (i18n "noContent") "No content found." }}</p>
     {{- end }}

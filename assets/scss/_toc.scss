@@ -11,11 +11,7 @@
 // TOC Toggle
 // -----------------------------------------------------------------------------
 
-// Hidden checkbox drives the toggle
-.toc-checkbox {
-  display: none;
-}
-
+// <summary> drives the disclosure natively
 .toc-toggle {
   display: flex;
   justify-content: space-between;
@@ -31,6 +27,13 @@
   letter-spacing: 0.1em;
   cursor: pointer;
   margin-bottom: var(--spacing-sm);
+
+  // Suppress the default disclosure triangle (Firefox + WebKit/Blink)
+  list-style: none;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
 
   &:hover,
   &:focus {
@@ -57,8 +60,8 @@
   }
 }
 
-// Toggle [+]/[-] icon when checkbox is checked
-.toc-checkbox:checked ~ .toc-toggle .toc-icon {
+// Toggle [+]/[-] icon when the disclosure is open
+.toc-collapsible[open] .toc-toggle .toc-icon {
   visibility: hidden;
   position: relative;
 
@@ -73,19 +76,14 @@
 // -----------------------------------------------------------------------------
 // TOC Collapsible Behavior
 // -----------------------------------------------------------------------------
+// <details> shows/hides .toc-nav natively; only the open-state styling remains.
 .toc-collapsible {
   .toc-nav {
-    display: none;
     padding: var(--spacing-md);
     background: var(--color-bg-secondary);
     border: 1px solid var(--color-border);
     border-top: none;
     margin-top: calc(-1 * var(--spacing-sm));
-  }
-
-  // Show TOC nav when checkbox is checked
-  .toc-checkbox:checked ~ .toc-nav {
-    display: block;
   }
 }
 

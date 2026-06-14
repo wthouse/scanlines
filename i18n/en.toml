@@ -29,6 +29,32 @@ other = "POSTS"
 [archiveTitle]
 other = "ARCHIVE"
 
+# Navigation / chrome
+[menu]
+other = "MENU"
+
+[mainNav]
+other = "Main navigation"
+
+[statusHome]
+other = "HOME"
+
+[noTermsFound]
+other = "No {{ .Name }} found."
+
+# Pagination
+[pagination]
+other = "Pagination"
+
+[prevPage]
+other = "<< PREV"
+
+[nextPage]
+other = "NEXT >>"
+
+[pageInfo]
+other = "PAGE {{ .Current }} / {{ .Total }}"
+
 [readingTime]
 one = "{{ .Count }} min read"
 other = "{{ .Count }} min read"

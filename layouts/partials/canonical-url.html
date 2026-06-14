@@ -1,0 +1,15 @@
+{{- /* canonical-url.html — returns the self-referential canonical URL for the
+       current page. On paginated list pages (section + taxonomy term), Hugo's
+       .Permalink always points at page 1, which would canonicalize /page/N/ to
+       the first page and hide deep posts from crawlers. Resolve the current
+       pager's own URL instead.
+
+       The .Paginate argument MUST match the list templates (.Pages.ByDate.Reverse)
+       so Hugo reuses the cached paginator rather than erroring on a second build
+       with a different page set. */ -}}
+{{- $url := .Permalink -}}
+{{- if in (slice "section" "term") .Kind -}}
+  {{- $paginator := .Paginate (.Pages.ByDate.Reverse) -}}
+  {{- $url = $paginator.URL | absURL -}}
+{{- end -}}
+{{- $url -}}

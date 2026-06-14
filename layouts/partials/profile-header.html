@@ -24,7 +24,7 @@
   {{- with $avatar -}}
     {{- $u := urls.Parse . -}}
     {{- if or (eq $u.Scheme "http") (eq $u.Scheme "https") (eq $u.Scheme "") }}
-  <img src="{{ . }}" alt="{{ $name }}" class="profile-avatar">
+  <img src="{{ if eq $u.Scheme "" }}{{ strings.TrimPrefix "/" . | relURL }}{{ else }}{{ . }}{{ end }}" alt="{{ $name }}" class="profile-avatar">
     {{- end }}
   {{- end }}
   {{- with $name }}
@@ -43,7 +43,7 @@
       {{- $u := urls.Parse .url -}}
       {{- /* Only render http/https/mailto or site-relative (empty scheme) — blocks javascript:/data: */ -}}
       {{- if or (eq $u.Scheme "http") (eq $u.Scheme "https") (eq $u.Scheme "mailto") (eq $u.Scheme "") }}
-    <a href="{{ .url }}" class="profile-btn"{{ if strings.Contains .url "://" }} rel="noopener" target="_blank"{{ end }}>{{ .name }}</a>
+    <a href="{{ if eq $u.Scheme "" }}{{ strings.TrimPrefix "/" .url | relURL }}{{ else }}{{ .url }}{{ end }}" class="profile-btn"{{ if strings.Contains .url "://" }} rel="noopener" target="_blank"{{ end }}>{{ .name }}</a>
       {{- end -}}
     {{- end }}
   </nav>

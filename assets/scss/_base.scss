@@ -5,10 +5,12 @@
 // -----------------------------------------------------------------------------
 // Font Face Declarations
 // -----------------------------------------------------------------------------
+// WOFF2 only: every browser the theme supports (and every browser that supports
+// the CSS custom properties it relies on) handles WOFF2, so a TTF fallback would
+// only ship bytes no one downloads.
 @font-face {
   font-family: "Glass_TTY_VT220";
-  src: url("../fonts/Glass_TTY_VT220.woff2") format("woff2"),
-       url("../fonts/Glass_TTY_VT220.ttf") format("truetype");
+  src: url("../fonts/Glass_TTY_VT220.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: swap; // Show fallback immediately, swap when loaded
@@ -16,8 +18,7 @@
 
 @font-face {
   font-family: "Fira Code";
-  src: url("../fonts/FiraCode-Regular.woff2") format("woff2"),
-       url("../fonts/FiraCode-Regular.ttf") format("truetype");
+  src: url("../fonts/FiraCode-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -123,9 +124,15 @@ a {
   }
 }
 
+// Content and footer credit links read as standard underlined hyperlinks —
+// fits the retro aesthetic. UI chrome (nav, buttons, chips, TOC) keeps its own styling.
+.article-content a,
+.footer-meta a {
+  text-decoration: underline;
+}
+
 // -----------------------------------------------------------------------------
-// Heading permalink anchors (added by the heading render hook) &
-// external-link affordance (added by the link render hook)
+// Heading permalink anchors (added by the heading render hook)
 // -----------------------------------------------------------------------------
 .article-content {
   h1, h2, h3, h4, h5, h6 {
@@ -146,12 +153,6 @@ a {
   .heading-anchor:focus {
     opacity: 1;
   }
-}
-
-.external-marker {
-  font-size: 0.75em;
-  vertical-align: super;
-  opacity: 0.7;
 }
 
 // -----------------------------------------------------------------------------
@@ -236,7 +237,8 @@ pre {
   margin-bottom: var(--spacing-md);
   overflow-x: auto;
   white-space: pre-wrap;
-  word-break: break-all;
+  // break only when a token can't fit, rather than mid-identifier/mid-URL
+  overflow-wrap: break-word;
   border: 1px solid var(--color-border);
   border-radius: 2px;
 
@@ -494,23 +496,42 @@ button {
   .crt-overlay,
   .nav-toggle,
   .site-nav,
-  .social-links {
+  .social-links,
+  .status-line {
     display: none !important;
   }
 
+  // Remap the palette to ink-on-paper so headings, code, tables and meta all
+  // print legibly in one shot (they read from these custom properties).
+  :root {
+    --color-fg: #000;
+    --color-fg-bright: #000;
+    --color-fg-dim: #444;
+    --color-bg: #fff;
+    --color-bg-secondary: #fff;
+    --color-code-bg: #f5f5f5;
+    --color-border: #ccc;
+    --color-glow: transparent;
+  }
+
   body {
-    background: white;
-    color: black;
+    background: #fff;
+    color: #000;
+  }
+
+  // Strip the phosphor glow and CRT curvature shadow from print.
+  * {
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+
+  .site-wrapper {
+    border-radius: 0;
   }
 
   a {
-    color: black;
+    color: #000;
     text-decoration: underline;
-  }
-
-  .site-header,
-  .site-footer {
-    border-color: #ccc;
   }
 }
 
@@ -535,7 +556,9 @@ button:focus-visible,
 }
 
 // Multi-coloured toggle controls (nav / TOC) reverse-video poorly because of
-// their child spans, so give them a strong accent ring instead.
+// their child spans, so give them a strong accent ring instead. The nav
+// checkbox is visually hidden, so mirror its focus ring onto the adjacent label.
+.nav-checkbox:focus-visible ~ .nav-toggle,
 .nav-toggle:focus-visible,
 .toc-toggle:focus-visible {
   outline: 2px solid var(--color-accent);

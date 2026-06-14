@@ -173,9 +173,13 @@
 // Navigation
 // -----------------------------------------------------------------------------
 
-// Hidden checkbox drives the mobile toggle
-.nav-checkbox {
-  display: none;
+// Checkbox drives the mobile toggle. It is visually hidden via .sr-only (set in
+// markup) so it stays keyboard-focusable; on desktop the nav is always visible,
+// so drop the checkbox from the tab order there.
+@media (min-width: $breakpoint-md) {
+  .nav-checkbox {
+    display: none;
+  }
 }
 
 .nav-toggle {
@@ -245,22 +249,28 @@
   max-width: var(--content-max);
   max-height: 0;
   overflow: hidden;
+  // visibility:hidden keeps collapsed links out of the keyboard tab order
+  // (max-height:0 alone leaves them focusable). Delayed so the slide-out
+  // animation still plays before the menu is hidden.
+  visibility: hidden;
   padding: 0 var(--spacing-md);
   background: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
   border-top: none;
   margin-top: calc(-1 * var(--spacing-sm));
-  transition: max-height 0.25s ease, padding 0.25s ease;
+  transition: max-height 0.25s ease, padding 0.25s ease, visibility 0.25s ease;
 
   // Show nav when checkbox is checked (mobile)
   .nav-checkbox:checked ~ & {
     max-height: 500px; // Upper bound for nav items (supports ~12+ links)
     padding: var(--spacing-md);
+    visibility: visible;
   }
 
   @media (min-width: $breakpoint-md) {
     max-height: none;
     overflow: visible;
+    visibility: visible;
     width: auto;
     padding: 0;
     background: transparent;

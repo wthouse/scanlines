@@ -29,18 +29,22 @@
               <a href="{{ .RelPermalink }}">{{ .Title }}</a>
             </h2>
             <div class="post-list-meta">
+              {{- if not .Date.IsZero }}
               <time class="post-list-date" datetime="{{ .Date.Format "2006-01-02" }}">
                 {{ .Date.Format $dateFormat }}
               </time>
+              {{- end }}
               {{- if $showReadingTime }}
               <span class="post-list-reading-time">{{ partial "reading-time.html" (dict "page" . "short" true) }}</span>
               {{- end }}
-              {{- if and $showTags .Params.tags }}
+              {{- if $showTags }}
+              {{- with .GetTerms "tags" }}
               <span class="post-list-tags">
-                {{- range first 3 .Params.tags }}
-                <a href="{{ "tags/" | relURL }}{{ . | urlize }}/" class="tag-inline">#{{ . }}</a>
+                {{- range first 3 . }}
+                <a href="{{ .RelPermalink }}" class="tag-inline">#{{ .LinkTitle | lower }}</a>
                 {{- end }}
               </span>
+              {{- end }}
               {{- end }}
             </div>
             {{- with .Params.summary }}

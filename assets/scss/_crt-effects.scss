@@ -98,10 +98,13 @@
     display: none;
   }
 
-  // Note: @media (prefers-reduced-motion: reduce) intentionally omitted here.
-  // Windows "Animate windows" OS setting triggers this media query globally,
-  // which would hide flicker even when explicitly configured. Users who need
-  // reduced motion should use accessibility.reduceMotion = true in hugo.toml.
+  // A ~5Hz brightness oscillation is exactly what prefers-reduced-motion is for,
+  // so honor it. Flicker is opt-in (effects.flicker, default false), so this
+  // costs default sites nothing and only affects sites that turned it on.
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    display: none;
+  }
 }
 
 // Organic phosphor brightness variation — irregular waveform avoids strobe feel.
@@ -242,7 +245,9 @@
 .site-wrapper {
   position: relative;
 
-  .crt-enabled:not(.effects-disabled) & {
+  // Gated on .crt-vignette-enabled (not just .crt-enabled) so the vignette
+  // config toggle removes this layer too, and it never stacks when vignette is off.
+  .crt-vignette-enabled:not(.effects-disabled) & {
     &::before {
       content: "";
       position: fixed;

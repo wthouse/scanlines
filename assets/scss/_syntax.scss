@@ -63,6 +63,11 @@
   pre {
     border: none;
     background: transparent;
+    // No wrapping in table mode — the code column scrolls horizontally instead,
+    // so wrapped lines can't desync the line-number column beside it.
+    white-space: pre;
+    word-break: normal;
+    overflow-wrap: normal;
   }
 }
 

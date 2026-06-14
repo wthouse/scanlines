@@ -1,0 +1,23 @@
+{{- /* pagination.html — terminal-styled pager.
+       Pass the Pager built by the list template, e.g.
+         {{ partial "pagination.html" $paginator }}
+       so Hugo reuses that paginator instead of building a second one (which
+       would error on a different page set). Replaces Hugo's embedded
+       _internal/pagination.html, whose .page-item/.page-link markup the theme
+       never styled. */ -}}
+{{- $p := . -}}
+{{- if gt $p.TotalPages 1 -}}
+<nav class="pagination" aria-label="{{ or (i18n "pagination") "Pagination" }}">
+  {{- if $p.HasPrev -}}
+  <a class="pagination-link" href="{{ $p.Prev.URL }}" rel="prev">{{ or (i18n "prevPage") "<< PREV" }}</a>
+  {{- else -}}
+  <span class="pagination-link disabled" aria-hidden="true">{{ or (i18n "prevPage") "<< PREV" }}</span>
+  {{- end -}}
+  <span class="pagination-info">{{ i18n "pageInfo" (dict "Current" $p.PageNumber "Total" $p.TotalPages) }}</span>
+  {{- if $p.HasNext -}}
+  <a class="pagination-link" href="{{ $p.Next.URL }}" rel="next">{{ or (i18n "nextPage") "NEXT >>" }}</a>
+  {{- else -}}
+  <span class="pagination-link disabled" aria-hidden="true">{{ or (i18n "nextPage") "NEXT >>" }}</span>
+  {{- end -}}
+</nav>
+{{- end -}}

@@ -1,7 +1,12 @@
 {{- /* SEO Meta Tags */ -}}
 
-{{- $description := .Description | default .Site.Params.description | default "" -}}
+{{- /* Description: front-matter description → page summary (content pages) →
+       site description. Mirrors the JSON-LD fallback in schema.html. */ -}}
+{{- $description := .Description | default (cond .IsPage (.Summary | plainify | chomp) "") | default .Site.Params.description | default "" -}}
+{{- /* Home shares the site title (matches the <title> tag in head.html) so
+       share cards don't read "Home". */ -}}
 {{- $title := .Title | default .Site.Title -}}
+{{- if .IsHome }}{{ $title = .Site.Title }}{{ end -}}
 {{- /* Per-page image, falling back to a site-wide default (scanlines.ogImage) */ -}}
 {{- $image := .Params.image | default site.Params.scanlines.ogImage -}}
 {{- /* og:locale wants language_TERRITORY, e.g. en_US */ -}}
@@ -20,7 +25,7 @@
 <meta property="og:title" content="{{ $title }}">
 <meta property="og:description" content="{{ $description }}">
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
-<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:url" content="{{ partial "canonical-url.html" . }}">
 <meta property="og:locale" content="{{ $ogLocale }}">
 {{- if .Site.Title }}
 <meta property="og:site_name" content="{{ .Site.Title }}">

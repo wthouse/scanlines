@@ -417,8 +417,8 @@ Install Hugo Extended version.
 ### Fonts Not Loading
 
 Check that fonts exist in `themes/scanlines/static/fonts/`:
-- `Glass_TTY_VT220.woff2` (and `.ttf` fallback)
-- `FiraCode-Regular.woff2` (and `.ttf` fallback)
+- `Glass_TTY_VT220.woff2`
+- `FiraCode-Regular.woff2`
 
 ### Effects Not Showing
 

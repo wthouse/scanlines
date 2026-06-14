@@ -33,7 +33,9 @@
       {{- with $layout.contentWidth }}--content-max: {{ . }};{{ end }}
       {{- with $typography.baseFontSize }}--base-font-size: {{ . }};{{ end }}
       {{- with $effects.glowIntensity }}--glow-intensity: {{ . }};{{ end }}
-      {{- with $effects.flickerIntensity }}--flicker-intensity: {{ . }};{{ end }}
+      {{- /* Validate numeric and clamp to <=1 — caps the flash amplitude well
+             under the WCAG 2.3.1 luminance threshold even if mis-configured. */ -}}
+      {{- with $effects.flickerIntensity }}{{ if findRE `^[0-9]*\.?[0-9]+$` (printf "%v" .) }}--flicker-intensity: {{ math.Min (float .) 1 }};{{ end }}{{ end }}
       {{- /* Validate numeric before float() so a typo (e.g. "large") can't abort the build — mirrors the hex validation above */ -}}
       {{- with $header.asciiScale }}{{ if findRE `^[0-9]*\.?[0-9]+$` (printf "%v" .) }}--ascii-scale: {{ float . }};{{ end }}{{ end }}
     }
@@ -43,7 +45,7 @@
 <body class="scanlines-body
   {{- if ne $effects.enabled false }} crt-enabled{{ end -}}
   {{- if ne $effects.glow false }} crt-glow{{ end -}}
-  {{- if ne $effects.vignette false }} crt-vignette-enabled{{ end -}}
+  {{- if and (ne $effects.enabled false) (ne $effects.vignette false) }} crt-vignette-enabled{{ end -}}
   {{- if site.Params.scanlines.accessibility.disableEffects }} effects-disabled{{ end -}}
   {{- if site.Params.scanlines.accessibility.reduceMotion }} reduce-motion{{ end -}}
   {{- if site.Params.scanlines.accessibility.highContrast }} high-contrast{{ end -}}

@@ -1,13 +1,20 @@
 {{ define "main" }}
+{{- /* Rich list for content sections. Applies to ANY section so a renamed
+       contentSection (e.g. content/articles/) keeps reading time, tags, and the
+       POSTS heading instead of falling back to the bare _default/list.html. */ -}}
 {{- $dateFormat := site.Params.scanlines.dateFormat | default "2006-01-02" -}}
 {{- $showReadingTime := ne site.Params.scanlines.showReadingTime false -}}
 {{- $showTags := ne site.Params.scanlines.showTags false -}}
+{{- $isPostsSection := eq .Section (site.Params.scanlines.contentSection | default "posts") -}}
 <div class="container">
   <div class="content-wrapper">
     <header class="list-header">
-      <h1 class="list-title">{{ or (i18n "postsTitle") "POSTS" }}</h1>
+      <h1 class="list-title">{{ if $isPostsSection }}{{ or (i18n "postsTitle") "POSTS" }}{{ else }}{{ .Title }}{{ end }}</h1>
+      {{- with .Description }}
+      <p class="list-description">{{ . }}</p>
+      {{- end }}
       {{- if .Pages }}
-      <p class="list-count">[ {{ i18n "postCount" (len .Pages) }} ]</p>
+      <p class="list-count">[ {{ if $isPostsSection }}{{ i18n "postCount" (len .Pages) }}{{ else }}{{ i18n "entryCount" (len .Pages) }}{{ end }} ]</p>
       {{- end }}
     </header>
 
@@ -21,18 +28,22 @@
             <a href="{{ .RelPermalink }}">{{ .Title }}</a>
           </h2>
           <div class="post-list-meta">
+            {{- if not .Date.IsZero }}
             <time class="post-list-date" datetime="{{ .Date.Format "2006-01-02" }}">
               {{ .Date.Format $dateFormat }}
             </time>
+            {{- end }}
             {{- if $showReadingTime }}
             <span class="post-list-reading-time">{{ partial "reading-time.html" (dict "page" . "short" true) }}</span>
             {{- end }}
-            {{- if and $showTags .Params.tags }}
+            {{- if $showTags }}
+            {{- with .GetTerms "tags" }}
             <span class="post-list-tags">
-              {{- range first 3 .Params.tags }}
-              <a href="{{ "tags/" | relURL }}{{ . | urlize }}/" class="tag-inline">#{{ . }}</a>
+              {{- range first 3 . }}
+              <a href="{{ .RelPermalink }}" class="tag-inline">#{{ .LinkTitle | lower }}</a>
               {{- end }}
             </span>
+            {{- end }}
             {{- end }}
           </div>
           {{- with .Params.summary }}
@@ -51,8 +62,7 @@
       {{- end }}
     </ul>
 
-    {{- /* Pagination */ -}}
-    {{- template "_internal/pagination.html" . }}
+    {{- partial "pagination.html" $paginator }}
     {{- else }}
     <p class="no-posts">{{ or (i18n "noPosts") "No posts yet. Start writing!" }}</p>
     {{- end }}

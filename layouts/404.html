@@ -9,11 +9,11 @@
       <div class="terminal-box">
         <p>{{ or (i18n "notFoundLine1") "%SYSTEM-W-NOTFOUND, page not found" }}</p>
         <p>{{ or (i18n "notFoundLine2") "%SYSTEM-I-VERIFY, check path and retry" }}</p>
-        <p>{{ or (i18n "notFoundSuggestPre") "%SYSTEM-I-SUGGEST, return to " }}<a href="{{ "/" | relURL }}">{{ or (i18n "notFoundHomeLink") "home directory" }}</a></p>
+        <p>{{ or (i18n "notFoundSuggestPre") "%SYSTEM-I-SUGGEST, return to " }}<a href="{{ site.Home.RelPermalink }}">{{ or (i18n "notFoundHomeLink") "home directory" }}</a></p>
       </div>
 
       <div class="error-actions">
-        <a href="{{ "/" | relURL }}" class="btn">{{ or (i18n "returnHome") "RETURN HOME" }}</a>
+        <a href="{{ site.Home.RelPermalink }}" class="btn">{{ or (i18n "returnHome") "RETURN HOME" }}</a>
         <a href="{{ (printf "%s/" $section) | relURL }}" class="btn">{{ or (i18n "viewPosts") "VIEW POSTS" }}</a>
       </div>
     </div>

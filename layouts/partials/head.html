@@ -3,7 +3,7 @@
 
 {{- partial "meta.html" . -}}
 
-<link rel="canonical" href="{{ .Permalink }}">
+<link rel="canonical" href="{{ partial "canonical-url.html" . }}">
 
 <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
 
@@ -44,7 +44,9 @@
 
 {{- /* Favicon */ -}}
 {{- $favicon := site.Params.scanlines.favicon | default "/favicon.ico" -}}
-<link rel="icon" type="image/x-icon" href="{{ $favicon | relURL }}">
+{{- /* Strip a leading slash so the path resolves under a subdirectory baseURL
+       (relURL leaves leading-slash input at the host root). */ -}}
+<link rel="icon" type="image/x-icon" href="{{ strings.TrimPrefix "/" $favicon | relURL }}">
 
 {{- /* Structured data (JSON-LD) */ -}}
 {{- partial "schema.html" . -}}

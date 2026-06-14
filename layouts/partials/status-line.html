@@ -1,14 +1,18 @@
 {{- $statusLine := site.Params.scanlines.statusLine -}}
 {{- if ne $statusLine.enabled false -}}
 {{- $colorScheme := site.Params.scanlines.colorScheme | default "amber" -}}
-<div class="status-line" role="contentinfo" aria-label="Status line">
+{{- /* Decorative: every field duplicates content available elsewhere, so hide
+       the whole bar from assistive tech. This also avoids a second contentinfo
+       landmark (the page footer already provides one) and the lone "_" cursor
+       being read aloud as "underscore". */ -}}
+<div class="status-line" aria-hidden="true">
   {{- /* Left: Site title with blinking cursor */ -}}
   <span class="status-line-left">{{ .Site.Title }}<span class="status-cursor">_</span></span>
 
   {{- /* Center: Current section */ -}}
   <span class="status-line-center">
     {{- if .IsHome -}}
-      HOME
+      {{ or (i18n "statusHome") "HOME" }}
     {{- else if .Section -}}
       {{ .Section | upper }}
     {{- else -}}
@@ -21,11 +25,11 @@
     {{- if .IsPage -}}
       {{ partial "reading-time.html" (dict "page" . "short" true) }}
     {{- else if eq .Kind "term" -}}
-      {{ len .Pages }} POSTS
+      {{ len .Pages }} {{ or (i18n "postsTitle") "POSTS" }}
     {{- else if eq .Kind "taxonomy" -}}
-      {{ len .Pages }} TAGS
+      {{ len .Pages }} {{ .Data.Plural | upper }}
     {{- else if eq .Kind "section" -}}
-      {{ len .Pages }} POSTS
+      {{ len .Pages }} {{ or (i18n "postsTitle") "POSTS" }}
     {{- else -}}
       {{- if eq $colorScheme "amber" -}}P3 AMBER
       {{- else if eq $colorScheme "green" -}}P1 GREEN

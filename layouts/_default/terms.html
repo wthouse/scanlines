@@ -25,7 +25,7 @@
       {{- end }}
     </ul>
     {{- else }}
-    <p class="no-content">{{ printf "No %s found." $plural }}</p>
+    <p class="no-content">{{ or (i18n "noTermsFound" (dict "Name" $plural)) (printf "No %s found." $plural) }}</p>
     {{- end }}
   </div>
 </div>

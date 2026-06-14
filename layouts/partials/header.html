@@ -7,27 +7,31 @@
       {{- /* Reject path traversal — asciiFile is resolved under static/ */ -}}
       {{- if and $asciiFile (not (strings.Contains $asciiFile "..")) (fileExists (printf "static/%s" $asciiFile)) -}}
         {{- $content := readFile (printf "static/%s" $asciiFile) -}}
-        <a href="{{ "/" | relURL }}" class="ascii-header-link">
+        <a href="{{ site.Home.RelPermalink }}" class="ascii-header-link">
           <pre class="ascii-header" aria-label="{{ $.Site.Title }}">{{ $content }}</pre>
         </a>
       {{- else -}}
-        <a href="{{ "/" | relURL }}" class="site-title">{{ .Site.Title }}</a>
+        <a href="{{ site.Home.RelPermalink }}" class="site-title">{{ .Site.Title }}</a>
       {{- end -}}
     </div>
     {{- end -}}
 
-    <input type="checkbox" id="nav-toggle" class="nav-checkbox" aria-hidden="true">
-    <label for="nav-toggle" class="nav-toggle" role="button" aria-label="Toggle navigation">
-      <span class="nav-toggle-label">MENU</span>
-      <span class="nav-toggle-icon">[+]</span>
+    {{- /* Visually-hidden (not display:none) so the checkbox stays keyboard-
+           focusable; the <label> is its accessible name and the icon is decorative. */ -}}
+    <input type="checkbox" id="nav-toggle" class="nav-checkbox sr-only">
+    <label for="nav-toggle" class="nav-toggle">
+      <span class="nav-toggle-label">{{ or (i18n "menu") "MENU" }}</span>
+      <span class="nav-toggle-icon" aria-hidden="true">[+]</span>
     </label>
 
-    <nav class="site-nav" aria-label="Main navigation">
+    <nav class="site-nav" aria-label="{{ or (i18n "mainNav") "Main navigation" }}">
       <ul class="nav-list">
         {{- $isBlogMode := eq (site.Params.scanlines.homepage | default "blog") "blog" -}}
-        {{- $sectionURL := printf "/%s/" (site.Params.scanlines.contentSection | default "posts") -}}
+        {{- /* Match the posts section by its resolved URL so the auto-hide also
+               works under a subdirectory baseURL (where .URL is /blog/posts/). */ -}}
+        {{- $sectionPage := site.GetPage (printf "/%s" (site.Params.scanlines.contentSection | default "posts")) -}}
         {{- range .Site.Menus.main }}
-        {{- if not (and $isBlogMode (eq .URL $sectionURL)) }}
+        {{- if not (and $isBlogMode $sectionPage (eq .URL $sectionPage.RelPermalink)) }}
         <li class="nav-item">
           <a href="{{ .URL | relURL }}" class="nav-link{{ if $.IsMenuCurrent "main" . }} active{{ end }}">
             {{ .Name }}

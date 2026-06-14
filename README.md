@@ -18,7 +18,7 @@ A retro Hugo theme inspired by the look and feel of classic CRT terminals like t
 - **No External Dependencies** - Self-hosted WOFF2 fonts and assets
 - **No JavaScript** - Pure CSS effects and interactions
 - **Translatable** - All UI strings run through Hugo's i18n system (ships `i18n/en.toml`)
-- **Render Hooks** - Lazy-loaded images, external-link markers, and heading permalinks
+- **Render Hooks** - Lazy-loaded images and heading permalinks
 - **Accessibility** - Respects `prefers-reduced-motion`, configurable contrast, VT220-style reverse-video focus
 
 ## Quick Start
@@ -41,6 +41,11 @@ Add to your `hugo.toml`:
 hugo mod get -u
 hugo server
 ```
+
+> **Code blocks:** Hugo's default highlighter inlines its own (monokai) colors,
+> which clash with the theme. Add `[markup.highlight]` with `noClasses = false`
+> to your `hugo.toml` so code uses the theme's terminal styling. See
+> [Syntax Highlighting](#syntax-highlighting).
 
 ## Requirements
 
@@ -205,6 +210,18 @@ The VT220's signature 25th line, shown as a fixed bar at the bottom of the scree
 ```
 
 ### Syntax Highlighting
+
+Scanlines styles code with Chroma's **class-based** highlighting, which requires
+`noClasses = false` in your `hugo.toml`. Without it, Hugo inlines its own
+(monokai) colors and the theme's styling — including the `colored` toggle below —
+has no effect:
+
+```toml
+[markup.highlight]
+  noClasses = false           # required: use the theme's syntax styling
+  lineNos = true              # optional: show line numbers
+  lineNumbersInTable = true   # optional: keeps line numbers selectable
+```
 
 ```toml
 [params.scanlines.syntax]
