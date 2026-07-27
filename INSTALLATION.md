@@ -113,7 +113,9 @@ Add `theme = "scanlines"` to your `hugo.toml`.
 
 ```toml
 baseURL = "https://example.com/"
-locale = "en-us"   # Hugo < 0.158: use languageCode = "en-us" instead
+locale = "en-us"   # Hugo >= 0.158. On older Hugo this key is IGNORED and the
+                   # site falls back to lang="en" (no region) — use
+                   # languageCode = "en-us" instead if you target < 0.158.
 title = "Your Site Title"
 theme = "scanlines"  # Not needed if using Hugo Modules
 
@@ -237,7 +239,9 @@ Here's a complete `hugo.toml` with all available options:
 
 ```toml
 baseURL = "https://example.com/"
-locale = "en-us"   # Hugo < 0.158: use languageCode = "en-us" instead
+locale = "en-us"   # Hugo >= 0.158. On older Hugo this key is IGNORED and the
+                   # site falls back to lang="en" (no region) — use
+                   # languageCode = "en-us" instead if you target < 0.158.
 title = "TERMINAL"
 theme = "scanlines"
 
@@ -434,7 +438,13 @@ Check that fonts exist in `themes/scanlines/static/fonts/`:
 
 1. Check `params.scanlines.effects.enabled = true`
 2. Check `params.scanlines.accessibility.disableEffects` is not `true`
-3. Check browser doesn't have reduced motion preference
+3. Check the individual toggle (`scanlines`, `vignette`, `glow`) is not `false`
+
+Note that a reduced-motion preference — the OS setting, or
+`accessibility.reduceMotion = true` — stops *animation* only: the screen
+flicker, scanline drift, and the blinking status-line cursor. Static scanlines,
+vignette and glow stay visible by design. If the flicker specifically is
+missing, that's the cause (it's also off by default: set `effects.flicker = true`).
 
 ### Build Errors
 
@@ -497,10 +507,49 @@ cd themes/scanlines
 git pull origin main
 ```
 
+## Deploying
+
+The theme is static output with no build step of its own — any Hugo host works.
+Two things matter everywhere:
+
+- **Use the extended Hugo binary, v0.146.0 or later.** Most hosts default to an
+  older, non-extended build, which fails with `TOCSS: failed to transform`.
+- **`baseURL` must match the final URL**, including any subpath.
+
+### GitHub Pages
+
+Project sites served from a subdirectory (`https://user.github.io/repo/`) are
+fully supported — set `baseURL = "https://user.github.io/repo/"` and the theme's
+links, favicon, feeds and share images all resolve under the subpath.
+
+```yaml
+# .github/workflows/deploy.yml
+- uses: peaceiris/actions-hugo@v3
+  with:
+    hugo-version: '0.146.0'
+    extended: true
+- run: hugo --minify
+- uses: peaceiris/actions-gh-pages@v4
+  with:
+    github_token: ${{ secrets.GITHUB_TOKEN }}
+    publish_dir: ./public
+```
+
+### Cloudflare Pages / Netlify
+
+Set the build command to `hugo --minify`, the output directory to `public`, and
+add an environment variable pinning an extended Hugo:
+
+```
+HUGO_VERSION = 0.146.0
+```
+
+Both platforms read `HUGO_VERSION` and install the extended build. Without the
+pin they fall back to an old default and the SCSS pipeline fails.
+
 ## Support
 
 - **Issues**: [GitHub Issues](https://github.com/wthouse/scanlines/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/wthouse/scanlines/discussions)
 
 ---
 

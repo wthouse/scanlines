@@ -2,6 +2,8 @@
 
 A retro Hugo theme inspired by the look and feel of classic CRT terminals like the DEC VT220 and VT100. Features historically accurate phosphor color schemes, authentic CRT visual effects, and a clean, minimal design.
 
+**[Live demo](https://wt.house)** · [Installation](INSTALLATION.md) · [Configuration](#configuration-reference) · [Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md)
+
 ![Scanlines theme - Blog homepage](https://raw.githubusercontent.com/wthouse/scanlines/main/images/homepage_blog.png)
 
 ## Features
@@ -18,7 +20,7 @@ A retro Hugo theme inspired by the look and feel of classic CRT terminals like t
 - **No External Dependencies** - Self-hosted WOFF2 fonts and assets
 - **No JavaScript** - Pure CSS effects and interactions
 - **Translatable** - All UI strings run through Hugo's i18n system (ships `i18n/en.toml`)
-- **Render Hooks** - Lazy-loaded images and heading permalinks
+- **Render Hooks** - Lazy-loaded images, heading permalinks, and external links that open in a new tab
 - **Accessibility** - Respects `prefers-reduced-motion`, configurable contrast, VT220-style reverse-video focus
 
 ## Quick Start
@@ -148,7 +150,12 @@ Override the default color scheme with custom hex values:
   glowIntensity = 0.8      # 0.0 - 2.0
 ```
 
-When CRT effects are enabled, images in articles are automatically treated with a grayscale filter and scanline overlay to match the terminal aesthetic. Hover to see the original colors.
+When CRT effects are enabled, images in articles get a partial-grayscale phosphor
+treatment so photos sit naturally on the terminal background; hovering eases the
+filter back (it doesn't fully restore the original colors). The additional
+scanline overlay applies to images wrapped in a `<figure>` — i.e. those inserted
+with Hugo's `figure` shortcode. Plain markdown images (`![alt](src)`) get the
+grayscale treatment and lazy loading, but no overlay.
 
 ### Accessibility
 
@@ -159,7 +166,10 @@ When CRT effects are enabled, images in articles are automatically treated with 
   disableEffects = false    # Turn off all CRT effects entirely
 ```
 
-The theme also respects the `prefers-reduced-motion` media query automatically.
+The theme also respects the `prefers-reduced-motion` media query automatically:
+every animation (screen flicker, scanline drift, the status-line cursor blink,
+smooth scrolling) stops. Static effects — scanlines, vignette, glow — stay
+visible, since they don't move; use `disableEffects` to remove those too.
 
 ### Header
 
@@ -264,11 +274,42 @@ Create posts in `content/posts/` (or your configured `contentSection`). Supports
 Tags use a `#name` chip; categories use a `/name` chip. Both link to their
 taxonomy term pages, which are labelled automatically.
 
+#### Post front matter
+
+Every key is optional. `hugo new posts/my-post.md` starts you off with the
+common ones (see `archetypes/posts.md`).
+
+| Key | Type | Effect |
+|-----|------|--------|
+| `title` | string | Post title — heading, `<title>`, share cards, JSON-LD |
+| `date` | date | Publication date. Omit it and the post shows no date in listings |
+| `description` | string | Meta description, share-card text, and the listing excerpt. Falls back to the summary |
+| `summary` | string | Listing excerpt only. Overrides the auto-generated summary |
+| `image` | path | Per-page Open Graph / Twitter image and JSON-LD image. Falls back to `scanlines.ogImage` |
+| `author` | string | Overrides `params.author` for this post (byline, `article:author`, JSON-LD) |
+| `tags` | list | `#tag` chips + tag term pages |
+| `categories` | list | `/category` chips + category term pages |
+| `toc` | bool | Force the table of contents on or off. Posts default to on when they have headings; other pages default to off |
+| `draft` | bool | Hidden unless you build with `-D` |
+
 ### Static Pages
-Create pages in `content/` (e.g., `content/about.md`).
+Create pages in `content/` (e.g., `content/about.md`). Set `toc: true` in front
+matter to give a long page a table of contents.
+
+### Archive Page
+A chronological index of every post, grouped by year. Create `content/archive.md`
+and point it at the archive layout:
+
+```yaml
+---
+title: "Archive"
+layout: "archives"
+---
+```
 
 ### 404 Page
-Custom 404 page with ASCII art.
+Custom VT220-style 404 page with VMS-flavored system messages
+(`%SYSTEM-W-NOTFOUND, page not found`) and links back to the homepage and posts.
 
 ## Extensibility
 
@@ -299,6 +340,97 @@ Create `layouts/partials/custom_footer.html`:
 ```html
 <script src="/js/custom.js"></script>
 ```
+
+> This partial renders at the very end of `<body>` — after the site footer and
+> the fixed status line, outside the page wrapper. It's the right place for
+> scripts, but the wrong place for anything that should appear *inside* an
+> article (see Comments below).
+
+## Integrations
+
+The theme ships no JavaScript and makes no external requests. Anything below is
+opt-in and supplied by your site — the theme just gives you the hook.
+
+> **Third-party scripts are a trust decision.** The snippets below load code
+> from someone else's origin at runtime, so that provider can change what
+> executes on your site. Subresource Integrity doesn't help here — these vendors
+> ship unversioned, frequently-updated files, and a pinned `integrity` hash
+> silently breaks on their next release. If that tradeoff matters to you,
+> self-host the script (then you *can* pin a hash), and either way keep the
+> origin listed in your [CSP](INSTALLATION.md#content-security-policy).
+
+### Comments
+
+Override `layouts/partials/article-footer.html` in your own site and append your
+embed after the existing taxonomy markup, so comments render inside the article
+where readers expect them. Copy the theme's version as a starting point:
+
+```bash
+cp themes/scanlines/layouts/partials/article-footer.html layouts/partials/
+```
+
+```html
+<!-- at the end of your copy, inside the closing </footer> -->
+{{ if .Params.comments | default true }}
+<script src="https://giscus.app/client.js" data-repo="you/your-repo" crossorigin="anonymous" async></script>
+{{ end }}
+```
+
+Don't use `custom_footer.html` for this — it renders after the status line, so
+the widget ends up detached from the post.
+
+### Analytics
+
+Add the snippet to `layouts/partials/custom_head.html` (shown above). Anything
+privacy-friendly and self-contained fits the theme's no-external-requests
+posture — for example:
+
+```html
+<script defer data-domain="example.com" src="https://plausible.io/js/script.js"></script>
+```
+
+If you deploy with a strict CSP, remember to allow the origin (see
+[INSTALLATION.md](INSTALLATION.md#content-security-policy)).
+
+### Search
+
+There's no built-in search: every client-side option (Fuse.js, Pagefind, Lunr)
+ships JavaScript, which the theme deliberately doesn't. Two ways to add it:
+
+- **Zero-JS** — a plain HTML form that hands off to an external engine:
+
+  ```html
+  <form action="https://duckduckgo.com/" method="get">
+    <input type="hidden" name="sites" value="example.com">
+    <input type="search" name="q" aria-label="Search this site">
+  </form>
+  ```
+
+- **Full-text** — add [Pagefind](https://pagefind.app/) as a post-build step via
+  `custom_footer.html`. That does introduce JavaScript to *your* site; the theme
+  itself stays clean.
+
+### Math
+
+Hugo renders LaTeX server-side, so math needs no client-side library. Enable the
+passthrough extension and add a render hook to your site:
+
+```toml
+[markup.goldmark.extensions.passthrough]
+  enable = true
+  [markup.goldmark.extensions.passthrough.delimiters]
+    block  = [['\[', '\]'], ['$$', '$$']]
+    inline = [['\(', '\)']]
+```
+
+```go-html-template
+{{/* layouts/_markup/render-passthrough.html */}}
+{{ transform.ToMath .Inner (dict "output" "mathml") }}
+```
+
+MathML output needs no stylesheet at all; see the
+[Hugo docs](https://gohugo.io/functions/transform/tomath/) for the KaTeX-CSS
+variant.
 
 ### Translations
 

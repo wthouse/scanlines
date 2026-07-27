@@ -26,11 +26,27 @@ opinionated — the guidelines below are short on purpose.
    CI runs this same check on every push and PR
    (`.github/workflows/build.yml`).
 3. Keep changes focused. One feature or fix per PR.
-4. If you're adding a config option, update both `INSTALLATION.md` and
-   `exampleSite/hugo.toml` so the reference stays in sync.
+4. If you're adding a config option, update `README.md`, `INSTALLATION.md` and
+   `exampleSite/hugo.toml` — all three carry a configuration reference, and they
+   drift apart if you only touch one.
 5. Avoid introducing JavaScript. The theme intentionally has none.
 6. Avoid external dependencies (CDN fonts, analytics scripts, tracking
    pixels, etc.). Everything should be self-hosted.
+
+## Translations
+
+Translations are the easiest way to contribute, and very welcome. The theme's
+UI is a couple of dozen short strings:
+
+1. Copy `i18n/en.toml` to `i18n/<lang>.toml` (e.g. `i18n/de.toml`).
+2. Translate the values, leaving the keys and any `{{ .Count }}` /
+   `{{ .Name }}` placeholders intact.
+3. Test with `defaultContentLanguage = "<lang>"` in `exampleSite/hugo.toml`.
+
+Partial translations are safe — templates fall back to English for missing keys,
+so a PR that covers half the file is still worth sending. See the
+[Translations section](README.md#translations) of the README for how sites
+consume them.
 
 ## Code style
 

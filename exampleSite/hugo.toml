@@ -2,7 +2,8 @@
 # Requires Hugo Extended for SCSS processing
 
 baseURL = "https://example.com/"
-# Hugo >= 0.158 language config; on older Hugo use: languageCode = "en-us"
+# Hugo >= 0.158 language config. On older Hugo `locale` is ignored and the site
+# falls back to lang="en" (no region); use languageCode = "en-us" there instead.
 locale = "en-us"
 title = "SCANLINES"
 theme = "scanlines"

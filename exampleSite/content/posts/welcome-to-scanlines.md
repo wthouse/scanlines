@@ -1,6 +1,6 @@
 ---
 title: "Welcome to Scanlines"
-date: 2024-01-15
+date: 2026-05-12
 description: "An introduction to the Scanlines Hugo theme and its retro terminal aesthetic"
 tags: ["hugo", "theme", "retro", "terminal"]
 categories: ["Meta"]

@@ -1,6 +1,6 @@
 ---
 title: "Configuring Color Schemes"
-date: 2024-01-10
+date: 2026-06-02
 description: "How to customize the color scheme in the Scanlines theme"
 tags: ["configuration", "colors", "customization"]
 categories: ["Guides"]

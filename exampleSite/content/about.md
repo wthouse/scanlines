@@ -39,12 +39,19 @@ The visual effects are inspired by actual terminal specifications:
 See the [README](https://github.com/wthouse/scanlines) for setup instructions.
 
 ```bash
-# Clone the theme
+# From inside an existing Hugo site
 git clone https://github.com/wthouse/scanlines themes/scanlines
 
-# Start the development server
-hugo server
+# Point your hugo.toml at the theme, and use class-based syntax highlighting
+echo 'theme = "scanlines"' >> hugo.toml
+printf '\n[markup.highlight]\n  noClasses = false\n' >> hugo.toml
+
+# Start the development server (-D shows draft content)
+hugo server -D
 ```
+
+Hugo Modules, submodules and ZIP installs are covered in the
+[installation guide](https://github.com/wthouse/scanlines/blob/main/INSTALLATION.md).
 
 ### Credits
 

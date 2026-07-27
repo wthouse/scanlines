@@ -217,6 +217,26 @@ ol {
   }
 }
 
+// Definition lists (Goldmark renders these from plain markdown)
+dl {
+  margin-bottom: var(--spacing-md);
+}
+
+dt {
+  color: var(--color-fg-bright);
+  margin-top: var(--spacing-sm);
+}
+
+dd {
+  margin-left: var(--spacing-lg);
+  color: var(--color-fg-dim);
+
+  &::before {
+    content: ": ";
+    color: var(--color-fg-dim);
+  }
+}
+
 // -----------------------------------------------------------------------------
 // Code
 // -----------------------------------------------------------------------------
