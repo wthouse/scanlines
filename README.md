@@ -2,7 +2,7 @@
 
 A retro Hugo theme inspired by the look and feel of classic CRT terminals like the DEC VT220 and VT100. Features historically accurate phosphor color schemes, authentic CRT visual effects, and a clean, minimal design.
 
-![Scanlines theme - Blog homepage](images/homepage_blog.png)
+![Scanlines theme - Blog homepage](https://raw.githubusercontent.com/wthouse/scanlines/main/images/homepage_blog.png)
 
 ## Features
 
@@ -50,7 +50,9 @@ hugo server
 ## Requirements
 
 - **Hugo Extended** v0.146.0 or later (SCSS processing; render hooks use the 0.146+ template system)
-- No external build tools required
+- **Go** 1.18+ — only for the Hugo Modules install shown above. The submodule,
+  clone and ZIP methods in [INSTALLATION.md](INSTALLATION.md) need nothing but Git.
+- No other build tools, package managers or CDN requests
 
 ## Configuration Reference
 
@@ -96,7 +98,7 @@ All theme options are namespaced under `[params.scanlines]` in your `hugo.toml`.
 
 **Profile mode**: A landing page with your name, bio, social icons, and configurable buttons. Navigation is hidden — visitors navigate via the buttons you define.
 
-![Profile mode](images/homepage_profile.png)
+![Profile mode](https://raw.githubusercontent.com/wthouse/scanlines/main/images/homepage_profile.png)
 
 ```toml
 [params.scanlines]
@@ -320,13 +322,13 @@ If you set custom colors via `[params.scanlines.colors]`, verify contrast with a
 
 | Green | Blue | White |
 |-------|------|-------|
-| ![Green](images/homepage_profile_green.png) | ![Blue](images/homepage_profile_blue.png) | ![White](images/homepage_profile_white.png) |
+| ![Green](https://raw.githubusercontent.com/wthouse/scanlines/main/images/homepage_profile_green.png) | ![Blue](https://raw.githubusercontent.com/wthouse/scanlines/main/images/homepage_profile_blue.png) | ![White](https://raw.githubusercontent.com/wthouse/scanlines/main/images/homepage_profile_white.png) |
 
 ## More Screenshots
 
 | Single Post with TOC | Mobile View |
 |---------------------|-------------|
-| ![Single post](images/single_post.png) | ![Mobile](images/mobile_collapsed.png) |
+| ![Single post](https://raw.githubusercontent.com/wthouse/scanlines/main/images/single_post.png) | ![Mobile](https://raw.githubusercontent.com/wthouse/scanlines/main/images/mobile_collapsed.png) |
 
 ## Fonts
 

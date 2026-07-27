@@ -48,6 +48,11 @@ Download the `extended` version from [Hugo Releases](https://github.com/gohugoio
 
 ### Method 1: Hugo Module (Recommended)
 
+> **Requires the Go toolchain** (1.18+). Hugo shells out to `go` for module
+> commands — without it `hugo mod init` fails with
+> `binary with name "go" not found in PATH`. Install Go from
+> [go.dev/dl](https://go.dev/dl/), or use Method 2/3 below, which need only Git.
+
 Initialize your site as a Hugo module (if not already):
 
 ```bash
@@ -195,10 +200,15 @@ EOF
 ### 3. Start Development Server
 
 ```bash
-hugo server
+hugo server -D
 ```
 
 Visit `http://localhost:1313` to see your site.
+
+> **`-D` includes drafts.** `hugo new` sets `draft: true` in front matter, so
+> without `-D` your brand-new post and about page are skipped and the homepage
+> reads "No posts yet. Start writing!". Set `draft: false` (or remove the line)
+> when a page is ready to publish.
 
 ## Directory Structure
 
@@ -302,7 +312,7 @@ theme = "scanlines"
       scanlineOpacity = 0.4  # 0.0 - 1.0
       flicker = false        # Screen flicker
       flickerIntensity = 0.03
-      vignette = false       # Edge fade + screen curvature
+      vignette = true        # Edge fade + screen curvature (default: true)
       vignetteIntensity = 0.8
       glow = true            # Phosphor glow
       glowIntensity = 0.8    # 0.0 - 2.0
@@ -328,7 +338,7 @@ theme = "scanlines"
 
     # Status Line (VT220 25th line)
     [params.scanlines.statusLine]
-      enabled = false
+      enabled = true         # default: true
 
     # Layout
     [params.scanlines.layout]
