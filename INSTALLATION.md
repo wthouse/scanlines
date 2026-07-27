@@ -524,15 +524,28 @@ links, favicon, feeds and share images all resolve under the subpath.
 
 ```yaml
 # .github/workflows/deploy.yml
-- uses: peaceiris/actions-hugo@v3
-  with:
-    hugo-version: '0.146.0'
-    extended: true
-- run: hugo --minify
-- uses: peaceiris/actions-gh-pages@v4
-  with:
-    github_token: ${{ secrets.GITHUB_TOKEN }}
-    publish_dir: ./public
+name: Deploy
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive   # needed if the theme is a submodule
+      - uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.146.0'
+          extended: true
+      - run: hugo --minify
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
 ```
 
 ### Cloudflare Pages / Netlify

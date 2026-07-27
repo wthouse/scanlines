@@ -8,28 +8,39 @@
          and full Chroma line-number tables into item descriptions
        * the home feed advertised pages nobody subscribes to a blog for
 
-     So: the home feed carries the configured contentSection only, every feed
-     skips zero-date pages, and descriptions are plain text. */ -}}
+     So: the home feed carries the configured contentSection, page selection
+     otherwise mirrors Hugo's embedded template (so taxonomy and term feeds keep
+     working), pubDate is omitted rather than faked when a page has no date, and
+     descriptions are plain text. */ -}}
 {{- $section := site.Params.scanlines.contentSection | default "posts" -}}
-{{- $pages := .RegularPages -}}
+{{- $pages := .Pages -}}
 {{- if .IsHome -}}
   {{- $pages = where site.RegularPages "Section" $section -}}
+{{- else if .IsSection -}}
+  {{- $pages = .RegularPages -}}
 {{- end -}}
-{{- $pages = where $pages "Date.IsZero" false -}}
 {{- $limit := site.Config.Services.RSS.Limit -}}
-{{- if ge $limit 1 -}}
+{{- if and $limit (ge $limit 1) -}}
   {{- $pages = $pages | first $limit -}}
 {{- end -}}
+{{- /* RSS wants an email address in the person fields; a bare display name is
+       invalid. Only emit them when one is configured, and never interpolate a
+       map-shaped params.author. */ -}}
+{{- $author := "" -}}
+{{- with site.Params.author }}{{ if not (reflect.IsMap .) }}{{ $author = printf "%v" . }}{{ end }}{{ end -}}
+{{- $email := site.Params.scanlines.social.email -}}
+{{- $lang := partial "site-language.html" . -}}
 {{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
     <link>{{ .Permalink }}</link>
-    <description>{{ if .IsHome }}{{ site.Params.description }}{{ else }}{{ .Description | default .Title }}{{ end }}</description>
-    <generator>Hugo</generator>{{ with site.Language.LanguageCode }}
-    <language>{{ . }}</language>{{ end }}{{ with site.Params.author }}
-    <managingEditor>{{ . }}</managingEditor>
-    <webMaster>{{ . }}</webMaster>{{ end }}{{ with .Date }}
+    <description>{{ if .IsHome }}{{ site.Params.description | default site.Title }}{{ else }}{{ .Description | default .Title }}{{ end }}</description>
+    <generator>Hugo</generator>{{ with $lang }}
+    <language>{{ . }}</language>{{ end }}{{ with $email }}
+    <managingEditor>{{ . }}{{ with $author }} ({{ . }}){{ end }}</managingEditor>
+    <webMaster>{{ . }}{{ with $author }} ({{ . }}){{ end }}</webMaster>{{ end }}{{ with $author }}
+    <copyright>{{ . }}</copyright>{{ end }}{{ with .Date }}
     <lastBuildDate>{{ .Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</lastBuildDate>{{ end }}
     {{- with .OutputFormats.Get "RSS" }}
     {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType.Type | safeHTML }}
@@ -38,13 +49,19 @@
     <item>
       <title>{{ .Title }}</title>
       <link>{{ .Permalink }}</link>
+      {{- /* Omitted rather than faked for dateless pages — a year-0001 pubDate
+             is not a valid RFC-822 date and confuses feed readers. */}}
+      {{- if not .Date.IsZero }}
       <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
-      {{- with .Params.author | default site.Params.author }}
-      <author>{{ . }}</author>
+      {{- end }}
+      {{- with $email }}
+      <author>{{ . }}{{ with $author }} ({{ . }}){{ end }}</author>
       {{- end }}
       <guid>{{ .Permalink }}</guid>
-      {{- /* Plain text: keeps heading anchors and highlighted code out of readers. */}}
-      <description>{{ .Description | default (.Summary | plainify) | chomp }}</description>
+      {{- /* Plain text, with the heading-permalink anchors removed first —
+             plainify would otherwise leave their "#" glyphs mid-sentence. */}}
+      {{- $summary := .Summary | replaceRE `(?s)<a class="heading-anchor".*?</a>` "" | plainify | chomp -}}
+      <description>{{ .Description | default $summary }}</description>
     </item>
     {{- end }}
   </channel>

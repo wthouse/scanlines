@@ -41,11 +41,19 @@ See the [README](https://github.com/wthouse/scanlines) for setup instructions.
 ```bash
 # From inside an existing Hugo site
 git clone https://github.com/wthouse/scanlines themes/scanlines
+```
 
-# Point your hugo.toml at the theme, and use class-based syntax highlighting
-echo 'theme = "scanlines"' >> hugo.toml
-printf '\n[markup.highlight]\n  noClasses = false\n' >> hugo.toml
+Then add this to your `hugo.toml` — `theme` goes at the top level, above any
+`[table]` headers:
 
+```toml
+theme = "scanlines"
+
+[markup.highlight]
+  noClasses = false   # required for the theme's code styling
+```
+
+```bash
 # Start the development server (-D shows draft content)
 hugo server -D
 ```

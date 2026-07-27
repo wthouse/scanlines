@@ -126,10 +126,11 @@ ORDER  BY units DESC;
 }
 ```
 
-Long lines wrap rather than overflowing the column:
+With line numbers enabled (as in this demo), an over-long line scrolls
+horizontally inside the block, so the numbers stay aligned with their code:
 
 ```text
-$ dmesg | grep -i tty && echo "this line is deliberately long enough to demonstrate how the theme handles wrapping inside a fenced code block on narrow viewports"
+$ dmesg | grep -i tty && echo "this line is deliberately long enough to demonstrate how the theme handles overflow inside a fenced code block on narrow viewports"
 ```
 
 ## Horizontal rules

@@ -8,7 +8,7 @@
        subdirectory baseURL; absolute URLs and page-bundle resources pass
        through untouched. */ -}}
 {{- $src := .Destination -}}
-{{- if strings.HasPrefix $src "/" -}}
+{{- if and (strings.HasPrefix $src "/") (not (strings.HasPrefix $src "//")) -}}
   {{- $src = strings.TrimPrefix "/" $src | relURL -}}
 {{- end -}}
 <img src="{{ $src }}" alt="{{ $alt }}"{{ with .Title }} title="{{ . }}"{{ end }} loading="lazy" decoding="async">

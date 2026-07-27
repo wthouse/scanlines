@@ -283,8 +283,8 @@ common ones (see `archetypes/posts.md`).
 |-----|------|--------|
 | `title` | string | Post title — heading, `<title>`, share cards, JSON-LD |
 | `date` | date | Publication date. Omit it and the post shows no date in listings |
-| `description` | string | Meta description, share-card text, and the listing excerpt. Falls back to the summary |
-| `summary` | string | Listing excerpt only. Overrides the auto-generated summary |
+| `description` | string | Meta description, share-card text, JSON-LD, and RSS. Used as the listing excerpt when `summary` is unset |
+| `summary` | string | Listing excerpt. Takes precedence over `description` in listings; also used for the RSS item when `description` is unset |
 | `image` | path | Per-page Open Graph / Twitter image and JSON-LD image. Falls back to `scanlines.ogImage` |
 | `author` | string | Overrides `params.author` for this post (byline, `article:author`, JSON-LD) |
 | `tags` | list | `#tag` chips + tag term pages |
@@ -361,18 +361,28 @@ opt-in and supplied by your site — the theme just gives you the hook.
 
 ### Comments
 
-Override `layouts/partials/article-footer.html` in your own site and append your
-embed after the existing taxonomy markup, so comments render inside the article
-where readers expect them. Copy the theme's version as a starting point:
+Override `layouts/partials/article-footer.html` in your own site so comments
+render inside the article where readers expect them. Copy the theme's version as
+a starting point:
 
 ```bash
 cp themes/scanlines/layouts/partials/article-footer.html layouts/partials/
 ```
 
-```html
-<!-- at the end of your copy, inside the closing </footer> -->
+The theme's markup is wrapped in a `{{ if or $cats $tags }}` guard, so add your
+embed **after** that block's `{{ end }}` — putting it inside means posts with no
+tags or categories get no comments:
+
+```go-html-template
+{{/* ...theme's taxonomy markup and its closing {{ end }} above... */}}
+
 {{ if .Params.comments | default true }}
-<script src="https://giscus.app/client.js" data-repo="you/your-repo" crossorigin="anonymous" async></script>
+<div class="article-comments">
+  <script src="https://giscus.app/client.js"
+          data-repo="you/your-repo"
+          data-mapping="pathname"
+          crossorigin="anonymous" async></script>
+</div>
 {{ end }}
 ```
 
@@ -425,8 +435,12 @@ passthrough extension and add a render hook to your site:
 
 ```go-html-template
 {{/* layouts/_markup/render-passthrough.html */}}
-{{ transform.ToMath .Inner (dict "output" "mathml") }}
+{{ $opts := dict "output" "mathml" "displayMode" (eq .Type "block") }}
+{{ transform.ToMath .Inner $opts }}
 ```
+
+`displayMode` is what makes `$$…$$` render as a centered display equation rather
+than inline.
 
 MathML output needs no stylesheet at all; see the
 [Hugo docs](https://gohugo.io/functions/transform/tomath/) for the KaTeX-CSS
