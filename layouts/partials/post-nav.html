@@ -1,5 +1,8 @@
-{{- /* Shared post navigation partial - prev/next links */ -}}
-<nav class="post-nav" aria-label="Post navigation">
+{{- /* Shared post navigation partial - prev/next links.
+       Skipped entirely when a post has no siblings, so a single-post section
+       doesn't paint an orphan divider or announce an empty landmark. */ -}}
+{{- if or .PrevInSection .NextInSection }}
+<nav class="post-nav" aria-label="{{ or (i18n "postNav") "Post navigation" }}">
   <div class="post-nav-inner">
     {{- with .PrevInSection }}
     <a href="{{ .RelPermalink }}" class="post-nav-link post-nav-prev">
@@ -15,3 +18,4 @@
     {{- end }}
   </div>
 </nav>
+{{- end }}

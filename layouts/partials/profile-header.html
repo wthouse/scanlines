@@ -38,7 +38,7 @@
   {{- end }}
   {{- partial "social-icons.html" (dict "social" $social "class" "profile-social" "hideLabels" true) -}}
   {{- with .site.Params.scanlines.profile.buttons }}
-  <nav class="profile-buttons" aria-label="Quick links">
+  <nav class="profile-buttons" aria-label="{{ or (i18n "quickLinks") "Quick links" }}">
     {{- range . -}}
       {{- $u := urls.Parse .url -}}
       {{- /* Only render http/https/mailto or site-relative (empty scheme) — blocks javascript:/data: */ -}}

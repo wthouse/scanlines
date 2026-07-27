@@ -54,7 +54,10 @@
         "url" site.BaseURL
     -}}
     {{- with $profile.subtitle }}{{ $person = merge $person (dict "jobTitle" .) }}{{ end -}}
-    {{- with $profile.bio }}{{ $person = merge $person (dict "description" (. | plainify | chomp)) }}{{ end -}}
+    {{- /* markdownify first so emoji shortcodes and markdown resolve the same
+           way they do in the visible bio (profile-header.html) — plainify alone
+           left raw ":robot:" / "**bold**" in the structured data. */ -}}
+    {{- with $profile.bio }}{{ $person = merge $person (dict "description" (. | markdownify | plainify | chomp)) }}{{ end -}}
     {{- with $profile.avatar }}{{ $person = merge $person (dict "image" (. | absURL)) }}{{ end -}}
 <script type="application/ld+json">{{ $person | jsonify | safeJS }}</script>
   {{- end -}}

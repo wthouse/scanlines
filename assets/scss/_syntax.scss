@@ -23,8 +23,11 @@
     }
   }
 
-  // Optional: language label
-  &[data-lang]::before {
+  // Language label. Hugo puts data-lang on the inner <code>, never on the
+  // .highlight wrapper, so this has to hang off the code element; .highlight is
+  // position:relative above, which anchors the badge and keeps it clear of the
+  // <pre>'s overflow.
+  pre code[data-lang]::before {
     content: attr(data-lang);
     position: absolute;
     top: 0;

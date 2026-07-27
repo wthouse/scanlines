@@ -3,7 +3,13 @@
 
 {{- partial "meta.html" . -}}
 
+{{- /* The 404 page should never be indexed, and self-canonicalizing it invites
+       exactly that on hosts that serve /404.html with a 200. */ -}}
+{{- if eq .Kind "404" -}}
+<meta name="robots" content="noindex, follow">
+{{- else -}}
 <link rel="canonical" href="{{ partial "canonical-url.html" . }}">
+{{- end }}
 
 <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
 
@@ -37,10 +43,13 @@
   {{- end -}}
 {{- end -}}
 
-{{- /* RSS Feed */ -}}
-{{- range .AlternativeOutputFormats -}}
-  {{- printf `<link rel="%s" type="%s" href="%s" title="%s">` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
-{{- end -}}
+{{- /* RSS Feed. Written as a literal tag (not printf|safeHTML) so Hugo escapes
+       the title — a quote or ampersand in the site title used to emit broken
+       markup. Section feeds get a distinct label so subscribers can tell the
+       section feed apart from the site feed. */ -}}
+{{- range .AlternativeOutputFormats }}
+<link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink }}" title="{{ if $.IsHome }}{{ $.Site.Title }}{{ else }}{{ printf "%s | %s" $.Title $.Site.Title }}{{ end }}">
+{{- end }}
 
 {{- /* Favicon */ -}}
 {{- $favicon := site.Params.scanlines.favicon | default "/favicon.ico" -}}

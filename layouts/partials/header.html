@@ -7,8 +7,11 @@
       {{- /* Reject path traversal — asciiFile is resolved under static/ */ -}}
       {{- if and $asciiFile (not (strings.Contains $asciiFile "..")) (fileExists (printf "static/%s" $asciiFile)) -}}
         {{- $content := readFile (printf "static/%s" $asciiFile) -}}
+        {{- /* role="img" makes the aria-label the accessible name and marks the
+               art itself presentational — a bare <pre> is a generic role, where
+               naming is prohibited, so screen readers read the glyphs instead. */ -}}
         <a href="{{ site.Home.RelPermalink }}" class="ascii-header-link">
-          <pre class="ascii-header" aria-label="{{ $.Site.Title }}">{{ $content }}</pre>
+          <pre class="ascii-header" role="img" aria-label="{{ $.Site.Title }}">{{ $content }}</pre>
         </a>
       {{- else -}}
         <a href="{{ site.Home.RelPermalink }}" class="site-title">{{ .Site.Title }}</a>
@@ -16,6 +19,21 @@
     </div>
     {{- end -}}
 
+    {{- /* Work out which entries actually render before emitting any nav chrome,
+           so a site with no menu (or whose only entry is the auto-hidden posts
+           link) doesn't ship a MENU button that opens an empty box. */ -}}
+    {{- $isBlogMode := eq (site.Params.scanlines.homepage | default "blog") "blog" -}}
+    {{- /* Match the posts section by its resolved URL so the auto-hide also
+           works under a subdirectory baseURL (where .URL is /blog/posts/). */ -}}
+    {{- $sectionPage := site.GetPage (printf "/%s" (site.Params.scanlines.contentSection | default "posts")) -}}
+    {{- $visible := slice -}}
+    {{- range .Site.Menus.main -}}
+      {{- if not (and $isBlogMode $sectionPage (eq .URL $sectionPage.RelPermalink)) -}}
+        {{- $visible = $visible | append . -}}
+      {{- end -}}
+    {{- end -}}
+
+    {{- if and $visible (not $isProfileHome) }}
     {{- /* Visually-hidden (not display:none) so the checkbox stays keyboard-
            focusable; the <label> is its accessible name and the icon is decorative. */ -}}
     <input type="checkbox" id="nav-toggle" class="nav-checkbox sr-only">
@@ -26,20 +44,18 @@
 
     <nav class="site-nav" aria-label="{{ or (i18n "mainNav") "Main navigation" }}">
       <ul class="nav-list">
-        {{- $isBlogMode := eq (site.Params.scanlines.homepage | default "blog") "blog" -}}
-        {{- /* Match the posts section by its resolved URL so the auto-hide also
-               works under a subdirectory baseURL (where .URL is /blog/posts/). */ -}}
-        {{- $sectionPage := site.GetPage (printf "/%s" (site.Params.scanlines.contentSection | default "posts")) -}}
-        {{- range .Site.Menus.main }}
-        {{- if not (and $isBlogMode $sectionPage (eq .URL $sectionPage.RelPermalink)) }}
+        {{- range $visible }}
         <li class="nav-item">
-          <a href="{{ .URL | relURL }}" class="nav-link{{ if $.IsMenuCurrent "main" . }} active{{ end }}">
+          {{- /* IsMenuCurrent only matches pageRef/front-matter menu entries;
+                 the URL comparison keeps url-style menus (what most configs use)
+                 highlighting correctly. .URL already carries the baseURL path. */ -}}
+          <a href="{{ .URL | relURL }}" class="nav-link{{ if or ($.IsMenuCurrent "main" .) (eq .URL $.RelPermalink) }} active{{ end }}">
             {{ .Name }}
           </a>
         </li>
         {{- end }}
-        {{- end }}
       </ul>
     </nav>
+    {{- end }}
   </div>
 </header>

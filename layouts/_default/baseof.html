@@ -11,7 +11,10 @@
 
   {{- /* Custom color overrides — values validated as hex to prevent CSS context injection */ -}}
   {{- $colors := site.Params.scanlines.colors -}}
-  {{- $hexRE := `^#[0-9a-fA-F]{3,8}$` -}}
+  {{- /* Only real CSS hex lengths (3/4/6/8). A bare {3,8} also accepted 5- and
+         7-digit typos, which pass through as invalid colors and break every
+         var() that reads them instead of falling back to the scheme. */ -}}
+  {{- $hexRE := `^#([0-9a-fA-F]{3,4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$` -}}
   {{- if $colors -}}
   <style>
     :root {

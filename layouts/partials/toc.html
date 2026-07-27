@@ -18,7 +18,7 @@
     </nav>
   </details>
   {{- else }}
-  <aside class="toc" aria-label="Table of contents">
+  <aside class="toc" aria-label="{{ or (i18n "tableOfContents") "Table of contents" }}">
     <h2 class="toc-title">{{ $title }}</h2>
     <nav class="toc-nav">
       {{ $page.TableOfContents }}

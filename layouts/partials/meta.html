@@ -7,8 +7,11 @@
        share cards don't read "Home". */ -}}
 {{- $title := .Title | default .Site.Title -}}
 {{- if .IsHome }}{{ $title = .Site.Title }}{{ end -}}
-{{- /* Per-page image, falling back to a site-wide default (scanlines.ogImage) */ -}}
+{{- /* Per-page image, falling back to a site-wide default (scanlines.ogImage).
+       Strip a leading slash so absURL keeps a subdirectory baseURL (absURL
+       resolves "/x.png" against the host root, dropping the subpath). */ -}}
 {{- $image := .Params.image | default site.Params.scanlines.ogImage -}}
+{{- with $image }}{{ $image = strings.TrimPrefix "/" . }}{{ end -}}
 {{- /* og:locale wants language_TERRITORY, e.g. en_US */ -}}
 {{- $lcParts := split ((partial "site-language.html" .) | default "en-US") "-" -}}
 {{- $ogLocale := index $lcParts 0 -}}
@@ -74,4 +77,10 @@
 {{- if eq $scheme "green" }}{{ $themeColor = "#001A00" }}{{ end -}}
 {{- if eq $scheme "blue" }}{{ $themeColor = "#000A1A" }}{{ end -}}
 {{- if eq $scheme "white" }}{{ $themeColor = "#1A1A1A" }}{{ end -}}
+{{- /* A custom background overrides the scheme, so browser chrome matches the
+       real page background. Same hex validation as baseof.html — an invalid
+       value is dropped in both places, so they can never disagree. */ -}}
+{{- with site.Params.scanlines.colors.background -}}
+  {{- if findRE `^#([0-9a-fA-F]{3,4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$` . 1 }}{{ $themeColor = . }}{{ end -}}
+{{- end -}}
 <meta name="theme-color" content="{{ $themeColor }}">

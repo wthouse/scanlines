@@ -100,3 +100,22 @@ other = "{{ .Count }} entries"
 [postCount]
 one = "{{ .Count }} post"
 other = "{{ .Count }} posts"
+
+# Assistive-technology labels (landmarks and icon links)
+[postNav]
+other = "Post navigation"
+
+[tableOfContents]
+other = "Table of contents"
+
+[socialLinks]
+other = "Social links"
+
+[quickLinks]
+other = "Quick links"
+
+[emailLabel]
+other = "Email"
+
+[rssLabel]
+other = "RSS Feed"
