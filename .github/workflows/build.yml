@@ -17,9 +17,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Guard both ends of the supported range: the theme's min_version
-        # and whatever Hugo just released (catches new deprecations early).
-        hugo-version: ['0.146.7', 'latest']
+        # Guard both ends of the supported range: the floor declared in
+        # theme.toml / hugo.toml, and whatever Hugo just released (catches new
+        # deprecations early). Keep the low end in sync with min_version.
+        hugo-version: ['0.146.0', 'latest']
     steps:
       - name: Checkout (named "scanlines" so themesDir ../.. resolves)
         uses: actions/checkout@v4
@@ -40,5 +41,43 @@ jobs:
             --logLevel info 2>&1 | tee build.log
           if grep -qiE "WARN|deprecated" build.log; then
             echo "::error::Hugo emitted warnings — see log above"
+            exit 1
+          fi
+
+      # The default config only exercises blog mode with effects on. These
+      # variants render the other shipped code paths (profile header, the
+      # effects-disabled branch, subpath URL handling) so a template error there
+      # can't ship silently.
+      - name: Build config variants
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/ci
+          printf '[params.scanlines]\nhomepage = "profile"\n' > /tmp/ci/profile.toml
+          printf '[params.scanlines.effects]\nenabled = false\n' > /tmp/ci/effects-off.toml
+          printf '[params.scanlines.accessibility]\ndisableEffects = true\nhighContrast = true\n' > /tmp/ci/a11y.toml
+          for variant in profile effects-off a11y; do
+            echo "--- building variant: $variant ---"
+            hugo --source exampleSite --themesDir ../.. \
+              --config hugo.toml,/tmp/ci/$variant.toml \
+              --destination /tmp/ci/out-$variant \
+              --printI18nWarnings --printPathWarnings --logLevel info 2>&1 | tee variant.log
+            if grep -qiE "WARN|deprecated" variant.log; then
+              echo "::error::variant $variant emitted warnings"
+              exit 1
+            fi
+          done
+          echo "--- building with a subdirectory baseURL ---"
+          hugo --source exampleSite --themesDir ../.. \
+            --baseURL "https://example.com/blog/" \
+            --destination /tmp/ci/out-subpath \
+            --logLevel info 2>&1 | tee subpath.log
+          if grep -qiE "WARN|deprecated" subpath.log; then
+            echo "::error::subpath build emitted warnings"
+            exit 1
+          fi
+          # Root-absolute URLs would escape the subpath — catch regressions here.
+          if grep -rhoE '(href|src)="/[^"]*"' /tmp/ci/out-subpath --include='*.html' \
+             | grep -v '/blog/' | grep -vE '(href|src)="/"$' | sort -u | grep .; then
+            echo "::error::found URLs outside the /blog/ subpath (see list above)"
             exit 1
           fi

@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Installation and configuration guide
+    url: https://github.com/wthouse/scanlines/blob/main/INSTALLATION.md
+    about: Setup, every config option, deployment, CSP and troubleshooting.
+  - name: Configuration reference
+    url: https://github.com/wthouse/scanlines/blob/main/README.md#configuration-reference
+    about: Colors, effects, homepage modes, front matter and integrations.

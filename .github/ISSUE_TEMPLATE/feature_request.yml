@@ -1,0 +1,35 @@
+name: Feature request
+description: Suggest a config option or capability
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The theme aims to stay small, self-contained and JavaScript-free.
+        Proposals that fit those constraints have a much better chance.
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: What are you trying to do?
+      description: >
+        Describe the use case before the solution — there may be a way to do it
+        already with a template override or custom CSS.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would you like the theme to do?
+      description: If you have a config shape or markup in mind, sketch it here.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: constraints
+    attributes:
+      label: Constraints
+      options:
+        - label: This can be done without client-side JavaScript
+        - label: This needs no external requests (CDN, fonts, trackers)

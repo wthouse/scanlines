@@ -1,0 +1,69 @@
+name: Bug report
+description: Something in the theme renders or behaves incorrectly
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. The three fields below are what make a theme bug
+        reproducible — most reports stall without them.
+
+  - type: input
+    id: hugo-version
+    attributes:
+      label: Hugo version
+      description: Paste the full output of `hugo version` (it must include `+extended`).
+      placeholder: hugo v0.146.0+extended linux/amd64 BuildDate=...
+    validations:
+      required: true
+
+  - type: input
+    id: theme-version
+    attributes:
+      label: Theme version
+      description: Release tag, module version, or commit SHA.
+      placeholder: v1.0.0
+    validations:
+      required: true
+
+  - type: textarea
+    id: config
+    attributes:
+      label: Configuration
+      description: >
+        The `[params.scanlines]` block from your `hugo.toml` (plus any
+        `[markup]` settings). Redact anything private.
+      render: toml
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you expected, what you got, and the steps to reproduce.
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: Live URL or repository
+      description: A link where the problem is visible makes this much faster to fix.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: Where does it happen?
+      multiple: true
+      options:
+        - Chrome / Edge
+        - Firefox
+        - Safari (macOS)
+        - Safari (iOS)
+        - Chrome (Android)
+        - Not browser-specific
+    validations:
+      required: false

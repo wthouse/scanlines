@@ -4,4 +4,11 @@
        inside <p> is invalid. The CRT grayscale treatment is applied via CSS;
        use Hugo's built-in `figure` shortcode when you want a visible caption. */ -}}
 {{- $alt := .Text | default .PlainText -}}
-<img src="{{ .Destination }}" alt="{{ $alt }}"{{ with .Title }} title="{{ . }}"{{ end }} loading="lazy" decoding="async">
+{{- /* Site-relative destinations go through relURL so they keep working under a
+       subdirectory baseURL; absolute URLs and page-bundle resources pass
+       through untouched. */ -}}
+{{- $src := .Destination -}}
+{{- if strings.HasPrefix $src "/" -}}
+  {{- $src = strings.TrimPrefix "/" $src | relURL -}}
+{{- end -}}
+<img src="{{ $src }}" alt="{{ $alt }}"{{ with .Title }} title="{{ . }}"{{ end }} loading="lazy" decoding="async">
