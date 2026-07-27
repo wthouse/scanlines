@@ -64,7 +64,8 @@ $z-crt-overlay: 9999;   // scanline / flicker overlay (topmost)
   --content-max: 720px;
 
   // CRT effect defaults
-  --scanline-opacity: 0.15;
+  // Matches the template default (crt-overlay.html sets this inline per site).
+  --scanline-opacity: 0.4;
   --flicker-intensity: 0.03;
   --glow-intensity: 0.8;
 

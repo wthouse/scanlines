@@ -146,7 +146,9 @@
 
   // No glow on dim UI elements — bright glow clashes with intentionally dim text
   .article-meta,
-  .article-meta * {
+  .article-meta *,
+  .status-line,
+  .status-line * {
     text-shadow: none;
   }
 
@@ -281,7 +283,6 @@
 }
 
 .reduce-motion {
-  &.crt-enabled::before,
   .crt-flicker {
     animation: none !important;
     display: none !important;
@@ -290,7 +291,6 @@
 
 .effects-disabled {
   .crt-overlay,
-  &.crt-enabled::before,
   .site-wrapper::before {
     display: none !important;
   }

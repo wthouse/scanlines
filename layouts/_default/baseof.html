@@ -15,17 +15,20 @@
          7-digit typos, which pass through as invalid colors and break every
          var() that reads them instead of falling back to the scheme. */ -}}
   {{- $hexRE := `^#([0-9a-fA-F]{3,4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$` -}}
-  {{- if $colors -}}
-  <style>
-    :root {
-      {{- with $colors.foreground }}{{- if findRE $hexRE . 1 }}--color-fg: {{ . }}; --color-fg-bright: {{ . }};{{ end }}{{ end }}
-      {{- with $colors.background }}{{- if findRE $hexRE . 1 }}--color-bg: {{ . }};{{ end }}{{ end }}
-      {{- with $colors.backgroundSecondary }}{{- if findRE $hexRE . 1 }}--color-bg-secondary: {{ . }};{{ end }}{{ end }}
-      {{- with $colors.accent }}{{- if findRE $hexRE . 1 }}--color-accent: {{ . }};{{ end }}{{ end }}
-      {{- with $colors.link }}{{- if findRE $hexRE . 1 }}--color-link: {{ . }};{{ end }}{{ end }}
-      {{- with $colors.linkHover }}{{- if findRE $hexRE . 1 }}--color-link-hover: {{ . }};{{ end }}{{ end }}
-    }
-  </style>
+  {{- /* Collect the declarations first, so a config block of empty strings (the
+         shipped exampleSite shape) doesn't emit an empty <style>:root{}</style>
+         on every page. */ -}}
+  {{- $decls := slice -}}
+  {{- with $colors -}}
+    {{- with .foreground }}{{ if findRE $hexRE . 1 }}{{ $decls = $decls | append (printf "--color-fg: %s; --color-fg-bright: %s;" . .) }}{{ end }}{{ end -}}
+    {{- with .background }}{{ if findRE $hexRE . 1 }}{{ $decls = $decls | append (printf "--color-bg: %s;" .) }}{{ end }}{{ end -}}
+    {{- with .backgroundSecondary }}{{ if findRE $hexRE . 1 }}{{ $decls = $decls | append (printf "--color-bg-secondary: %s;" .) }}{{ end }}{{ end -}}
+    {{- with .accent }}{{ if findRE $hexRE . 1 }}{{ $decls = $decls | append (printf "--color-accent: %s;" .) }}{{ end }}{{ end -}}
+    {{- with .link }}{{ if findRE $hexRE . 1 }}{{ $decls = $decls | append (printf "--color-link: %s;" .) }}{{ end }}{{ end -}}
+    {{- with .linkHover }}{{ if findRE $hexRE . 1 }}{{ $decls = $decls | append (printf "--color-link-hover: %s;" .) }}{{ end }}{{ end -}}
+  {{- end -}}
+  {{- with $decls }}
+  <style>:root { {{ delimit . " " | safeCSS }} }</style>
   {{- end -}}
 
   {{- /* Layout and typography CSS variables (Issues 9, 13) */ -}}

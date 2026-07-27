@@ -57,6 +57,7 @@ body {
   color: var(--color-fg);
   background-color: var(--color-bg);
   min-height: 100vh;
+  min-height: 100svh; // small-viewport unit: no overshoot under mobile toolbars
   overflow-x: hidden;
   transition: color 0.3s ease, background-color 0.3s ease;
 }
@@ -552,6 +553,23 @@ button {
   a {
     color: #000;
     text-decoration: underline;
+  }
+
+  // Colored syntax mode sets literal pastel hexes, which survive the custom
+  // property remap above and print at ~1.4:1 on paper. Force ink.
+  .syntax-colored .chroma,
+  .syntax-colored .chroma span {
+    color: #000 !important;
+  }
+
+  .syntax-colored .chroma .c,
+  .syntax-colored .chroma .c1,
+  .syntax-colored .chroma .ch,
+  .syntax-colored .chroma .cm,
+  .syntax-colored .chroma .cp,
+  .syntax-colored .chroma .cpf,
+  .syntax-colored .chroma .cs {
+    color: #444 !important;
   }
 }
 
