@@ -4,7 +4,12 @@ licenselink = "https://github.com/wthouse/scanlines/blob/main/LICENSE"
 description = "A retro-inspired Hugo theme emulating classic CRT terminals like the DEC VT100 and VT220"
 homepage = "https://github.com/wthouse/scanlines"
 demosite = "https://wt.house"
-tags = ["retro", "terminal", "crt", "monochrome", "blog", "minimal"]
+# themes.gohugo.io normalizes tags against a fixed allowlist and silently drops
+# anything it doesn't recognize (see normalizeTag in hugoThemesSiteBuilder).
+# "retro"/"terminal"/"crt"/"monochrome" are dropped there but kept for humans;
+# "blog", "minimal", "dark", "personal" and "sass" are what actually place the
+# theme on the gallery's browse pages — and all five are accurate.
+tags = ["retro", "terminal", "crt", "monochrome", "blog", "minimal", "dark", "personal", "sass"]
 features = ["syntax highlighting", "responsive", "accessible", "crt effects", "profile mode", "structured data", "i18n", "render hooks", "categories", "woff2 fonts"]
 # layouts/_markup/ render hooks require the Hugo 0.146+ template system
 min_version = "0.146.0"
