@@ -483,6 +483,9 @@ The theme uses two self-hosted fonts:
 - **Glass TTY VT220** (default) - Authentic VT220 terminal font (Unlicense)
 - **Fira Code** (optional) - Modern monospace alternative (OFL)
 
+Full font license texts are in [LICENSE-FONTS.md](LICENSE-FONTS.md). The theme
+itself is MIT ([LICENSE](LICENSE)).
+
 ## Browser Support
 
 - Chrome/Edge 88+
