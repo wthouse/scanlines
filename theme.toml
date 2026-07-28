@@ -1,7 +1,9 @@
 name = "Scanlines"
 license = "MIT"
 licenselink = "https://github.com/wthouse/scanlines/blob/main/LICENSE"
-description = "A retro-inspired Hugo theme emulating classic CRT terminals like the DEC VT100 and VT220"
+# The gallery renders no README — this description is the ONLY prose shown on
+# the theme's listing page, so it has to carry the pitch.
+description = "A retro CRT terminal theme emulating the DEC VT220: four historically accurate phosphor schemes, pure-CSS scanlines and glow, and zero JavaScript."
 homepage = "https://github.com/wthouse/scanlines"
 demosite = "https://wt.house"
 # themes.gohugo.io normalizes tags against a fixed allowlist and silently drops
@@ -15,5 +17,5 @@ features = ["syntax highlighting", "responsive", "accessible", "crt effects", "p
 min_version = "0.146.0"
 
 [author]
-  name = "House"
+  name = "W. Troy House"
   homepage = "https://wt.house"
