@@ -76,8 +76,14 @@ jobs:
             exit 1
           fi
           # Root-absolute URLs would escape the subpath — catch regressions here.
-          if grep -rhoE '(href|src)="/[^"]*"' /tmp/ci/out-subpath --include='*.html' \
-             | grep -v '/blog/' | grep -vE '(href|src)="/"$' | sort -u | grep .; then
-            echo "::error::found URLs outside the /blog/ subpath (see list above)"
+          # Accepts quoted and unquoted attributes (--minify emits href=/x), and
+          # anchors the prefix match so a path merely containing "/blog/" (e.g.
+          # /other/blog/x) can't slip through.
+          escaped=$(grep -rhoE '(href|src)="?/[^" >]*' /tmp/ci/out-subpath --include='*.html' \
+            | sed -E 's/^(href|src)="?//' \
+            | grep -v '^//' | grep -vE '^/$' \
+            | grep -v '^/blog/' | sort -u || true)
+          if [ -n "$escaped" ]; then
+            echo "::error::these URLs escape the /blog/ subpath:"; printf '%s\n' "$escaped"
             exit 1
           fi

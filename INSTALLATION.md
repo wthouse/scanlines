@@ -560,6 +560,27 @@ HUGO_VERSION = 0.146.0
 Both platforms read `HUGO_VERSION` and install the extended build. Without the
 pin they fall back to an old default and the SCSS pipeline fails.
 
+**Preview deployments:** both hosts build every branch or pull request at a
+throwaway URL, but your `baseURL` still points at production, so absolute URLs
+in previews (canonical tags, feeds, share images) point at the live site. Each
+host exposes the real deployment URL as an environment variable, so you can
+override it at build time:
+
+```bash
+# Netlify — DEPLOY_PRIME_URL is the current deploy's URL and equals URL in
+# production, so this is safe to use unconditionally.
+hugo --minify --baseURL "$DEPLOY_PRIME_URL"
+
+# Cloudflare Pages — CF_PAGES_URL is the *.pages.dev address even in
+# production, so only override on preview branches. Otherwise a custom domain
+# would emit pages.dev canonicals.
+if [ "$CF_PAGES_BRANCH" = "main" ]; then
+  hugo --minify                                   # baseURL from hugo.toml
+else
+  hugo --minify --baseURL "$CF_PAGES_URL"
+fi
+```
+
 ## Support
 
 - **Issues**: [GitHub Issues](https://github.com/wthouse/scanlines/issues)

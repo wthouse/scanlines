@@ -3,6 +3,9 @@ exampleSite/public/
 exampleSite/resources/
 exampleSite/.hugo_build.lock
 resources/
+# demo build (scripts/build-demo.sh) — output plus the switcher partial it generates
+public/
+exampleSite/layouts/
 
 # OS
 .DS_Store
