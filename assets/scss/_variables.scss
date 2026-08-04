@@ -61,9 +61,11 @@ $z-crt-overlay: 9999;   // scanline / flicker overlay (topmost)
 
   // Container widths
   --container-max: 1200px;
-  // 80 columns at the default 20px cell (0.5em advance) — the VT220 raster
-  // was 800 dots wide for exactly this reason.
-  --content-max: 800px;
+  // 80 columns: the Glass TTY VT220 advance is exactly 0.5em, so 40rem is 80
+  // cells at ANY --base-font-size (800px at the 20px default). The VT220 raster
+  // was 800 dots wide for exactly this reason. Expressed in rem rather than px
+  // so it tracks the typography.baseFontSize knob instead of drifting from it.
+  --content-max: 40rem;
 
   // CRT effect defaults
   // Matches the template default (crt-overlay.html sets this inline per site).

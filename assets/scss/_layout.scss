@@ -326,9 +326,9 @@
   // *couldn't* highlight (cf. ncurses menu_mark), so it would invert the logic here.
   //
   //   rest    normal intensity, dim brackets
-  //   hover   underline                        SGR 4
-  //   current increased intensity              SGR 1 — DEC printed the selected
-  //                                            value in bold at rest
+  //   hover   increased intensity              SGR 1
+  //   current increased intensity + underline  SGR 1 + SGR 4 — the underline is
+  //                                            the non-colour cue; see below
   //   focus   reverse video (in _base.scss)    SGR 7 — the VT220 set-up manual
   //                                            defines its field cursor as
   //                                            "a highlighted field (reverse video)"
@@ -336,17 +336,33 @@
   // :not(:focus-visible) keeps hover from overriding that reverse video when a
   // keyboard-focused link is also moused over (_layout is imported after _base).
   &:hover:not(:focus-visible) {
-    color: var(--color-fg);
-    text-decoration: underline;
+    color: var(--color-fg-bright);
   }
 
   &.active {
     color: var(--color-fg-bright);
-    text-decoration: none;
+
+    // Underline is the NON-COLOUR cue. Increased intensity alone measures only
+    // ~1.34:1 against normal in amber, 1.04:1 in green, and exactly 1.00:1 in
+    // high-contrast mode, where --color-fg and --color-fg-bright are both
+    // #ffffff — so colour cannot carry "you are here" by itself (WCAG 1.4.1).
+    // The markup pairs this with aria-current="page".
+    text-decoration: underline;
 
     &::before,
     &::after {
       color: var(--color-fg-bright);
+    }
+
+    // Reverse video paints --color-fg behind the label; without flipping the
+    // text as well it sits at 1.34:1 against its own background.
+    &:focus-visible {
+      color: var(--color-bg);
+
+      &::before,
+      &::after {
+        color: var(--color-bg);
+      }
     }
   }
 }

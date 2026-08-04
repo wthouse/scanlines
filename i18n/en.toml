@@ -47,10 +47,10 @@ other = "No {{ .Name }} found."
 other = "Pagination"
 
 [prevPage]
-other = "<< PREV SCREEN"
+other = "<< PREV"
 
 [nextPage]
-other = "NEXT SCREEN >>"
+other = "NEXT >>"
 
 [pageInfo]
 other = "PAGE {{ .Current }} / {{ .Total }}"

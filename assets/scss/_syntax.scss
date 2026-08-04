@@ -151,11 +151,6 @@
   color: var(--color-fg-bright);
 }
 
-/* Builtin names */
-.chroma .nb {
-  color: var(--color-fg);
-}
-
 /* Literals */
 .chroma .l,   /* Literal */
 .chroma .ld   /* LiteralDate */ {
@@ -209,8 +204,9 @@
 .chroma .cp,  /* CommentPreproc */
 .chroma .cpf, /* CommentPreprocFile */
 .chroma .cs   /* CommentSpecial */ {
+  // No opacity: --color-fg-dim alone is 6.40:1 on the code background, while
+  // compositing it at .7 dropped comments to 3.76:1 — under AA for body text.
   color: var(--color-fg-dim);
-  opacity: 0.7;
 }
 
 /* Generic */
@@ -279,7 +275,6 @@
   .chroma .c, .chroma .c1, .chroma .ch, .chroma .cm,
   .chroma .cp, .chroma .cpf, .chroma .cs {
     color: #676e95;
-    font-style: italic;
     opacity: 1;
   }
 

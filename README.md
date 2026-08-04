@@ -44,11 +44,13 @@ hugo mod get -u
 hugo server
 ```
 
-> **Typography:** set `[markup.goldmark.extensions] typographer = false` in your
-> `hugo.toml`. A VT220 could only display ASCII and the DEC Multinational
-> Character Set (roughly Latin-1), and the bundled font matches that repertoire.
-> Left on, Hugo rewrites quotes and dashes into curly quotes and em dashes,
-> which the font lacks — so they fall back to a different face mid-sentence.
+> **Typography:** on the default `fontFamily = "glass"`, set
+> `[markup.goldmark.extensions] typographer = false` in your `hugo.toml`. A VT220
+> could only display ASCII and the DEC Multinational Character Set (roughly
+> Latin-1), and Glass TTY VT220 matches that repertoire. Left on, Hugo rewrites
+> quotes and dashes into curly quotes and em dashes, which that font lacks — so
+> they fall back to a different face mid-sentence. Fira Code has the full
+> repertoire, so `fontFamily = "fira"` needs no change.
 
 > **Code blocks:** Hugo's default highlighter inlines its own (monokai) colors,
 > which clash with the theme. Add `[markup.highlight]` with `noClasses = false`
@@ -218,7 +220,7 @@ lines — the theme borrows it because it is the detail that reads as "terminal"
 ```toml
 [params.scanlines.layout]
   containerWidth = "1200px"   # Max width of the container
-  contentWidth = "800px"      # Max width of the content area (80 columns at the default font size)
+  contentWidth = "40rem"      # Max width of the content area (80 columns; rem so it tracks baseFontSize)
 ```
 
 ### Typography

@@ -168,10 +168,14 @@ a {
 // text to the accessibility tree.
 .footnote-backref {
   font-size: 0;
+  // inline-block so the anchor keeps a real box: with font-size:0 an inline box
+  // collapses to zero height and the reverse-video focus indicator has nothing
+  // to paint on.
+  display: inline-block;
 
   &::after {
     content: "<-";
-    font-size: 1rem; // rem, so it is unaffected by the 0 above
+    font-size: 0.85rem; // matches .footnotes; rem so the 0 above cannot cascade in
   }
 }
 
@@ -224,8 +228,10 @@ ul {
   &::before {
     // Centred dot: DEC Multinational 0xB7 and part of DEC Special Graphics.
     // ">" is a prompt character (DCL's own prompt was "$"), never a bullet.
+    // Full foreground, not dim: the dot carries ~91% less ink than ">" did, so
+    // it needs the contrast back to stay legible at body size.
     content: "\00B7";
-    color: var(--color-fg-dim);
+    color: var(--color-fg);
     position: absolute;
     left: calc(-1 * var(--spacing-lg));
   }

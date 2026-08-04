@@ -106,7 +106,9 @@ cat > exampleSite/layouts/partials/custom_footer.html <<'HTML'
 body { padding-top: var(--demo-bar-h); }
 .demo-bar{
   position:fixed; top:0; left:0; right:0; z-index:200;
-  display:flex; align-items:center; justify-content:center; gap:.15em;
+  /* safe centring: a plain "center" makes the overflowing left edge
+     unreachable once the bar is wider than the viewport */
+  display:flex; align-items:center; justify-content:safe center; gap:.15em;
   height:var(--demo-bar-h); padding:0 var(--spacing-sm);
   background:var(--color-bg-secondary);
   border-bottom:1px solid var(--color-border);
