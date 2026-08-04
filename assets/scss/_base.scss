@@ -156,6 +156,23 @@ a {
   }
 }
 
+// Goldmark renders footnote back-links as U+21A9 (\u21a9), which is outside the
+// bundled VT220 font's repertoire (ASCII + DEC Multinational, roughly Latin-1),
+// so it silently falls back to another face. Swap in a glyph the font has, using
+// the same visibility trick as the TOC disclosure icon.
+.footnote-backref {
+  visibility: hidden;
+  position: relative;
+
+  &::after {
+    content: "<-";
+    visibility: visible;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
+
 // -----------------------------------------------------------------------------
 // Scrollbar
 // Styled to match terminal aesthetic; falls back to OS default on unsupported browsers

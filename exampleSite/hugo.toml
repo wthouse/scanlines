@@ -18,6 +18,12 @@ enableEmoji = true
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = false
+    [markup.goldmark.extensions]
+      # A VT220's repertoire was ASCII + the DEC Multinational Character Set
+      # (roughly Latin-1) — no curly quotes, no en/em dashes. Leaving the
+      # typographer on rewrites ' " -- into characters the bundled VT220 font
+      # cannot render, so they silently fall back to another font mid-sentence.
+      typographer = false
   [markup.tableOfContents]
     startLevel = 2
     endLevel = 4

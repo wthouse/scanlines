@@ -43,7 +43,7 @@ See the [README](https://github.com/wthouse/scanlines) for setup instructions.
 git clone https://github.com/wthouse/scanlines themes/scanlines
 ```
 
-Then add this to your `hugo.toml` — `theme` goes at the top level, above any
+Then add this to your `hugo.toml` - `theme` goes at the top level, above any
 `[table]` headers:
 
 ```toml

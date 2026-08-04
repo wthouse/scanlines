@@ -44,6 +44,12 @@ hugo mod get -u
 hugo server
 ```
 
+> **Typography:** set `[markup.goldmark.extensions] typographer = false` in your
+> `hugo.toml`. A VT220 could only display ASCII and the DEC Multinational
+> Character Set (roughly Latin-1), and the bundled font matches that repertoire.
+> Left on, Hugo rewrites quotes and dashes into curly quotes and em dashes,
+> which the font lacks — so they fall back to a different face mid-sentence.
+
 > **Code blocks:** Hugo's default highlighter inlines its own (monokai) colors,
 > which clash with the theme. Add `[markup.highlight]` with `noClasses = false`
 > to your `hugo.toml` so code uses the theme's terminal styling. See

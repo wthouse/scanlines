@@ -1,7 +1,7 @@
 ---
 title: "Markdown Test Pattern"
 date: 2026-06-18
-description: "Every markdown element the theme styles, on one page — the SMPTE color bars of a Hugo theme."
+description: "Every markdown element the theme styles, on one page - the SMPTE color bars of a Hugo theme."
 summary: "A kitchen-sink page exercising headings, tables, code, images, footnotes, task lists and quotes against the phosphor palette."
 tags: ["reference", "markdown", "typography"]
 categories: ["Guides"]
@@ -14,7 +14,7 @@ content before committing to it.
 
 ## Headings
 
-The heading scale is deliberately shallow — terminals didn't do six weights of
+The heading scale is deliberately shallow - terminals didn't do six weights of
 type, and neither does this.
 
 ### Third level
@@ -148,7 +148,7 @@ Term lists fall back to standard markup:
   reduces flicker but smears motion.
 
 **Refresh rate**
-: How often the beam repaints the screen — 60 Hz on most DEC terminals.
+: How often the beam repaints the screen - 60 Hz on most DEC terminals.
 
 That's the whole pattern. If everything above reads cleanly in your chosen
 scheme, the theme is configured correctly.

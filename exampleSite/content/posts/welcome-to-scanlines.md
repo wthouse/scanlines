@@ -25,7 +25,7 @@ The VT220 was available with three different phosphor options:
 
 This theme recreates the terminal experience with modern web technologies:
 
-> Every visual effect is pure CSS. The theme ships zero JavaScript — no bundles,
+> Every visual effect is pure CSS. The theme ships zero JavaScript - no bundles,
 > no trackers, no hydration. Scanlines, glow, flicker and the collapsible
 > navigation all run on stylesheets alone.
 
@@ -100,7 +100,7 @@ hugo server
 ```
 
 Prefer not to use modules? `git clone` or a submodule into `themes/scanlines`
-works too — see the [installation guide][install] for every method, plus the
+works too - see the [installation guide][install] for every method, plus the
 full configuration reference.
 
 [install]: https://github.com/wthouse/scanlines/blob/main/INSTALLATION.md

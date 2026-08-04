@@ -132,6 +132,15 @@ belong — or needs a strong historical justification (e.g., the inline
 collapsible TOC isn't a VT220 feature but it's a pragmatic concession
 to modern reading habits).
 
+A second corollary — **stay inside the terminal's glyph repertoire.** A VT220
+could display ASCII plus the DEC Multinational Character Set, roughly Latin-1.
+The bundled Glass TTY VT220 font matches that: it has no box-drawing, no
+arrows, no curly quotes, no en/em dashes. Any character outside it silently
+falls back to another font mid-sentence, which looks wrong and is wrong. Use
+`&middot;` not `&bull;`, `-` not `—`, `'` not `'`. Sites should also set
+`[markup.goldmark.extensions] typographer = false`, as exampleSite does,
+so Hugo doesn't rewrite quotes and dashes into characters the font lacks.
+
 A corollary for interface state: **state is carried by a video attribute,
 never by a character.** The VT220 had reverse video, bold, underline and
 blink, individually or combined, and its set-up screens marked the current
