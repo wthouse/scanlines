@@ -340,7 +340,7 @@ theme = "scanlines"
       collapsible = true
       title = "CONTENTS"
 
-    # Status Line (VT220 25th line)
+    # Status Line (the VT320-style 25th line)
     [params.scanlines.statusLine]
       enabled = true         # default: true
 

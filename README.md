@@ -10,7 +10,7 @@ A retro Hugo theme inspired by the look and feel of classic CRT terminals like t
 
 - **Authentic CRT Effects** - Scanlines, phosphor glow, screen flicker, vignette, and screen curvature
 - **Historical Color Schemes** - Amber (P3), Green (P1), Blue, and White phosphor emulation
-- **VT220 Status Line** - Fixed 25th-line status bar with blinking cursor
+- **Terminal Status Line** - Fixed 25th-line status bar with blinking cursor (a VT320 feature; the VT220 itself was a 24-line screen)
 - **ASCII Art Header** - Load custom ASCII art from a file for your site title
 - **Two Homepage Modes** - Blog (recent posts) or Profile (landing page with buttons)
 - **Responsive Design** - Mobile-first with collapsible navigation and TOC
@@ -204,7 +204,9 @@ always hides it.
 
 ### Status Line
 
-The VT220's signature 25th line, shown as a fixed bar at the bottom of the screen. Displays site title, current section, and contextual info (reading time, post count, or phosphor type). Hidden on mobile.
+A fixed status bar at the bottom of the screen. The 25th status line arrived
+with the VT320 (DECSSDT/DECSASD) rather than the VT220, which displayed 24
+lines — the theme borrows it because it is the detail that reads as "terminal". Displays site title, current section, and contextual info (reading time, post count, or phosphor type). Hidden on mobile.
 
 ```toml
 [params.scanlines.statusLine]

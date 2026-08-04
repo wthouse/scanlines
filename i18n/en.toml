@@ -78,10 +78,10 @@ other = "FILE NOT FOUND"
 other = "%SYSTEM-W-NOTFOUND, page not found"
 
 [notFoundLine2]
-other = "%SYSTEM-I-VERIFY, check path and retry"
+other = "-SYSTEM-I-VERIFY, check path and retry"
 
 [notFoundSuggestPre]
-other = "%SYSTEM-I-SUGGEST, return to "
+other = "-SYSTEM-I-SUGGEST, return to "
 
 [notFoundHomeLink]
 other = "home directory"

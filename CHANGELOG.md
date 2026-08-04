@@ -21,7 +21,8 @@ developed in the open on `main` and this entry consolidates that history.
   `params.scanlines.colors` with hex validation.
 - **Pure-CSS CRT effects** — scanlines, phosphor glow, screen flicker, vignette
   and screen curvature, each individually configurable.
-- **VT220 status line** — the terminal's signature 25th line as a fixed bar.
+- **Terminal status line** — a fixed 25th-line status bar. The 25th line is a
+  VT320 feature (the VT220 had 24 lines); the theme borrows it deliberately.
 - **ASCII art header** — load custom art from a file in `static/`, with an
   `asciiScale` size multiplier.
 - **JSON-LD structured data** — `BlogPosting` on posts, `WebPage` on other

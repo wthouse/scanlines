@@ -161,7 +161,7 @@ enableEmoji = true
       collapsible = true        # Collapsible toggle button
       title = "CONTENTS"
 
-    # Status Line (VT220 25th line)
+    # Status Line (the VT320-style 25th line)
     [params.scanlines.statusLine]
       enabled = true              # Show fixed status bar at bottom of screen
 
