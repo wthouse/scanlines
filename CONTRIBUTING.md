@@ -125,11 +125,21 @@ Then cut a release, since the gallery reads metadata from the latest tag.
 ## Design principles
 
 Scanlines is designed to feel like a VT220 terminal. Before adding a
-visual effect or a layout feature, ask: "Would this have been possible
-on a real VT220?" If the answer is no, the feature probably doesn't
+visual effect or a layout feature, ask: "Would a VT220 have *done* this?"
+Not "was it possible" — a VT220 renders any ASCII you send it, so that
+test passes everything. If the answer is no, the feature probably doesn't
 belong — or needs a strong historical justification (e.g., the inline
 collapsible TOC isn't a VT220 feature but it's a pragmatic concession
 to modern reading habits).
+
+A corollary for interface state: **state is carried by a video attribute,
+never by a character.** The VT220 had reverse video, bold, underline and
+blink, individually or combined, and its set-up screens marked the current
+field with reverse video — the manual calls it "a highlighted field
+(reverse video)". Character markers like `[*ITEM*]` or `> item` were the
+fallback for terminals that *couldn't* highlight (see ncurses `menu_mark`),
+so using one here inverts the history. Decorative glyphs that carry no
+state, like the `[ ]` brackets around nav items, are fine.
 
 Historical accuracy is preferred over Hollywood retro: no
 screen-sweeping scan bars, no glitch-text animations, no Matrix-green

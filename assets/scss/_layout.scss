@@ -321,20 +321,32 @@
     color: var(--color-fg-dim);
   }
 
-  &:hover,
-  &:focus,
-  &.active {
-    color: var(--color-fg-bright);
-    text-decoration: none;
+  // Nav state is carried by a video attribute the VT220 actually had, never by a
+  // character. A glyph marker was historically the fallback for terminals that
+  // *couldn't* highlight (cf. ncurses menu_mark), so it would invert the logic here.
+  //
+  //   rest    normal intensity, dim brackets
+  //   hover   underline                        SGR 4
+  //   current increased intensity              SGR 1 — DEC printed the selected
+  //                                            value in bold at rest
+  //   focus   reverse video (in _base.scss)    SGR 7 — the VT220 set-up manual
+  //                                            defines its field cursor as
+  //                                            "a highlighted field (reverse video)"
+  //
+  // :not(:focus-visible) keeps hover from overriding that reverse video when a
+  // keyboard-focused link is also moused over (_layout is imported after _base).
+  &:hover:not(:focus-visible) {
+    color: var(--color-fg);
+    text-decoration: underline;
   }
 
   &.active {
-    &::before {
-      content: "[*";
-    }
+    color: var(--color-fg-bright);
+    text-decoration: none;
 
+    &::before,
     &::after {
-      content: "*]";
+      color: var(--color-fg-bright);
     }
   }
 }
