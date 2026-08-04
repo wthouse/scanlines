@@ -347,7 +347,7 @@ theme = "scanlines"
     # Layout
     [params.scanlines.layout]
       containerWidth = "1200px"
-      contentWidth = "720px"
+      contentWidth = "800px"
 
     # Typography
     [params.scanlines.typography]

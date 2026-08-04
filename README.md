@@ -218,7 +218,7 @@ lines — the theme borrows it because it is the detail that reads as "terminal"
 ```toml
 [params.scanlines.layout]
   containerWidth = "1200px"   # Max width of the container
-  contentWidth = "720px"      # Max width of the content area (~80 columns)
+  contentWidth = "800px"      # Max width of the content area (80 columns at the default font size)
 ```
 
 ### Typography

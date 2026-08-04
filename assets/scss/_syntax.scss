@@ -154,7 +154,6 @@
 /* Builtin names */
 .chroma .nb {
   color: var(--color-fg);
-  font-style: italic;
 }
 
 /* Literals */
@@ -211,7 +210,6 @@
 .chroma .cpf, /* CommentPreprocFile */
 .chroma .cs   /* CommentSpecial */ {
   color: var(--color-fg-dim);
-  font-style: italic;
   opacity: 0.7;
 }
 

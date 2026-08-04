@@ -220,7 +220,9 @@ ul {
   position: relative;
 
   &::before {
-    content: ">";
+    // Centred dot: DEC Multinational 0xB7 and part of DEC Special Graphics.
+    // ">" is a prompt character (DCL's own prompt was "$"), never a bullet.
+    content: "\00B7";
     color: var(--color-fg-dim);
     position: absolute;
     left: calc(-1 * var(--spacing-lg));
@@ -254,6 +256,12 @@ dd {
     color: var(--color-fg-dim);
   }
 }
+
+// <em> and <strong> deliberately keep the browser's italic/bold. The VT220's
+// rendition set was bold, underline, blink and reverse — with underline already
+// meaning "link" and blink ruled out on accessibility grounds, there is no way
+// to express two distinct inline emphases within the terminal's attribute set.
+// Readability wins; the decorative italics elsewhere were removed instead.
 
 // -----------------------------------------------------------------------------
 // Code
@@ -297,7 +305,6 @@ blockquote {
   padding: var(--spacing-sm) var(--spacing-md) var(--spacing-sm) var(--spacing-xl);
   margin: var(--spacing-md) 0;
   color: var(--color-fg-dim);
-  font-style: italic;
   background: rgba(255, 255, 255, 0.01);
 
   &::before {

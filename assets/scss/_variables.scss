@@ -61,7 +61,9 @@ $z-crt-overlay: 9999;   // scanline / flicker overlay (topmost)
 
   // Container widths
   --container-max: 1200px;
-  --content-max: 720px;
+  // 80 columns at the default 20px cell (0.5em advance) — the VT220 raster
+  // was 800 dots wide for exactly this reason.
+  --content-max: 800px;
 
   // CRT effect defaults
   // Matches the template default (crt-overlay.html sets this inline per site).

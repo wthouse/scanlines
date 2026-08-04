@@ -144,7 +144,7 @@ enableEmoji = true
     # Layout Options
     [params.scanlines.layout]
       containerWidth = "1200px"   # Max width of the container
-      contentWidth = "720px"      # Max width of the content area (~80 columns)
+      contentWidth = "800px"      # Max width of the content area (80 columns)
 
     # Typography Options
     [params.scanlines.typography]
