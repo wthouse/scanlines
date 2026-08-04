@@ -158,18 +158,20 @@ a {
 
 // Goldmark renders footnote back-links as U+21A9 (\u21a9), which is outside the
 // bundled VT220 font's repertoire (ASCII + DEC Multinational, roughly Latin-1),
-// so it silently falls back to another face. Swap in a glyph the font has, using
-// the same visibility trick as the TOC disclosure icon.
+// so it silently falls back to another face. Swap in a glyph the font has.
+//
+// Deliberately NOT the visibility:hidden trick the TOC disclosure icon uses:
+// that icon is a <span>, but this is a link, and visibility:hidden drops an
+// element out of the tab order (which is exactly why it's the recommended way
+// to hide things from assistive tech). Collapsing the font size hides the glyph
+// while leaving the anchor visible, focusable, clickable, and still exposing its
+// text to the accessibility tree.
 .footnote-backref {
-  visibility: hidden;
-  position: relative;
+  font-size: 0;
 
   &::after {
     content: "<-";
-    visibility: visible;
-    position: absolute;
-    left: 0;
-    top: 0;
+    font-size: 1rem; // rem, so it is unaffected by the 0 above
   }
 }
 
