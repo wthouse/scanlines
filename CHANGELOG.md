@@ -7,6 +7,43 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+Upgrading from 1.0.0 changes some visible defaults. None of it needs
+configuration, but it will look different:
+
+- **Body text is wider.** `--content-max` is now `40rem` instead of `720px`.
+  The Glass TTY VT220 advance is exactly 0.5em, so 40rem is genuinely 80
+  columns at any base font size — the old 720px measured 72 while the config
+  comment claimed "~80". To keep the previous measure, set
+  `params.scanlines.layout.contentWidth = "36rem"`.
+- **Navigation marks the current page differently.** The `[*ITEM*]` asterisks
+  are gone; the current item is now brighter and underlined, and carries
+  `aria-current="page"`. Increased intensity alone is 1.34:1 in amber and
+  exactly 1.00:1 in high-contrast mode, so colour could not carry it (WCAG
+  1.4.1). Hover brightens; keyboard focus is unchanged reverse video.
+- **List bullets are `*` rather than `>`.** A greater-than sign is a prompt
+  character, not a bullet.
+- **Italics are gone** from blockquotes, empty states and syntax comments.
+  Neither bundled font has an italic face, so those were browser-synthesised
+  shears. Inline `<em>` and `<strong>` are untouched.
+- **Sites should set `[markup.goldmark.extensions] typographer = false`** when
+  using the default `fontFamily = "glass"`. Glass TTY VT220 has no curly quotes
+  or em dashes, so Hugo's typographer output silently fell back to another face
+  mid-sentence. Fira Code has the full repertoire and needs no change.
+- Pagination gained `flex-wrap`, the 404's message stack uses correct OpenVMS
+  continuation syntax, and the status line is now described as the VT320 feature
+  it actually is rather than a VT220 one.
+
+### Fixed
+
+- The footnote back-link was keyboard-inaccessible for one commit
+  (`visibility: hidden` removes an element from the tab order). Fixed before
+  release; noted here because the pattern is worth not repeating.
+- Syntax comments composited to 3.76:1, under WCAG AA. Now 7.32:1.
+- The 404's terminal box no longer overflows a 320px viewport, and no longer
+  draws itself with box-drawing glyphs the bundled font lacks.
+
 ## [1.0.0] - 2026-07-27
 
 First tagged release. Everything below landed before 1.0.0 — the theme was

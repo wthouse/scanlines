@@ -189,6 +189,8 @@
 // escapes remapping the ASCII range, not as separate codepoints the font carries.
 .terminal-box {
   display: inline-block;
+  max-width: 100%; // else the 54-col rule overflows a 320px viewport and
+                   // body{overflow-x:hidden} clips the message mid-sentence
   background: var(--color-bg);
   border: none;
   padding: var(--spacing-md);

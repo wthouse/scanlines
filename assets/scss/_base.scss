@@ -226,12 +226,13 @@ ul {
   position: relative;
 
   &::before {
-    // Centred dot: DEC Multinational 0xB7 and part of DEC Special Graphics.
-    // ">" is a prompt character (DCL's own prompt was "$"), never a bullet.
-    // Full foreground, not dim: the dot carries ~91% less ink than ">" did, so
-    // it needs the contrast back to stay legible at body size.
-    content: "\00B7";
-    color: var(--color-fg);
+    // ">" is a prompt character (DCL's own prompt was "$"), never a bullet, so
+    // it had to go. The DEC centred dot (U+00B7) is in the font, but it renders
+    // as a 3x3px speck — 6 lit pixels measured through the scanline overlay,
+    // against 25 for "*" — and shrinks to 2.4px at a 16px base size. It was
+    // never a list-bullet convention either; plain-text lists used o, - and *.
+    content: "*";
+    color: var(--color-fg-dim);
     position: absolute;
     left: calc(-1 * var(--spacing-lg));
   }
@@ -318,7 +319,6 @@ blockquote {
   &::before {
     content: ">>";
     color: var(--color-accent);
-    font-style: normal;
     position: absolute;
     left: var(--spacing-sm);
   }
