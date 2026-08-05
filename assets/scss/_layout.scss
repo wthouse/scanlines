@@ -305,7 +305,9 @@
 
 .nav-link {
   display: block;
-  padding: var(--spacing-sm) 0;
+  // horizontal padding gives the current item's reverse-video block room to
+  // breathe instead of ending flush against the bracket glyphs
+  padding: var(--spacing-sm) 0.35em;
   color: var(--color-fg);
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -327,42 +329,50 @@
   //
   //   rest    normal intensity, dim brackets
   //   hover   increased intensity              SGR 1
-  //   current increased intensity + underline  SGR 1 + SGR 4 — the underline is
-  //                                            the non-colour cue; see below
-  //   focus   reverse video (in _base.scss)    SGR 7 — the VT220 set-up manual
+  //   current reverse video                    SGR 7 — the VT220 set-up manual
   //                                            defines its field cursor as
-  //                                            "a highlighted field (reverse video)"
+  //                                            "a highlighted field (reverse
+  //                                            video)". This is the terminal's
+  //                                            own idiom for "the selected one".
+  //   focus   accent outline ring              the same indicator .nav-toggle
+  //                                            and .toc-toggle already use
   //
-  // :not(:focus-visible) keeps hover from overriding that reverse video when a
-  // keyboard-focused link is also moused over (_layout is imported after _base).
+  // Reverse video rather than increased intensity because intensity alone is
+  // 1.34:1 against normal in amber, 1.04:1 in green, and exactly 1.00:1 in
+  // high-contrast mode where --color-fg and --color-fg-bright are both #ffffff.
+  // A filled block is a change in presentation, not a hue shift, so it carries
+  // "you are here" on its own (WCAG 1.4.1). Markup adds aria-current="page".
   &:hover:not(:focus-visible) {
     color: var(--color-fg-bright);
   }
 
-  &.active {
+  // Keyboard focus gets the ring, NOT a second reverse-video block — two
+  // identical blocks in one nav would be ambiguous. Overrides the generic
+  // a:focus-visible reverse-video rule in _base.scss, which also matches here.
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    background-color: transparent;
     color: var(--color-fg-bright);
+    box-shadow: none;
+  }
 
-    // Underline is the NON-COLOUR cue. Increased intensity alone measures only
-    // ~1.34:1 against normal in amber, 1.04:1 in green, and exactly 1.00:1 in
-    // high-contrast mode, where --color-fg and --color-fg-bright are both
-    // #ffffff — so colour cannot carry "you are here" by itself (WCAG 1.4.1).
-    // The markup pairs this with aria-current="page".
-    text-decoration: underline;
+  &.active {
+    background-color: var(--color-fg);
+    color: var(--color-bg);
 
     &::before,
     &::after {
-      color: var(--color-fg-bright);
+      color: var(--color-bg);
     }
 
-    // Reverse video paints --color-fg behind the label; without flipping the
-    // text as well it sits at 1.34:1 against its own background.
+    // Keep the block when the current item is also hovered or focused —
+    // otherwise the label reverts to a foreground colour on its own
+    // foreground-coloured background.
+    &:hover:not(:focus-visible),
     &:focus-visible {
+      background-color: var(--color-fg);
       color: var(--color-bg);
-
-      &::before,
-      &::after {
-        color: var(--color-bg);
-      }
     }
   }
 }

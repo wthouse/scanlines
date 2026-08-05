@@ -623,9 +623,11 @@ button {
   outline-offset: 2px;
 }
 
+// .nav-link is deliberately absent: the nav uses reverse video to mark the
+// CURRENT page, so its focus indicator is the accent ring instead (see
+// _layout.scss) — two identical blocks in one nav would be ambiguous.
 a:focus-visible,
 button:focus-visible,
-.nav-link:focus-visible,
 .profile-btn:focus-visible {
   outline: none;
   background-color: var(--color-fg);
