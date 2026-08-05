@@ -17,11 +17,13 @@ configuration, but it will look different:
   columns at any base font size — the old 720px measured 72 while the config
   comment claimed "~80". To keep the previous measure, set
   `params.scanlines.layout.contentWidth = "36rem"`.
-- **Navigation marks the current page differently.** The `[*ITEM*]` asterisks
-  are gone; the current item is now brighter and underlined, and carries
-  `aria-current="page"`. Increased intensity alone is 1.34:1 in amber and
-  exactly 1.00:1 in high-contrast mode, so colour could not carry it (WCAG
-  1.4.1). Hover brightens; keyboard focus is unchanged reverse video.
+- **The current nav item now carries `aria-current="page"`.** Its visual
+  marker is unchanged — `[*ITEM*]` plus increased intensity — but it is now
+  exposed to assistive technology as well. The asterisks are a deliberate
+  exception to the theme's "prefer a video attribute over a character" rule,
+  documented in CONTRIBUTING.md: intensity alone is 1.34:1 in amber and exactly
+  1.00:1 in high-contrast mode, so colour cannot carry it (WCAG 1.4.1), and
+  reverse video, underline and blink were each built and rejected.
 - **List bullets are `*` rather than `>`.** A greater-than sign is a prompt
   character, not a bullet.
 - **Italics are gone** from blockquotes, empty states and syntax comments.

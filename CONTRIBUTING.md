@@ -141,14 +141,27 @@ falls back to another font mid-sentence, which looks wrong and is wrong. Use
 `[markup.goldmark.extensions] typographer = false`, as exampleSite does,
 so Hugo doesn't rewrite quotes and dashes into characters the font lacks.
 
-A corollary for interface state: **state is carried by a video attribute,
-never by a character.** The VT220 had reverse video, bold, underline and
-blink, individually or combined, and its set-up screens marked the current
-field with reverse video — the manual calls it "a highlighted field
-(reverse video)". Character markers like `[*ITEM*]` or `> item` were the
-fallback for terminals that *couldn't* highlight (see ncurses `menu_mark`),
-so using one here inverts the history. Decorative glyphs that carry no
-state, like the `[ ]` brackets around nav items, are fine.
+A corollary for interface state: **prefer a video attribute over a character.**
+The VT220 had reverse video, bold, underline and blink, individually or
+combined, and its set-up screens marked the current field with reverse video —
+the manual calls it "a highlighted field (reverse video)". Character markers
+like `> item` were the fallback for terminals that *couldn't* highlight (see
+ncurses `menu_mark`), so reaching for one first inverts the history.
+Decorative glyphs that carry no state, like the `[ ]` brackets around nav
+items, are always fine.
+
+**The nav's current-page marker is a documented exception.** It uses
+`[ NAME ]` -> `[*NAME*]`, a character marker, because the attribute set ran
+out: WCAG 1.4.1 requires a cue that is not colour, and increased intensity
+alone measures 1.34:1 in amber and exactly 1.00:1 in high-contrast mode
+(where `--color-fg` and `--color-fg-bright` are both `#ffffff`). Of the
+remaining attributes, reverse video is too heavy for persistent state sitting
+next to a transient reverse-video focus ring, underline reads as link
+decoration, and blink is an accessibility non-starter. All three were built
+and rejected on how they actually looked. The asterisks also preserve the
+character count, so marking the current item shifts no layout. Accessibility
+and legibility outrank period purity — that is the same trade the theme makes
+for `<em>`, `<strong>`, and its three intensity levels.
 
 Historical accuracy is preferred over Hollywood retro: no
 screen-sweeping scan bars, no glitch-text animations, no Matrix-green
