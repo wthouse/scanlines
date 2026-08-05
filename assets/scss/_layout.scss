@@ -305,9 +305,10 @@
 
 .nav-link {
   display: block;
-  // horizontal padding gives the current item's reverse-video block room to
-  // breathe instead of ending flush against the bracket glyphs
-  padding: var(--spacing-sm) 0.35em;
+  // Mobile keeps the roomy padding: the nav is a dropdown list there, the rows
+  // need a 44px-ish touch target, and a highlighted row reads as a normal menu
+  // selection anyway.
+  padding: var(--spacing-sm) 0.4em;
   color: var(--color-fg);
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -342,6 +343,15 @@
   // high-contrast mode where --color-fg and --color-fg-bright are both #ffffff.
   // A filled block is a change in presentation, not a hue shift, so it carries
   // "you are here" on its own (WCAG 1.4.1). Markup adds aria-current="page".
+  // Desktop: the nav is a horizontal row, pointer precision is fine, and a tall
+  // filled block reads as a slab. Tighten it toward one character cell, which is
+  // what a VT220 field cursor actually was, and move the spacing to margin so it
+  // is not painted into the block.
+  @media (min-width: $breakpoint-md) {
+    padding: 0.15em 0.4em;
+    margin: 0.35rem 0;
+  }
+
   &:hover:not(:focus-visible) {
     color: var(--color-fg-bright);
   }

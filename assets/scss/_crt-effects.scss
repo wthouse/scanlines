@@ -144,11 +144,15 @@
       0 0 calc(var(--glow-intensity, 0.8) * 10px) var(--color-glow);
   }
 
-  // No glow on dim UI elements — bright glow clashes with intentionally dim text
+  // No glow on dim UI elements — bright glow clashes with intentionally dim text.
+  // Reverse-video surfaces too: the glow is the phosphor colour, so on inverted
+  // text it paints a bright halo around dark glyphs sitting on a bright block,
+  // and eats them.
   .article-meta,
   .article-meta *,
   .status-line,
-  .status-line * {
+  .status-line *,
+  .nav-link.active {
     text-shadow: none;
   }
 
