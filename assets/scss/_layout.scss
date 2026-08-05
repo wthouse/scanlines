@@ -326,39 +326,25 @@
   // *couldn't* highlight (cf. ncurses menu_mark), so it would invert the logic here.
   //
   //   rest    normal intensity, dim brackets
-  //   hover   increased intensity              SGR 1
-  //   current increased intensity + [* *]      see the note below
-  //   focus   reverse video (in _base.scss)    SGR 7 — the VT220 set-up manual
-  //                                            defines its field cursor as
-  //                                            "a highlighted field (reverse video)"
+  //   hover   increased intensity   SGR 1
+  //   current increased intensity   SGR 1 — plus aria-current="page"
+  //   focus   reverse video         SGR 7, in _base.scss — the VT220 set-up
+  //                                 manual defines its field cursor as
+  //                                 "a highlighted field (reverse video)"
   //
-  // The asterisks are a deliberate exception to the "state is a video attribute,
-  // never a character" rule, and the theme documents it as such. WCAG 1.4.1
-  // needs a non-colour cue — increased intensity alone is 1.34:1 in amber and
-  // exactly 1.00:1 in high-contrast mode, where --color-fg and --color-fg-bright
-  // are both #ffffff — and the terminal's own attribute set has nothing suitable
-  // left: reverse video is too heavy for persistent state next to a transient
-  // focus ring, underline reads as link decoration, and blink is an
-  // accessibility non-starter. [ NAME ] -> [*NAME*] is also the same character
-  // count, so marking the current item shifts no layout.
-  &:hover:not(:focus-visible) {
-    color: var(--color-fg-bright);
-  }
-
+  // On WCAG 1.4.1: increased intensity is a colour cue, and it is the only
+  // visual one the current item gets. That is acceptable here because the
+  // information is not conveyed by it alone — every page states which page it
+  // is, in its <title> and its <h1>, and the link carries aria-current="page"
+  // for assistive technology. The nav highlight is redundant emphasis, not the
+  // sole carrier. A non-colour marker was tried three ways ([* *], underline,
+  // reverse video) and each was worse to look at than the problem it solved.
+  &:hover:not(:focus-visible),
   &.active {
     color: var(--color-fg-bright);
-
-    &::before {
-      content: "[*";
-      color: var(--color-fg-bright);
-    }
-
-    &::after {
-      content: "*]";
-      color: var(--color-fg-bright);
-    }
   }
 }
+
 
 
 // -----------------------------------------------------------------------------

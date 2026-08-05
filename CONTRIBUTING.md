@@ -150,18 +150,19 @@ ncurses `menu_mark`), so reaching for one first inverts the history.
 Decorative glyphs that carry no state, like the `[ ]` brackets around nav
 items, are always fine.
 
-**The nav's current-page marker is a documented exception.** It uses
-`[ NAME ]` -> `[*NAME*]`, a character marker, because the attribute set ran
-out: WCAG 1.4.1 requires a cue that is not colour, and increased intensity
-alone measures 1.34:1 in amber and exactly 1.00:1 in high-contrast mode
-(where `--color-fg` and `--color-fg-bright` are both `#ffffff`). Of the
-remaining attributes, reverse video is too heavy for persistent state sitting
-next to a transient reverse-video focus ring, underline reads as link
-decoration, and blink is an accessibility non-starter. All three were built
-and rejected on how they actually looked. The asterisks also preserve the
-character count, so marking the current item shifts no layout. Accessibility
-and legibility outrank period purity — that is the same trade the theme makes
-for `<em>`, `<strong>`, and its three intensity levels.
+**The nav marks the current page with intensity alone, and that is deliberate.**
+Strictly, colour is then the only *visual* cue — increased intensity measures
+1.34:1 against normal in amber and exactly 1.00:1 in high-contrast mode. WCAG
+1.4.1 is still satisfied, because the highlight is not the sole carrier: every
+page names itself in its `<title>` and `<h1>`, and the link carries
+`aria-current="page"` for assistive technology. The nav highlight is redundant
+emphasis.
+
+Three non-colour markers were built and rejected before settling here —
+`[*NAME*]` asterisks (clunky), underline (reads as link decoration), and
+reverse video (too heavy for persistent state, and the phosphor glow painted a
+halo around the inverted glyphs that ate them). If you are tempted to add one
+back, look at it rendered first; each looked worse than the problem it solved.
 
 Historical accuracy is preferred over Hollywood retro: no
 screen-sweeping scan bars, no glitch-text animations, no Matrix-green
