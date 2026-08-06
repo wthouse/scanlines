@@ -12,18 +12,20 @@
 # Intended as the build command for a Cloudflare Pages project pointed at this
 # repository:
 #
-#   Build command:        bash scripts/build-demo.sh
+#   Build command:          bash scripts/build-demo.sh
 #   Build output directory: public
-#   Environment variable:   HUGO_VERSION = 0.164.0
 #
-# The base URL falls back to CF_PAGES_URL, which Cloudflare sets per deployment,
-# so preview builds get correct absolute URLs with no extra configuration.
+# Nothing else is required. Pages sets CF_PAGES_URL per deployment, so preview
+# builds get correct absolute URLs for free.
 #
-# IF YOU ATTACH A CUSTOM DOMAIN, set BASE_URL to it in the Pages project's
-# production environment variables: CF_PAGES_URL is the *.pages.dev address even
-# on production builds, so without BASE_URL the canonical tags, feed links and
+# IF YOU ATTACH A CUSTOM DOMAIN, set BASE_URL to it in the project's production
+# environment variables: CF_PAGES_URL is the *.pages.dev address even on
+# production builds, so without BASE_URL the canonical tags, feed links and
 # share images would all point at pages.dev instead of the custom domain.
-# BASE_URL also lets the script run anywhere else, including locally.
+#
+# On any other CI host — Workers Builds, Netlify, GitHub Actions — BASE_URL is
+# required, because CF_PAGES_URL is specific to Pages and nothing else supplies
+# an equivalent. The script refuses to build rather than guess (see below).
 #
 # Runs fine on a laptop too:
 #   BASE_URL=http://localhost:8080/ bash scripts/build-demo.sh && \
@@ -38,7 +40,27 @@ OUT="${OUT:-public}"
 # ---------------------------------------------------------------------------
 # Base URL
 # ---------------------------------------------------------------------------
-BASE="${BASE_URL:-${CF_PAGES_URL:-http://localhost:1313/}}"
+# Falling back to localhost on a build host is never right: it produces a site
+# that looks fine but whose canonical tags, feed links and Open Graph URLs all
+# point at 127.0.0.1. That failure is invisible in the build log and only shows
+# up once the site is live, so treat it as an error rather than a default.
+BASE="${BASE_URL:-${CF_PAGES_URL:-}}"
+if [ -z "$BASE" ]; then
+  if [ -n "${CI:-}${WORKERS_CI:-}${CF_PAGES:-}${GITHUB_ACTIONS:-}" ]; then
+    cat >&2 <<'MSG'
+ERROR: no base URL, and this looks like a CI build.
+
+  Set BASE_URL in the project's environment variables, e.g.
+      BASE_URL = https://scanlines.pages.dev/
+
+  Cloudflare Pages normally supplies CF_PAGES_URL on its own, so seeing this
+  on Pages means something is off with the project. Every other host needs
+  BASE_URL set explicitly.
+MSG
+    exit 1
+  fi
+  BASE="http://localhost:1313/"     # interactive/local use only
+fi
 BASE="${BASE%/}/"                   # exactly one trailing slash
 echo "==> base URL: $BASE"
 
