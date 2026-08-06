@@ -5,7 +5,7 @@ licenselink = "https://github.com/wthouse/scanlines/blob/main/LICENSE"
 # the theme's listing page, so it has to carry the pitch.
 description = "A retro CRT terminal theme emulating the DEC VT220: four historically accurate phosphor schemes, pure-CSS scanlines and glow, and zero JavaScript."
 homepage = "https://github.com/wthouse/scanlines"
-demosite = "https://wt.house"
+demosite = "https://scanlines.pages.dev"
 # themes.gohugo.io normalizes tags against a fixed allowlist and silently drops
 # anything it doesn't recognize (see normalizeTag in hugoThemesSiteBuilder).
 # "retro"/"terminal"/"crt"/"monochrome" are dropped there but kept for humans;

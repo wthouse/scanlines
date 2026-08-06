@@ -15,13 +15,22 @@
 #   Build command:          bash scripts/build-demo.sh
 #   Build output directory: public
 #
-# Nothing else is required. Pages sets CF_PAGES_URL per deployment, so preview
-# builds get correct absolute URLs for free.
+# SET BASE_URL IN THE PRODUCTION ENVIRONMENT to the address you want indexed:
 #
-# IF YOU ATTACH A CUSTOM DOMAIN, set BASE_URL to it in the project's production
-# environment variables: CF_PAGES_URL is the *.pages.dev address even on
-# production builds, so without BASE_URL the canonical tags, feed links and
-# share images would all point at pages.dev instead of the custom domain.
+#   BASE_URL = https://scanlines.pages.dev/
+#
+# Without it the build falls back to CF_PAGES_URL, which is the *deployment*
+# hostname — https://<hash>.scanlines.pages.dev/ — a different value on every
+# push. The site renders fine, but its canonical tags, feed links and og:url
+# then advertise a throwaway address that changes each deploy, which is worse
+# for indexing than a stale URL would be. Confirmed on a live deployment, not
+# inferred: CF_PAGES_URL is the hash hostname on production builds too, not
+# just previews.
+#
+# Same applies, for the same reason, if you attach a custom domain.
+#
+# Leaving BASE_URL unset is still the right choice for preview branches, where
+# the per-deployment hostname genuinely is the correct base.
 #
 # On any other CI host — Workers Builds, Netlify, GitHub Actions — BASE_URL is
 # required, because CF_PAGES_URL is specific to Pages and nothing else supplies

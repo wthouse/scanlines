@@ -2,7 +2,7 @@
 
 A retro Hugo theme inspired by the look and feel of classic CRT terminals like the DEC VT220 and VT100. Features historically accurate phosphor color schemes, authentic CRT visual effects, and a clean, minimal design.
 
-**[Live demo](https://wt.house)** · [Installation](INSTALLATION.md) · [Configuration](#configuration-reference) · [Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md)
+**[Live demo](https://scanlines.pages.dev)** · [Installation](INSTALLATION.md) · [Configuration](#configuration-reference) · [Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md)
 
 ![Scanlines theme - Blog homepage](https://raw.githubusercontent.com/wthouse/scanlines/main/images/homepage_blog.png)
 
