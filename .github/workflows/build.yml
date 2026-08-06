@@ -7,6 +7,11 @@ on:
   push:
     branches: [main]
   pull_request:
+  # Lets the matrix be run on demand — useful when a push lands without
+  # triggering a run (which can happen depending on how the push was
+  # authenticated), and for re-checking against a newly released Hugo
+  # without having to invent a commit.
+  workflow_dispatch:
 
 permissions:
   contents: read
