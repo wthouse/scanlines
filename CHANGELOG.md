@@ -5,7 +5,7 @@ All notable changes to the Scanlines theme are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.2] - 2026-08-06
 
 ### Fixed
 
@@ -195,6 +195,7 @@ developed in the open on `main` and this entry consolidates that history.
   to every downstream site. Sites create their own as documented.
 - Dead `layouts/page/` templates the 0.146 template system no longer resolves.
 
-[Unreleased]: https://github.com/wthouse/scanlines/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/wthouse/scanlines/compare/v1.0.2...HEAD
+[1.0.2]: https://github.com/wthouse/scanlines/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/wthouse/scanlines/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/wthouse/scanlines/releases/tag/v1.0.0
