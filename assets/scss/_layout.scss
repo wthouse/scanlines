@@ -104,6 +104,15 @@
 
 .site-branding {
   flex-shrink: 0;
+  // .header-inner is a column flex container with align-items:center, which
+  // sizes children to their max-content width in the cross axis. ASCII art
+  // wider than the viewport therefore widened this box, and with it the whole
+  // document — the header box and MENU toggle got dragged off-screen too, and
+  // .ascii-header's own overflow-x never engaged because the <pre> was handed
+  // all the width it asked for. Clamping to the container is what lets that
+  // overflow rule do its job.
+  max-width: 100%;
+  min-width: 0;
 }
 
 .site-title {
@@ -149,7 +158,8 @@
   font-family: var(--font-terminal);
   // --ascii-scale multiplier is injected by baseof.html from
   // params.scanlines.header.asciiScale (defaults to 1 if unset).
-  font-size: calc(0.5rem * var(--ascii-scale, 1));
+  --ascii-base: calc(0.5rem * var(--ascii-scale, 1));
+  font-size: var(--ascii-base);
   line-height: 1.1;
   color: var(--color-fg-bright);
   white-space: pre;
@@ -162,11 +172,46 @@
   box-shadow: none;
 
   @media (min-width: $breakpoint-md) {
-    font-size: calc(0.65rem * var(--ascii-scale, 1));
+    --ascii-base: calc(0.65rem * var(--ascii-scale, 1));
   }
 
   @media (min-width: $breakpoint-lg) {
-    font-size: calc(0.75rem * var(--ascii-scale, 1));
+    --ascii-base: calc(0.75rem * var(--ascii-scale, 1));
+  }
+}
+
+// Shrink ASCII art that would otherwise overflow, instead of clipping it.
+//
+// header.html emits --ascii-fit: the exact font size at which the art's widest
+// line spans the header's content box. Both bundled faces are monospaced with
+// a known advance (Glass TTY VT220 is 0.5em, Fira Code 0.6154em), so the
+// fitting size is arithmetic, not a guess. Taking the smaller of the
+// configured size and the fitting size means wide art scales down on narrow
+// screens while art that already fits is left alone.
+//
+// The 4px floor stops pathologically wide art (roughly 140+ columns on a
+// 320px screen) from scaling to an unreadable smear; past that point the
+// overflow-x above lets it scroll instead. Deliberately px and not rem: the
+// floor is about the smallest legible glyph, which doesn't change when a site
+// sets a larger root size. As rem it tracked --font-size-base (20px here, so
+// 0.35rem was 7px) and clamped art that would otherwise have fitted.
+//
+// Gated on @supports so browsers without container queries keep the old
+// behaviour — which is now merely a scrollable <pre>, not a broken page,
+// because .site-branding is clamped above.
+@supports (container-type: inline-size) {
+  .header-inner {
+    // Safe to contain: .header-inner is width:100% from .container, so its
+    // inline size never depended on its contents, and no descendant is
+    // absolutely positioned against it.
+    container-type: inline-size;
+  }
+
+  .ascii-header {
+    // Interpolated so LibSass emits this verbatim. Bare min()/max() collide
+    // with Sass's own min()/max() functions, which reject var() arguments
+    // ("var(--ascii-base) is not a number for `min'") and fail the build.
+    font-size: #{"max(4px, min(var(--ascii-base), var(--ascii-fit, 100rem)))"};
   }
 }
 

@@ -5,6 +5,28 @@ All notable changes to the Scanlines theme are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- **ASCII art headers no longer overflow narrow viewports.** `.header-inner` is
+  a column flex container with `align-items: center`, which sizes children to
+  their max-content width — so art wider than the screen widened the header and
+  with it the whole document, pushing the header box and MENU toggle off-screen
+  and horizontally scrolling every page. `.ascii-header`'s existing
+  `overflow-x` never engaged, because the `<pre>` was being handed all the
+  width it asked for.
+
+  Art that doesn't fit now scales down instead of being clipped. Both bundled
+  faces are monospaced with a known advance (Glass TTY VT220 0.5em, Fira Code
+  0.6154em), so `header.html` measures the widest line and emits the font size
+  at which the art exactly spans the header; the stylesheet takes the smaller
+  of that and the configured size. Art that already fits is untouched, and
+  `asciiScale` still applies wherever there's room for it.
+
+  Browsers without container-query support keep the previous rendering, which
+  is now a self-contained scrollable `<pre>` rather than a broken page.
+
 ## [1.0.1] - 2026-08-05
 
 ### Changed

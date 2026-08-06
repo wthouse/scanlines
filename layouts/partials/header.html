@@ -7,11 +7,29 @@
       {{- /* Reject path traversal — asciiFile is resolved under static/ */ -}}
       {{- if and $asciiFile (not (strings.Contains $asciiFile "..")) (fileExists (printf "static/%s" $asciiFile)) -}}
         {{- $content := readFile (printf "static/%s" $asciiFile) -}}
+        {{- /* Widest line in characters, so the stylesheet can scale the art
+               down to fit rather than letting it overflow the viewport. Both
+               bundled faces are monospaced with a known advance, so the font
+               size that makes the art exactly span the header is arithmetic:
+               size = width / (columns * advance). RuneCount, not len, or
+               multi-byte art would over-measure and shrink too far. */ -}}
+        {{- $cols := 0 -}}
+        {{- range (split $content "\n") -}}
+          {{- $n := strings.RuneCount (strings.TrimSuffix "\r" .) -}}
+          {{- if gt $n $cols }}{{ $cols = $n }}{{ end -}}
+        {{- end -}}
+        {{- $advance := cond (eq (site.Params.scanlines.typography.fontFamily | default "glass") "fira") 0.6154 0.5 -}}
+        {{- $fit := "" -}}
+        {{- if gt $cols 0 -}}
+          {{- /* cqi resolves against the container's content box, so the
+                 header's own padding is already excluded. */ -}}
+          {{- $fit = printf "--ascii-fit:calc(100cqi / %.2f);" (mul (float $cols) $advance) -}}
+        {{- end -}}
         {{- /* role="img" makes the aria-label the accessible name and marks the
                art itself presentational — a bare <pre> is a generic role, where
                naming is prohibited, so screen readers read the glyphs instead. */ -}}
         <a href="{{ site.Home.RelPermalink }}" class="ascii-header-link">
-          <pre class="ascii-header" role="img" aria-label="{{ $.Site.Title }}">{{ $content }}</pre>
+          <pre class="ascii-header" role="img" aria-label="{{ $.Site.Title }}"{{ with $fit }} style="{{ . | safeCSS }}"{{ end }}>{{ $content }}</pre>
         </a>
       {{- else -}}
         <a href="{{ site.Home.RelPermalink }}" class="site-title">{{ .Site.Title }}</a>

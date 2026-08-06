@@ -43,6 +43,15 @@ jobs:
             echo "::error::Hugo emitted warnings — see log above"
             exit 1
           fi
+          # exampleSite sets header.asciiFile, so the header must carry the
+          # computed --ascii-fit. Without it the ASCII art renders at its
+          # configured size and overflows narrow viewports, dragging the whole
+          # document sideways — a regression that builds perfectly cleanly.
+          if ! grep -qE -- '--ascii-fit:calc\(100cqi / [0-9]+\.[0-9]+\)' \
+               exampleSite/public/index.html; then
+            echo "::error::header is missing the computed --ascii-fit custom property"
+            exit 1
+          fi
 
       # The default config only exercises blog mode with effects on. These
       # variants render the other shipped code paths (profile header, the
