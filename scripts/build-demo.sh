@@ -44,6 +44,13 @@ OUT="${OUT:-public}"
 # that looks fine but whose canonical tags, feed links and Open Graph URLs all
 # point at 127.0.0.1. That failure is invisible in the build log and only shows
 # up once the site is live, so treat it as an error rather than a default.
+# Named explicitly rather than dumping the environment: a build log is a
+# semi-public artifact and the environment routinely holds API tokens. Every
+# variable below is a flag, branch, SHA or public URL.
+CI_VARS=(CF_PAGES CF_PAGES_URL CF_PAGES_BRANCH
+         WORKERS_CI WORKERS_CI_BRANCH
+         CI GITHUB_ACTIONS NETLIFY VERCEL)
+
 BASE="${BASE_URL:-${CF_PAGES_URL:-}}"
 if [ -z "$BASE" ]; then
   if [ -n "${CI:-}${WORKERS_CI:-}${CF_PAGES:-}${GITHUB_ACTIONS:-}" ]; then
@@ -52,10 +59,16 @@ ERROR: no base URL, and this looks like a CI build.
 
   Set BASE_URL in the project's environment variables, e.g.
       BASE_URL = https://scanlines.pages.dev/
+MSG
+    echo "  Which host this is, judging by the environment:" >&2
+    for v in "${CI_VARS[@]}"; do
+      [ -n "${!v:-}" ] && printf '      %s=%s\n' "$v" "${!v}" >&2
+    done
+    cat >&2 <<'MSG'
 
-  Cloudflare Pages normally supplies CF_PAGES_URL on its own, so seeing this
-  on Pages means something is off with the project. Every other host needs
-  BASE_URL set explicitly.
+  CF_PAGES_URL is absent above, and Cloudflare Pages always sets it. So this
+  is not a Pages project — most likely Workers Builds, which supplies no URL
+  of its own. Setting BASE_URL fixes the build either way.
 MSG
     exit 1
   fi
