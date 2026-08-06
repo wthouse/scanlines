@@ -5,7 +5,7 @@ All notable changes to the Scanlines theme are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.1] - 2026-08-05
 
 ### Changed
 
@@ -34,6 +34,9 @@ configuration, but it will look different:
 - Pagination gained `flex-wrap`, the 404's message stack uses correct OpenVMS
   continuation syntax, and the status line is now described as the VT320 feature
   it actually is rather than a VT220 one.
+- The demo site moved off the author's personal site to a dedicated deployment
+  at <https://scanlines.pages.dev>, which shows all four phosphors with CRT
+  effects both on and off.
 
 ### Fixed
 
@@ -170,5 +173,6 @@ developed in the open on `main` and this entry consolidates that history.
   to every downstream site. Sites create their own as documented.
 - Dead `layouts/page/` templates the 0.146 template system no longer resolves.
 
-[Unreleased]: https://github.com/wthouse/scanlines/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/wthouse/scanlines/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/wthouse/scanlines/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/wthouse/scanlines/releases/tag/v1.0.0
