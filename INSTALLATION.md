@@ -571,15 +571,38 @@ override it at build time:
 # production, so this is safe to use unconditionally.
 hugo --minify --baseURL "$DEPLOY_PRIME_URL"
 
-# Cloudflare Pages — CF_PAGES_URL is the *.pages.dev address even in
-# production, so only override on preview branches. Otherwise a custom domain
-# would emit pages.dev canonicals.
+# Cloudflare Pages — CF_PAGES_URL is the per-deployment address, of the form
+# https://<hash>.<project>.pages.dev/, and it is that even on production
+# builds, not the project's stable URL. Only override on preview branches;
+# otherwise every deploy would rewrite your canonicals to a throwaway host.
 if [ "$CF_PAGES_BRANCH" = "main" ]; then
   hugo --minify                                   # baseURL from hugo.toml
 else
   hugo --minify --baseURL "$CF_PAGES_URL"
 fi
 ```
+
+**Cache headers on Cloudflare Pages:** by default Pages serves every asset with
+`Cache-Control: public, max-age=0, must-revalidate`. For the theme's stylesheet
+that is worth fixing. Hugo fingerprints it as `main.min.<hash>.css`, so the
+file can never change under a given URL — yet the default makes the browser
+check with the server before it may use the file, on every navigation. Because
+`must-revalidate` also forbids falling back to the cached copy when that check
+is slow or fails, a page can render before its CSS applies, showing unstyled
+text and default blue links for a moment.
+
+Add a `_headers` file at the root of your published output:
+
+```
+/css/*
+  Cache-Control: public, max-age=31536000, immutable
+/fonts/*
+  Cache-Control: public, max-age=604800
+```
+
+Put it in `static/_headers` so Hugo copies it into `public/`. The stylesheet is
+content-hashed and safe to cache permanently; the bundled fonts keep their
+filenames across releases, so they get a week rather than a year.
 
 ## Support
 

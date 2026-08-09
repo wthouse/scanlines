@@ -251,4 +251,31 @@ for scheme in amber "${SCHEMES[@]}"; do
   build "$ROOT/$OUT/${dir}plain" "${BASE}${dir}plain/" "hugo.toml,/tmp/demo-$scheme-plain.toml"
 done
 
+# ---------------------------------------------------------------------------
+# Cache headers.
+#
+# Cloudflare Pages defaults every asset to "max-age=0, must-revalidate", which
+# for a content-hashed stylesheet is both wasteful and actively harmful. The
+# browser has to reach the server before it may use main.min.<hash>.css on
+# every single navigation, and must-revalidate forbids falling back to the
+# cached copy when that check is slow or fails — so the page renders with
+# browser defaults instead. That surfaced as a flash of unstyled blue links on
+# the nav, intermittently, and more often after a pause long enough for the
+# keep-alive connection to close.
+#
+# The filename already carries a hash of the contents, so the file can never
+# change under a given URL: it is safe to cache permanently. Fonts are not
+# fingerprinted, so they get a week rather than a year.
+# ---------------------------------------------------------------------------
+{
+  for scheme in amber "${SCHEMES[@]}"; do
+    if [ "$scheme" = amber ]; then dir=""; else dir="$scheme/"; fi
+    for p in "$dir" "${dir}plain/"; do
+      printf '/%scss/*\n  Cache-Control: public, max-age=31536000, immutable\n' "$p"
+      printf '/%sfonts/*\n  Cache-Control: public, max-age=604800\n' "$p"
+    done
+  done
+} > "$ROOT/$OUT/_headers"
+echo "==> wrote _headers ($(grep -c 'Cache-Control' "$ROOT/$OUT/_headers") rules)"
+
 echo "==> built $(find "$ROOT/$OUT" -name '*.html' | wc -l) pages into $OUT/"
