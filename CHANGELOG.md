@@ -5,7 +5,17 @@ All notable changes to the Scanlines theme are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.3] - 2026-08-10
+
+### Added
+
+- The deployment guide now covers **cache headers on Cloudflare Pages**. Pages
+  serves every asset with `Cache-Control: public, max-age=0, must-revalidate`,
+  which for the theme's content-hashed stylesheet means the browser must reach
+  the server before it may use the CSS on every navigation — and
+  `must-revalidate` forbids falling back to the cached copy when that check is
+  slow or fails, so a page can render before its stylesheet applies.
+  `INSTALLATION.md` has a `static/_headers` snippet that fixes it.
 
 ### Fixed
 
@@ -210,7 +220,8 @@ developed in the open on `main` and this entry consolidates that history.
   to every downstream site. Sites create their own as documented.
 - Dead `layouts/page/` templates the 0.146 template system no longer resolves.
 
-[Unreleased]: https://github.com/wthouse/scanlines/compare/v1.0.2...HEAD
+[Unreleased]: https://github.com/wthouse/scanlines/compare/v1.0.3...HEAD
+[1.0.3]: https://github.com/wthouse/scanlines/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/wthouse/scanlines/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/wthouse/scanlines/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/wthouse/scanlines/releases/tag/v1.0.0
