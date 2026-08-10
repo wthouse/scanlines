@@ -13,13 +13,31 @@
 // -----------------------------------------------------------------------------
 .crt-overlay {
   position: fixed;
-  top: -5vh;
   left: 0;
   right: 0;
-  height: 110vh;
-  height: 110dvh;
   pointer-events: none;
   z-index: $z-crt-overlay;
+
+  // Sized against the LARGE viewport, deliberately not dvh.
+  //
+  // dvh tracks the mobile browser's toolbar as it retracts and expands during
+  // a scroll, so sizing this overlay in dvh resized it on nearly every frame
+  // of a fling — and each resize meant relaying out and repainting a
+  // full-viewport repeating gradient. The compositor scrolls new content into
+  // view faster than that repaint lands, so a band at the bottom of the
+  // viewport rendered without scanlines or vignette until scrolling stopped.
+  //
+  // lvh is fixed for the life of the page, so the layer is stable and can stay
+  // composited. The overlay is deliberately oversized (-5 to 105) and
+  // pointer-events:none, so covering the largest viewport state costs nothing
+  // when the toolbar is showing — it just extends past the visible area.
+  //
+  // The vh pair is the fallback for browsers without the new viewport units;
+  // vh already resolves to the large viewport there, which is what we want.
+  top: -5vh;
+  height: 110vh;
+  top: -5lvh;
+  height: 110lvh;
 
   // Phosphor vignette — toggled via .crt-vignette class, intensity via CSS variable.
   // Simulates CRT phosphor brightness falloff (cos^4 pattern) at screen edges.
