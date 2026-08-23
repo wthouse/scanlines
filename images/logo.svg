@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 875 194" width="875" height="194">
+  <title>Scanlines</title>
+  <rect x="0.75" y="0.75" width="873.5" height="192.5" rx="14" fill="#0D0A00" stroke="#4D3600" stroke-width="1.5"/>
+  <g transform="translate(28,28)">
+    
+  <defs><filter id="glowCard" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="1.1" result="b1"/>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2.6" result="b2"/>
+      <feMerge><feMergeNode in="b2"/><feMergeNode in="b1"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter></defs>
+  <path d="M 60.0 28.0 L 34.0 28.0 L 34.0 110.0 L 60.0 110.0" fill="none" stroke="#FFB000" stroke-width="5.5" stroke-linecap="square" filter="url(#glowCard)"/>
+  <path d="M 81.0 34.0 L 116.0 69.0 L 81.0 104.0" fill="none" stroke="#FFB000" stroke-width="5.5" stroke-linecap="square" stroke-linejoin="miter" filter="url(#glowCard)"/>
+  <circle cx="157.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="167.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="177.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="187.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="147.0" cy="49.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="147.0" cy="59.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="157.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="167.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="177.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="187.0" cy="79.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="187.0" cy="89.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="147.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="157.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="167.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="177.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="217.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="227.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="237.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="247.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="207.0" cy="49.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="207.0" cy="59.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="207.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="207.0" cy="79.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="207.0" cy="89.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="217.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="227.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="237.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="247.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="277.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="287.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="297.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="267.0" cy="49.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="307.0" cy="49.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="267.0" cy="59.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="307.0" cy="59.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="267.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="277.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="287.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="297.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="307.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="267.0" cy="79.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="307.0" cy="79.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="267.0" cy="89.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="307.0" cy="89.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="267.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="307.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="327.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="367.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="327.0" cy="49.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="337.0" cy="49.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="367.0" cy="49.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="327.0" cy="59.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="347.0" cy="59.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="367.0" cy="59.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="327.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="347.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="367.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="327.0" cy="79.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="357.0" cy="79.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="367.0" cy="79.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="327.0" cy="89.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="367.0" cy="89.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="327.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="367.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="387.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="387.0" cy="49.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="387.0" cy="59.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="387.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="387.0" cy="79.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="387.0" cy="89.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="387.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="397.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="407.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="417.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="427.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="447.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="457.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="467.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="477.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="487.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="467.0" cy="49.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="467.0" cy="59.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="467.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="467.0" cy="79.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="467.0" cy="89.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="447.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="457.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="467.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="477.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="487.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="507.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="547.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="507.0" cy="49.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="517.0" cy="49.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="547.0" cy="49.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="507.0" cy="59.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="527.0" cy="59.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="547.0" cy="59.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="507.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="527.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="547.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="507.0" cy="79.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="537.0" cy="79.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="547.0" cy="79.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="507.0" cy="89.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="547.0" cy="89.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="507.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="547.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="567.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="577.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="587.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="597.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="607.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="567.0" cy="49.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="567.0" cy="59.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="567.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="577.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="587.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="597.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="567.0" cy="79.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="567.0" cy="89.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="567.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="577.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="587.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="597.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="607.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="637.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="647.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="657.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="667.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="627.0" cy="49.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="627.0" cy="59.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="637.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="647.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="657.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="667.0" cy="79.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="667.0" cy="89.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="627.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="637.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="647.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+    <circle cx="657.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCard)"/>
+  <rect x="688.0" y="89.5" width="50.0" height="11.5" rx="1" fill="#FFB000" filter="url(#glowCard)"/>
+  <path d="M 759.0 28.0 L 785.0 28.0 L 785.0 110.0 L 759.0 110.0" fill="none" stroke="#FFB000" stroke-width="5.5" stroke-linecap="square" filter="url(#glowCard)"/>
+
+  </g>
+</svg>

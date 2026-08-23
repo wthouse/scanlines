@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/wthouse/scanlines/main/images/logo.svg" alt="Scanlines" width="480">
+</p>
+
 # Scanlines
 
 [![Build](https://github.com/wthouse/scanlines/actions/workflows/build.yml/badge.svg)](https://github.com/wthouse/scanlines/actions/workflows/build.yml)
