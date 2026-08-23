@@ -2,8 +2,6 @@
   <img src="https://raw.githubusercontent.com/wthouse/scanlines/main/images/logo.svg" alt="Scanlines" width="480">
 </p>
 
-# Scanlines
-
 [![Build](https://github.com/wthouse/scanlines/actions/workflows/build.yml/badge.svg)](https://github.com/wthouse/scanlines/actions/workflows/build.yml)
 [![Release](https://img.shields.io/github/v/release/wthouse/scanlines?color=FFB000&label=release)](https://github.com/wthouse/scanlines/releases/latest)
 [![Hugo](https://img.shields.io/badge/hugo-%E2%89%A50.146.0-FFB000)](https://gohugo.io)
