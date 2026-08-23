@@ -119,3 +119,9 @@ other = "Email"
 
 [rssLabel]
 other = "RSS Feed"
+
+[poweredBy]
+other = "Powered by"
+
+[themeLabel]
+other = "Theme"

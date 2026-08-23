@@ -2,7 +2,7 @@
 
 {{- /* Description: front-matter description → page summary (content pages) →
        site description. Mirrors the JSON-LD fallback in schema.html. */ -}}
-{{- $description := .Description | default (cond .IsPage (.Summary | plainify | chomp) "") | default .Site.Params.description | default "" -}}
+{{- $description := .Description | default (cond .IsPage (partial "page-summary.html" .) "") | default .Site.Params.description | default "" -}}
 {{- /* Home shares the site title (matches the <title> tag in head.html) so
        share cards don't read "Home". */ -}}
 {{- $title := .Title | default .Site.Title -}}

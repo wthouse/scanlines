@@ -1,0 +1,26 @@
+version: 2
+
+# Only the github-actions ecosystem is enabled.
+#
+# gomod is deliberately absent: go.mod declares the module path so the theme can
+# be consumed as a Hugo Module, but the theme has no Go dependencies at all — no
+# require block, nothing to update. Enabling it would just add a permanently
+# idle ecosystem to the dashboard.
+#
+# There is no npm/bundler/pip ecosystem either: the theme ships no JavaScript and
+# no build tooling. CI is the only place with pinned third-party versions.
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: "ci"
+    labels:
+      - dependencies
+    groups:
+      # One PR a month for all actions rather than one per action — this repo
+      # pins two, and a grouped bump is a single review instead of two.
+      actions:
+        patterns:
+          - "*"

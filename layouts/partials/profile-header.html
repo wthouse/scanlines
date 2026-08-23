@@ -36,7 +36,7 @@
   {{- with $bio }}
   <div class="profile-bio">{{ . | markdownify }}</div>
   {{- end }}
-  {{- partial "social-icons.html" (dict "social" $social "class" "profile-social" "hideLabels" true) -}}
+  {{- partial "social-icons.html" (dict "social" $social "class" "profile-social") -}}
   {{- with .site.Params.scanlines.profile.buttons }}
   <nav class="profile-buttons" aria-label="{{ or (i18n "quickLinks") "Quick links" }}">
     {{- range . -}}

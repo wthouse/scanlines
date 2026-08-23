@@ -40,6 +40,8 @@ enableEmoji = true
     name = "Home"
     pageRef = "/"
     weight = 1
+  # Auto-hidden in blog homepage mode — the homepage already is the post list.
+  # Kept because it does render in profile mode (homepage = "profile").
   [[menus.main]]
     name = "Posts"
     pageRef = "/posts"
@@ -167,7 +169,7 @@ enableEmoji = true
 
     # Social Links (leave empty to hide)
     [params.scanlines.social]
-      github = "wthouse"
+      github = "wthouse"      # the theme author's demo account — replace with your own
       twitter = ""
       linkedin = ""
       mastodon = ""

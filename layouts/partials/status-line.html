@@ -25,11 +25,11 @@
     {{- if .IsPage -}}
       {{ partial "reading-time.html" (dict "page" . "short" true) }}
     {{- else if eq .Kind "term" -}}
-      {{ len .Pages }} {{ or (i18n "postsTitle") "POSTS" }}
+      {{ i18n "postCount" (len .Pages) | upper }}
     {{- else if eq .Kind "taxonomy" -}}
       {{ len .Pages }} {{ .Data.Plural | upper }}
     {{- else if eq .Kind "section" -}}
-      {{ len .Pages }} {{ or (i18n "postsTitle") "POSTS" }}
+      {{ i18n "postCount" (len .Pages) | upper }}
     {{- else -}}
       {{- if eq $colorScheme "amber" -}}P3 AMBER
       {{- else if eq $colorScheme "green" -}}P1 GREEN

@@ -3,9 +3,12 @@ exampleSite/public/
 exampleSite/resources/
 exampleSite/.hugo_build.lock
 resources/
-# demo build (scripts/build-demo.sh) — output plus the switcher partial it generates
+# demo build (scripts/build-demo.sh) — output plus the two partials it generates.
+# Narrowed to the exact files: ignoring all of exampleSite/layouts/ would hide any
+# real template override added there from both `git status` and `git add -A`.
 public/
-exampleSite/layouts/
+exampleSite/layouts/partials/custom_head.html
+exampleSite/layouts/partials/custom_footer.html
 
 # OS
 .DS_Store

@@ -2,8 +2,9 @@
 #
 # This file declares the Hugo versions the theme supports. It is NOT the config
 # for your site — copy exampleSite/hugo.toml for that. Hugo enforces these
-# constraints for module consumers, and themes.gohugo.io reads them for the
-# theme's gallery listing.
+# constraints for module consumers. themes.gohugo.io requires this file but does
+# not currently surface the values — its builder runs `hugo config mounts --quiet`
+# (which omits hugoVersion) and sets ignoreConfig on theme imports.
 #
 # extended = true : the theme compiles SCSS with `toCSS`, which the standard
 #                   (non-extended) Hugo binary cannot do.

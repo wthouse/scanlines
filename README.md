@@ -183,9 +183,9 @@ grayscale treatment and lazy loading, but no overlay.
 ```
 
 The theme also respects the `prefers-reduced-motion` media query automatically:
-every animation (screen flicker, scanline drift, the status-line cursor blink,
-smooth scrolling) stops. Static effects — scanlines, vignette, glow — stay
-visible, since they don't move; use `disableEffects` to remove those too.
+every animation (screen flicker, the status-line cursor blink, smooth scrolling)
+stops. Static effects — scanlines, vignette, glow — stay visible, since they
+don't move; use `disableEffects` to remove those too.
 
 ### Header
 
@@ -263,7 +263,7 @@ has no effect:
 
 ```toml
 [params.scanlines.social]
-  github = "wthouse"
+  github = ""
   twitter = ""
   linkedin = ""
   mastodon = ""              # Full URL for Mastodon
@@ -302,7 +302,7 @@ common ones (see `archetypes/posts.md`).
 | `title` | string | Post title — heading, `<title>`, share cards, JSON-LD |
 | `date` | date | Publication date. Omit it and the post shows no date in listings |
 | `description` | string | Meta description, share-card text, JSON-LD, and RSS. Used as the listing excerpt when `summary` is unset |
-| `summary` | string | Listing excerpt. Takes precedence over `description` in listings; also used for the RSS item when `description` is unset |
+| `summary` | string | Listing excerpt. Takes precedence over `description` in listings; also used for the RSS item when `description` is unset. With neither set, listings fall back to Hugo's auto-summary of the opening content |
 | `image` | path | Per-page Open Graph / Twitter image and JSON-LD image. Falls back to `scanlines.ogImage` |
 | `author` | string | Overrides `params.author` for this post (byline, `article:author`, JSON-LD) |
 | `tags` | list | `#tag` chips + tag term pages |
@@ -473,16 +473,28 @@ to English for any missing keys, so partial translations are safe.
 
 ## Color Schemes
 
-The theme includes four historically accurate phosphor color schemes. All foreground/background pairs meet WCAG AA for normal text; amber, green, and white also meet AAA.
+The theme includes four historically accurate phosphor color schemes. Every
+primary foreground/background pair below meets WCAG AAA for normal text (≥7:1);
+the dimmed secondary color used for meta lines, captions and the footer meets AA
+on every scheme.
 
 | Scheme | Phosphor    | Foreground | Background | Contrast |
 |--------|-------------|------------|------------|----------|
-| Amber  | P3 (~602nm) | `#FFB000`  | `#0D0A00`  | ~12.5:1 (AAA) |
-| Green  | P1 (~525nm) | `#33FF66`  | `#001A00`  | ~14.8:1 (AAA) |
-| Blue   | Cool white  | `#6AAFFF`  | `#000A1A`  | ~7.7:1 (AAA)  |
-| White  | Paper white | `#E6E6E6`  | `#1A1A1A`  | ~13.5:1 (AAA) |
+| Amber  | P3 (~602nm) | `#FFB000`  | `#0D0A00`  | ~10.8:1 (AAA) |
+| Green  | P1 (~525nm) | `#33FF66`  | `#001A00`  | ~13.6:1 (AAA) |
+| Blue   | Cool white  | `#6AAFFF`  | `#000A1A`  | ~8.7:1 (AAA)  |
+| White  | Paper white | `#E6E6E6`  | `#1A1A1A`  | ~13.9:1 (AAA) |
 
-If you set custom colors via `[params.scanlines.colors]`, verify contrast with a tool like [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/). Values are validated against `^#[0-9a-fA-F]{3,8}$` and silently dropped if malformed — invalid hex falls back to the scheme default.
+These are palette ratios, measured with CRT effects off. The scanline and
+vignette overlays composite black over the page, so delivered contrast is lower
+than the table — most noticeably toward the edges of the viewport, where the
+vignette is densest, and on narrow screens. It stays above AA at the reading
+position on every scheme, but if you need the full ratios, turn the effects off
+with `accessibility.disableEffects` (see [Accessibility](#accessibility)). The
+theme also drops both overlays automatically for readers whose OS asks for more
+contrast (`forced-colors` / `prefers-contrast: more`).
+
+If you set custom colors via `[params.scanlines.colors]`, verify contrast with a tool like [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/). Values are validated as a 3-, 4-, 6- or 8-digit CSS hex color and silently dropped if malformed — invalid hex falls back to the scheme default.
 
 | Green | Blue | White |
 |-------|------|-------|
@@ -501,8 +513,9 @@ The theme uses two self-hosted fonts:
 - **Glass TTY VT220** (default) - Authentic VT220 terminal font (Unlicense)
 - **Fira Code** (optional) - Modern monospace alternative (OFL)
 
-Full font license texts are in [LICENSE-FONTS.md](LICENSE-FONTS.md). The theme
-itself is MIT ([LICENSE](LICENSE)).
+Font licensing is documented in [LICENSE-FONTS.md](LICENSE-FONTS.md), which
+reproduces the OFL in full for Fira Code and links The Unlicense for Glass TTY
+VT220. The theme itself is MIT ([LICENSE](LICENSE)).
 
 ## Browser Support
 

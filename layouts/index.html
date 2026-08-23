@@ -52,6 +52,10 @@
             {{- else }}
             {{- with .Description }}
             <p class="post-list-excerpt">{{ . }}</p>
+            {{- else }}
+            {{- with partial "page-summary.html" . }}
+            <p class="post-list-excerpt">{{ . | truncate 200 }}</p>
+            {{- end }}
             {{- end }}
             {{- end }}
           </article>

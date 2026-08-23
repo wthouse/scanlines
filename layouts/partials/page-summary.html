@@ -1,0 +1,19 @@
+{{- /* Plain-text summary for meta descriptions, JSON-LD and listing excerpts.
+
+       Hugo's auto-summary is HTML, and layouts/_markup/render-heading.html adds a
+       permalink anchor whose link text is a literal "#". plainify keeps that text,
+       so any summary reaching past the post's first heading would otherwise read
+       "...A Section Heading# More body text...". The anchors are stripped before
+       flattening.
+
+       Whitespace is then collapsed: the raw summary carries the newlines between
+       block elements, which land inside a `content="..."` attribute and split the
+       meta tag across lines. chomp only strips trailing newlines, so it can't do
+       this on its own.
+
+       Returns a string — callers apply their own truncation. */ -}}
+{{- return (.Summary
+  | replaceRE `(?s)<a class="heading-anchor".*?</a>` ""
+  | plainify
+  | replaceRE `\s+` " "
+  | strings.TrimSpace) -}}

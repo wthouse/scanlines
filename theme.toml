@@ -13,7 +13,9 @@ demosite = "https://scanlines.pages.dev"
 # theme on the gallery's browse pages — and all five are accurate.
 tags = ["retro", "terminal", "crt", "monochrome", "blog", "minimal", "dark", "personal", "sass"]
 features = ["syntax highlighting", "responsive", "accessible", "crt effects", "profile mode", "structured data", "i18n", "render hooks", "categories", "woff2 fonts"]
-# layouts/_markup/ render hooks require the Hugo 0.146+ template system
+# Legacy key: Hugo only consults it when [module.hugoVersion].min is unset, and
+# hugo.toml sets that — so this is permanently shadowed. Kept for older tooling
+# that still reads it; keep the two in sync.
 min_version = "0.146.0"
 
 [author]

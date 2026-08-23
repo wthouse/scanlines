@@ -73,7 +73,7 @@ Adjust the intensity of visual effects to match your preference:
 ```toml
 [params.scanlines.effects]
   scanlineOpacity = 0.15   # 0.0 - 1.0
-  flickerIntensity = 0.15  # 0.0 - 1.0 (0.05 barely visible, 0.15 subtle, 0.4 strong)
+  flickerIntensity = 0.15  # 0.0 - 1.0 (0.03 barely visible, 0.15 subtle, 0.4 strong)
   glowIntensity = 0.8      # 0.0 - 2.0
 ```
 

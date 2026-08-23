@@ -241,11 +241,15 @@ echo "==> theme linked at $THEMES/scanlines -> $ROOT"
 for scheme in amber "${SCHEMES[@]}"; do
   if [ "$scheme" = amber ]; then dir=""; else dir="$scheme/"; fi
 
-  printf '[params.scanlines]\ncolorScheme = "%s"\n' "$scheme" > "/tmp/demo-$scheme.toml"
+  # ogImage is set here rather than in exampleSite/hugo.toml: that file doubles
+  # as the starter config people copy, and hardcoding it there would give every
+  # downstream site the theme's own branded share card.
+  printf '[params.scanlines]\ncolorScheme = "%s"\nogImage = "/images/social-preview.png"\n' \
+    "$scheme" > "/tmp/demo-$scheme.toml"
   echo "==> building $scheme at ${BASE}${dir}"
   build "$ROOT/$OUT/${dir%/}" "${BASE}${dir}" "hugo.toml,/tmp/demo-$scheme.toml"
 
-  printf '[params.scanlines]\ncolorScheme = "%s"\n[params.scanlines.effects]\nenabled = false\n' \
+  printf '[params.scanlines]\ncolorScheme = "%s"\nogImage = "/images/social-preview.png"\n[params.scanlines.effects]\nenabled = false\n' \
     "$scheme" > "/tmp/demo-$scheme-plain.toml"
   echo "==> building $scheme (effects off) at ${BASE}${dir}plain/"
   build "$ROOT/$OUT/${dir}plain" "${BASE}${dir}plain/" "hugo.toml,/tmp/demo-$scheme-plain.toml"

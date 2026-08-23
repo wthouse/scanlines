@@ -5,6 +5,96 @@ All notable changes to the Scanlines theme are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.4] - 2026-08-23
+
+Gallery-readiness pass ahead of submitting the theme to themes.gohugo.io.
+
+### Fixed
+
+- **Heading-permalink anchors no longer leak a `#` into meta descriptions,
+  JSON-LD, listing excerpts or the RSS feed.** The heading render hook appends
+  an anchor whose link text is a literal `#`, and `plainify` keeps that text —
+  so any auto-summary reaching past a post's first heading read
+  "...A Section Heading# More body text...". Six call sites flattened the
+  summary that way; only the RSS feed had been fixed. They now share
+  `layouts/partials/page-summary.html`, which strips the anchors and collapses
+  the block-level newlines that were splitting `content="..."` attributes
+  across lines. Posts that set an explicit `description` were never affected,
+  which is why the demo site never showed it.
+- **Focus rings survive Windows High Contrast mode.** The reverse-video focus
+  treatment is built from `background-color`, `color` and `box-shadow`; in
+  forced-colors mode the first two are overridden with system colours and the
+  third is forced to `none`, so an explicit `outline: none` left no focus
+  indicator at all. Now a transparent 2px outline, which forced-colors repaints
+  with the system highlight.
+- **The four contrast ratios in the README's colour-scheme table were wrong.**
+  Recomputed with the WCAG 2.x relative-luminance formula: amber 10.8:1 (was
+  listed as 12.5), green 13.6 (14.8), blue 8.7 (7.7), white 13.9 (13.5). All
+  four are AAA. The surrounding claim is also corrected — it described the
+  palette, not what the theme renders, since the CRT overlays composite black
+  over the page and cost real contrast at the edges and on narrow screens.
+- The changelog's own note on syntax-comment contrast said 7.32:1 where the
+  code comment it describes says 6.40:1. 6.40 is correct.
+- The homepage post list fell back to `summary` then `description` and stopped,
+  while section listings had a third tier. A post with neither key showed an
+  excerpt on `/posts/` but not on `/`. Both archetypes ship an empty
+  `description`, so that was the default path for a new post.
+- Singly-tagged term pages read "1 POSTS" in the status line — it used the
+  non-pluralising `postsTitle` key rather than `postCount`, which already has
+  singular and plural forms.
+
+### Added
+
+- **Both CRT overlays are dropped for readers whose OS asks for more contrast**
+  (`forced-colors: active`, `prefers-contrast: more`). Removed rather than
+  dimmed: the intensities are written as inline custom properties on the
+  overlay elements, which beat any stylesheet override.
+- `poweredBy` and `themeLabel` i18n keys. The footer hardcoded "Powered by" and
+  "Theme:" in English on every page, including fully translated ones — the one
+  gap in an otherwise complete i18n surface.
+- Dependabot for the `github-actions` ecosystem, grouped into a single monthly
+  PR. Deliberately not `gomod`: `go.mod` declares the module path so the theme
+  can be consumed as a Hugo Module and has no dependencies to update.
+- The full SIL Open Font License 1.1 text for Fira Code. `LICENSE-FONTS.md`
+  claimed the font terms were "reproduced here" and the README claimed it held
+  the full texts; neither was true, and OFL 1.1 requires the licence accompany
+  the bundled font. Glass TTY VT220 is unaffected — The Unlicense imposes no
+  notice-retention condition.
+
+### Changed
+
+- **Gallery screenshots recaptured.** `images/screenshot.png` and
+  `images/tn.png` were framed at a viewport wide enough that the content column
+  filled only ~52% of the frame, leaving body text illegible at the ~350px the
+  gallery card actually renders. Recaptured so content fills ~64%, and rendered
+  at 3000x2000 before downsampling so both are crisp on HiDPI.
+- `exampleSite/static/images/terminal-demo.png`, embedded in the demo's
+  markdown reference post, was a byte-identical copy of the pre-1.0.4
+  thumbnail: it showed a `[ POSTS ]` nav item the theme deliberately hides, was
+  missing `[ ARCHIVE ]`, and carried 2024 dates matching no content in the
+  repo. Refreshed.
+- The starter configs in `README.md` and `INSTALLATION.md` no longer ship the
+  theme author's real GitHub handle. Anyone pasting them verbatim got a footer
+  icon pointing at someone else's profile.
+- `INSTALLATION.md`'s reference configs now include the
+  `[markup.goldmark.extensions] typographer = false` the README says is
+  required on the default font.
+- `.gitignore` no longer excludes all of `exampleSite/layouts/` — narrowed to
+  the two files `scripts/build-demo.sh` generates, so a real template override
+  added there can't be silently skipped by `git add -A`.
+- The demo build sets an `ogImage`, so shared links unfurl with a card. Set in
+  the per-scheme overlay configs rather than `exampleSite/hugo.toml`, which
+  doubles as the starter config people copy.
+- Corrected comments in `hugo.toml` and `theme.toml` that overstated what
+  themes.gohugo.io reads, and a README line documenting a hex-validation
+  pattern that no longer matched the templates.
+
+### Removed
+
+- Two no-op `prefers-reduced-motion` rules targeting an animation
+  `.crt-scanlines` never had, and an unused `hideLabels` parameter that
+  `social-icons.html` accepted, documented, and never read.
+
 ## [1.0.3] - 2026-08-10
 
 ### Added
@@ -90,7 +180,7 @@ configuration, but it will look different:
 - The footnote back-link was keyboard-inaccessible for one commit
   (`visibility: hidden` removes an element from the tab order). Fixed before
   release; noted here because the pattern is worth not repeating.
-- Syntax comments composited to 3.76:1, under WCAG AA. Now 7.32:1.
+- Syntax comments composited to 3.76:1, under WCAG AA. Now 6.40:1.
 - The 404's terminal box no longer overflows a 320px viewport, and no longer
   draws itself with box-drawing glyphs the bundled font lacks.
 
@@ -220,7 +310,8 @@ developed in the open on `main` and this entry consolidates that history.
   to every downstream site. Sites create their own as documented.
 - Dead `layouts/page/` templates the 0.146 template system no longer resolves.
 
-[Unreleased]: https://github.com/wthouse/scanlines/compare/v1.0.3...HEAD
+[Unreleased]: https://github.com/wthouse/scanlines/compare/v1.0.4...HEAD
+[1.0.4]: https://github.com/wthouse/scanlines/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/wthouse/scanlines/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/wthouse/scanlines/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/wthouse/scanlines/compare/v1.0.0...v1.0.1

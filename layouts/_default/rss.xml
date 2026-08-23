@@ -60,8 +60,7 @@
       <guid>{{ .Permalink }}</guid>
       {{- /* Plain text, with the heading-permalink anchors removed first —
              plainify would otherwise leave their "#" glyphs mid-sentence. */}}
-      {{- $summary := .Summary | replaceRE `(?s)<a class="heading-anchor".*?</a>` "" | plainify | chomp -}}
-      <description>{{ .Description | default $summary }}</description>
+      <description>{{ .Description | default (partial "page-summary.html" .) }}</description>
     </item>
     {{- end }}
   </channel>

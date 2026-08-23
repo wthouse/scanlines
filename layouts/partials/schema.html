@@ -8,7 +8,7 @@
 
 {{- if and .IsPage (eq .Section $contentSection) -}}
   {{- $author := .Params.author | default site.Params.author | default site.Title -}}
-  {{- $desc := .Description | default (.Summary | plainify) | chomp -}}
+  {{- $desc := .Description | default (partial "page-summary.html" .) -}}
   {{- $schema := dict
       "@context" "https://schema.org"
       "@type" "BlogPosting"
@@ -25,7 +25,7 @@
   {{- with .Params.tags }}{{ $schema = merge $schema (dict "keywords" (delimit . ", ")) }}{{ end -}}
 <script type="application/ld+json">{{ $schema | jsonify | safeJS }}</script>
 {{- else if .IsPage -}}
-  {{- $desc := .Description | default (.Summary | plainify) | chomp -}}
+  {{- $desc := .Description | default (partial "page-summary.html" .) -}}
   {{- $schema := dict
       "@context" "https://schema.org"
       "@type" "WebPage"

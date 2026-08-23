@@ -3,16 +3,13 @@
        Default (uses site.Params.scanlines.social): {{ partial "social-icons.html" . }}
        With custom social data: {{ partial "social-icons.html" (dict "social" $customSocial) }}
        With custom wrapper class: {{ partial "social-icons.html" (dict "social" $social "class" "profile-social") }}
-       With labels hidden: {{ partial "social-icons.html" (dict "social" $social "hideLabels" true) }}
 */ -}}
 {{- /* Detect if called with dict (has .social key) or page context (use site params) */ -}}
 {{- $social := site.Params.scanlines.social -}}
 {{- $wrapperClass := "social-links" -}}
-{{- $hideLabels := false -}}
 {{- if reflect.IsMap . -}}
   {{- with .social }}{{ $social = . }}{{ end -}}
   {{- with .class }}{{ $wrapperClass = . }}{{ end -}}
-  {{- with .hideLabels }}{{ $hideLabels = . }}{{ end -}}
 {{- end -}}
 {{- if $social -}}
 <nav class="{{ $wrapperClass }}" aria-label="{{ or (i18n "socialLinks") "Social links" }}">

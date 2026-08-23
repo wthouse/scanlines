@@ -54,19 +54,6 @@
   .effects-disabled & {
     display: none;
   }
-
-  // Respect reduced motion preferences
-  .reduce-motion & {
-    .crt-scanlines {
-      animation: none;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .crt-scanlines {
-      animation: none;
-    }
-  }
 }
 
 // -----------------------------------------------------------------------------
@@ -311,6 +298,26 @@
   .crt-overlay,
   .site-wrapper::before {
     display: none !important;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// High-contrast preferences
+// -----------------------------------------------------------------------------
+// The scanline and vignette layers composite black over the whole page, which
+// costs real contrast — most at the viewport edges, where the vignette is
+// densest, and on narrow screens where the line-ends sit at high alpha across
+// the full width. A reader who has asked their OS for more contrast is exactly
+// the reader that should not pay it, so drop both layers entirely.
+//
+// Removed rather than dimmed: crt-overlay.html writes --vignette-intensity and
+// --scanline-opacity as inline style attributes on these very elements, and an
+// inline custom property beats any stylesheet declaration, so turning the
+// intensity down from here would silently lose.
+@media (forced-colors: active), (prefers-contrast: more) {
+  .crt-overlay,
+  .crt-vignette-enabled:not(.effects-disabled) .site-wrapper::before {
+    display: none;
   }
 }
 

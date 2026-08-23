@@ -627,7 +627,15 @@ a:focus-visible,
 button:focus-visible,
 .nav-link:focus-visible,
 .profile-btn:focus-visible {
-  outline: none;
+  // Transparent rather than `none`: the reverse-video treatment below is built
+  // from background-color, color and box-shadow, and forced-colors mode
+  // overrides the first two with system colours while forcing box-shadow to
+  // none — which with `outline: none` would leave no focus indicator at all.
+  // A transparent outline is invisible in normal rendering, and forced-colors
+  // repaints transparent outline colours with the system highlight, so the
+  // ring reappears exactly where it's needed. No media query required.
+  outline: 2px solid transparent;
+  outline-offset: 2px;
   background-color: var(--color-fg);
   color: var(--color-bg);
   box-shadow: 0 0 0 2px var(--color-fg);

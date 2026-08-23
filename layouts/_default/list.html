@@ -31,8 +31,8 @@
           {{- with .Description }}
           <p class="post-list-excerpt">{{ . }}</p>
           {{- else }}
-          {{- with .Summary }}
-          <p class="post-list-excerpt">{{ . | plainify | truncate 200 }}</p>
+          {{- with partial "page-summary.html" . }}
+          <p class="post-list-excerpt">{{ . | truncate 200 }}</p>
           {{- end }}
           {{- end }}
         </article>

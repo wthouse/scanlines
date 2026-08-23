@@ -11,8 +11,8 @@
           &copy; {{ now.Year }} {{ .Site.Params.author | default .Site.Title }}
         </p>
         <p class="powered-by">
-          Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo</a>
-          &middot; Theme: <a href="https://github.com/wthouse/scanlines" rel="noopener" target="_blank">Scanlines</a>
+          {{ i18n "poweredBy" }} <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo</a>
+          &middot; {{ i18n "themeLabel" }}: <a href="https://github.com/wthouse/scanlines" rel="noopener" target="_blank">Scanlines</a>
         </p>
       </div>
 

@@ -129,6 +129,11 @@ theme = "scanlines"  # Not needed if using Hugo Modules
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = false
+    [markup.goldmark.extensions]
+      # Required on the default fontFamily = "glass": Glass TTY VT220 has no
+      # curly quotes or em dashes, so leaving the typographer on makes those
+      # characters fall back to another font mid-sentence.
+      typographer = false
   [markup.tableOfContents]
     startLevel = 2
     endLevel = 4
@@ -173,7 +178,7 @@ theme = "scanlines"  # Not needed if using Hugo Modules
       glow = true
 
     [params.scanlines.social]
-      github = "wthouse"
+      github = ""
       email = "you@example.com"
       rss = true
 ```
@@ -253,6 +258,11 @@ theme = "scanlines"
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = false
+    [markup.goldmark.extensions]
+      # Required on the default fontFamily = "glass": Glass TTY VT220 has no
+      # curly quotes or em dashes, so leaving the typographer on makes those
+      # characters fall back to another font mid-sentence.
+      typographer = false
   [markup.tableOfContents]
     startLevel = 2
     endLevel = 4
