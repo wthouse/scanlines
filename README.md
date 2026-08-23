@@ -1,5 +1,11 @@
 # Scanlines
 
+[![Build](https://github.com/wthouse/scanlines/actions/workflows/build.yml/badge.svg)](https://github.com/wthouse/scanlines/actions/workflows/build.yml)
+[![Release](https://img.shields.io/github/v/release/wthouse/scanlines?color=FFB000&label=release)](https://github.com/wthouse/scanlines/releases/latest)
+[![Hugo](https://img.shields.io/badge/hugo-%E2%89%A50.146.0-FFB000)](https://gohugo.io)
+[![License: MIT](https://img.shields.io/badge/license-MIT-FFB000)](LICENSE)
+[![No JavaScript](https://img.shields.io/badge/javascript-none-FFB000)](#features)
+
 A retro Hugo theme inspired by the look and feel of classic CRT terminals like the DEC VT220 and VT100. Features historically accurate phosphor color schemes, authentic CRT visual effects, and a clean, minimal design.
 
 **[Live demo](https://scanlines.pages.dev)** · [Installation](INSTALLATION.md) · [Configuration](#configuration-reference) · [Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md)
