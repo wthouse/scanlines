@@ -53,6 +53,18 @@
     border: none;
   }
 
+  // The row-hover tint for content tables in _base.scss matches this table too,
+  // because Chroma builds line-numbered code out of real <tr>/<td> elements.
+  // On a code block it reads as a rendering fault rather than affordance —
+  // there is nothing to select or act on — so turn it off. Scoped under
+  // .lntable, which outranks the bare `tr:hover td`.
+  //
+  // The zebra rule beside it needs no reset: this table has exactly one row, so
+  // :nth-child(even) never matches.
+  tr:hover td {
+    background-color: transparent;
+  }
+
   .lntd:first-child {
     width: 3em;
     user-select: none;

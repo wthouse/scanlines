@@ -393,8 +393,21 @@ table {
 
 // A wide table would otherwise force the whole page to scroll sideways on a
 // phone. display:block confines the overflow to the table itself.
-.article-content table {
+//
+// width:max-content is what keeps the box honest. A bare display:block table
+// still takes width:100% from the rule above, but its rows and cells are then
+// wrapped in an anonymous table box that shrink-wraps to its content — so a
+// narrow table painted its border right across the column with the cells
+// huddled at the left edge. max-content sizes the block to the content it
+// actually has; max-width caps it so a wide table still scrolls rather than
+// overflowing.
+//
+// .lntable is excluded deliberately: Chroma renders a line-numbered code block
+// as a <table>, but that is layout, not tabular content, and it should keep the
+// full width of the code box. See _syntax.scss.
+.article-content table:not(.lntable) {
   display: block;
+  width: max-content;
   max-width: 100%;
   overflow-x: auto;
 }
