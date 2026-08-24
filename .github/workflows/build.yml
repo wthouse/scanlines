@@ -28,7 +28,7 @@ jobs:
         hugo-version: ['0.146.0', 'latest']
     steps:
       - name: Checkout (named "scanlines" so themesDir ../.. resolves)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
