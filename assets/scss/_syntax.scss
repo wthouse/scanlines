@@ -13,6 +13,12 @@
   pre {
     margin: 0;
     padding: var(--spacing-md);
+    // The language badge below is absolutely positioned at top:0 with an opaque
+    // background, so it paints over the first line of code rather than beside
+    // it. Reserve its height. Applied to `pre` (not just the code cell) so both
+    // cells of the line-number table shift together and the gutter stays
+    // aligned with its lines.
+    padding-top: calc(var(--spacing-md) + 0.5rem);
     overflow-x: auto;
     background: var(--color-code-bg);
     border: 1px solid var(--color-border);

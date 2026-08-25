@@ -506,8 +506,8 @@
     color: var(--color-link);
   }
 
-  a:hover,
-  a:focus {
+  a:hover:not(:focus-visible),
+  a:focus:not(:focus-visible) {
     color: var(--color-link-hover);
   }
 }

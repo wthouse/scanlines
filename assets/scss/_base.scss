@@ -102,7 +102,13 @@ h5, h6 {
   font-size: 1rem;
 }
 
-p {
+// Scoped to article content. Unscoped, this landed on every <p> the theme's
+// own chrome emits — most visibly .post-list-excerpt, where it pushed the
+// dashed row separator 20px below the text and 40px above the next item.
+// :where() keeps specificity at (0,0,1), so component classes still win
+// without needing to out-specify a scoped selector. It is supported in
+// Chrome 88 / Firefox 78 / Safari 14 — the theme's stated floor exactly.
+:where(.article-content) p {
   margin-bottom: var(--spacing-md);
 }
 
@@ -214,7 +220,11 @@ ul, ol {
   padding-left: var(--spacing-xl);
 }
 
-li {
+// Same scoping, same reason: unscoped this leaked into .article-tags,
+// .article-categories, .social-list, .archive-item, .post-list-item and the
+// TOC. .nav-item and .terms-item happened to reset it themselves, which is why
+// those two were the only chrome lists that read square.
+:where(.article-content) li {
   margin-bottom: var(--spacing-xs);
 }
 
@@ -236,6 +246,17 @@ ul {
     position: absolute;
     left: calc(-1 * var(--spacing-lg));
   }
+}
+
+// Task list items already carry a checkbox, so the "*" above doubles up on
+// them: "*  [x] label". Goldmark attaches no class to a task item, so matching
+// the parent requires :has(). Kept in its own rule deliberately — a browser
+// without :has() drops the whole rule it appears in, and merging this into the
+// block above would take the bullet with it. Unsupported browsers simply keep
+// the current doubled marker, which is no worse than today.
+.article-content ul > li:has(> input[type="checkbox"]:first-child)::before,
+.article-content ul > li:has(> p:first-child > input[type="checkbox"]:first-child)::before {
+  content: none;
 }
 
 ol {
@@ -474,32 +495,37 @@ tr:hover td {
   }
 }
 
-// Footnote reference links in body text
-.footnote-ref {
-  font-size: 0.75em;
-  vertical-align: super;
-  line-height: 0;
+// Footnote reference links in body text.
+//
+// Goldmark puts .footnote-ref on the <a> itself and leaves the wrapping <sup>
+// unclassed — Blackfriday put it on the <sup> with the anchor inside. Styling
+// written for the old shape meant `.footnote-ref a` matched nothing (so the
+// [1] brackets never rendered), while font-size/vertical-align/line-height
+// landed on the anchor on top of the <sup>'s own superscript treatment, i.e.
+// shrunk and raised twice. The <sup> already does that job, so those three
+// declarations are gone rather than re-scoped.
+//
+// Scoped under .article-content so it outranks `.article-content a` (0,2,0
+// beats 0,1,1) — unscoped, body-link colour and underline won instead.
+.article-content .footnote-ref {
+  color: var(--color-accent);
+  text-decoration: none;
 
-  a {
-    color: var(--color-accent);
-    text-decoration: none;
+  &::before {
+    content: "[";
+  }
 
-    &::before {
-      content: "[";
-    }
+  &::after {
+    content: "]";
+  }
 
-    &::after {
-      content: "]";
-    }
-
-    &:hover {
-      color: var(--color-fg-bright);
-    }
+  &:hover {
+    color: var(--color-fg-bright);
   }
 }
 
-// Back-reference arrow
-.footnote-backref {
+// Back-reference arrow. Same scoping, same reason.
+.article-content .footnote-backref {
   color: var(--color-accent);
   text-decoration: none;
   margin-left: var(--spacing-xs);
@@ -507,6 +533,15 @@ tr:hover td {
   &:hover {
     color: var(--color-fg-bright);
   }
+}
+
+// Goldmark always emits a structural <hr> as the first child of .footnotes.
+// The bare `hr` rule renders it as the theme's full-width ====[ * ]==== banner,
+// which stacks on top of this block's own dashed border-top and [ NOTES ]
+// label — three separators in a row before the first note. The block is
+// already clearly delimited, so the redundant one goes.
+.footnotes > hr {
+  display: none;
 }
 
 // -----------------------------------------------------------------------------
@@ -663,6 +698,26 @@ button:focus-visible,
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
   border-color: var(--color-fg);
+  color: var(--color-fg-bright);
+}
+
+// Same problem, worse consequence: these are anchors, so unlike the labels
+// above they DO match the reverse-video rule. Their visible text lives in a
+// child element that declares its own colour (.terms-name, .post-nav-title,
+// .ascii-header), so the anchor's `color: var(--color-bg)` never reaches it.
+// The label keeps --color-fg and lands on a --color-fg background: the same
+// token on both sides, 1.00:1, invisible — in every scheme, not just
+// highContrast (where --color-fg and --color-fg-bright are both #ffffff).
+//
+// Because they matched the rule above, the accent ring is not enough on its
+// own; the background and glow it applied have to be undone explicitly.
+.terms-link:focus-visible,
+.post-nav-link:focus-visible,
+.ascii-header-link:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  background-color: transparent;
+  box-shadow: none;
   color: var(--color-fg-bright);
 }
 

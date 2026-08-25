@@ -29,8 +29,8 @@
     color: var(--color-fg-dim);
   }
 
-  &:hover,
-  &:focus {
+  &:hover:not(:focus-visible),
+  &:focus:not(:focus-visible) {
     color: var(--color-fg-bright);
     border-color: var(--color-fg);
     text-decoration: none;
@@ -173,8 +173,8 @@
   color: var(--color-fg);
   transition: color 0.2s ease;
 
-  &:hover,
-  &:focus {
+  &:hover:not(:focus-visible),
+  &:focus:not(:focus-visible) {
     color: var(--color-fg-bright);
     text-decoration: none;
   }
