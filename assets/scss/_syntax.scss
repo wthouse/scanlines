@@ -43,6 +43,24 @@
   }
 }
 
+// Scroll container for code blocks.
+//
+// This has to live on .chroma, not on .lntable and not on .highlight:
+//   - .lntable cannot carry it. Making the table a block wraps its rows in an
+//     anonymous table box that shrink-wraps, which is what made narrow tables
+//     paint their border across the full column (see _base.scss).
+//   - .highlight cannot carry it either: it is the position:relative containing
+//     block for the code[data-lang] badge below, so scrolling it would drag the
+//     badge out of view.
+// .chroma sits between the two and is a plain div (table mode) or the <pre>
+// itself (inline mode), so it works for both of Chroma's output shapes.
+//
+// Without this, a line-numbered block wider than the column has no scroll
+// container at any level and body{overflow-x:hidden} silently clips the code.
+.highlight > .chroma {
+  overflow-x: auto;
+}
+
 // Line numbers table
 .lntable {
   width: 100%;
