@@ -5,6 +5,56 @@ All notable changes to the Scanlines theme are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.5] - 2026-08-28
+
+Accessibility, generated-markup isolation, and configuration-edge-case fixes following adversarial review.
+
+### Fixed
+
+- **Page-load blue flash on navigation and header links eliminated.** Removed blanket
+  `transition: color` and `transition: background-color` rules from `body`, `a`, and
+  header/nav elements. On initial page paint, browsers were transitioning link colors
+  from the User-Agent default link color (`#0000ee` blue) to the theme's phosphor palette
+  over 200ms.
+- **Wide line-numbered code blocks scroll horizontally again.** A previous fix (`98e7e52`)
+  stopped `.lntable` from inheriting the content table scroll wrapper, but in doing so
+  removed the only scroll container for line-numbered blocks — causing wide code to be
+  clipped by `body { overflow-x: hidden }` with no scrollbar at any level. Horizontal
+  scrolling is now explicitly set on `.highlight > .chroma`, which covers both table and
+  inline modes while anchoring the language badge.
+- **Focus styling no longer renders anchor text invisible.** On `.terms-link`,
+  `.post-nav-link`, and `.ascii-header-link`, child elements set their own color, which
+  prevented reverse-video focus from changing the text color — resulting in `--color-fg`
+  text on a `--color-fg` background (1.00:1 contrast). These links now use the accent
+  focus ring. Additionally, combined `&:hover, &:focus` rules on `.article-content a`,
+  `.btn`, `.social-list a`, and `.toc-nav a` now use `:not(:focus-visible)` so keyboard
+  focus is not out-specified by hover styling.
+- **Language badges no longer overlap the first line of code.** Reserved height on
+  `.highlight pre` so line-numbered code tables and plain code blocks align with proper
+  clearance below the absolute-positioned badge.
+- **Goldmark structural `<hr>` suppressed in footnotes.** Goldmark emits a structural
+  `<hr>` inside `.footnotes`, which rendered as the theme's full-width terminal divider
+  stacked directly above the footnote section's border and header.
+- **Footnote reference bracket styling restored.** Updated `.footnote-ref` and
+  `.footnote-backref` selectors for Goldmark markup where classes are placed on the
+  anchor rather than `<sup>`.
+- **Task list bullet duplication fixed.** Suppressed default list bullet markers on items
+  containing task list checkboxes via `:has(> input[type="checkbox"])`.
+- **Content paragraph and list margin leakage into chrome prevented.** Scoped bare `p`
+  and `li` margins under `:where(.article-content)` to maintain flat specificity and
+  prevent margins from disrupting post list separators and other UI chrome.
+- **Figure caption and overlay handling.** Hugo `<figure>` shortcode output (`<h4>`
+  titles and `<p>` captions) renders inline with bracketed terminal styling (`[ Title — Caption ]`)
+  without paragraph margin leaks, and the image scanline overlay is contained from covering
+  caption text.
+- **Ordered Table of Contents support.** Added `<ol>` and nested `<ol>` styling in `.toc-nav`
+  matching `<ul>` for sites configuring `[markup.tableOfContents] ordered = true`.
+- **Clickable Chroma line numbers.** Reset link styles for `.lnlinks`, `a.lnt`, and `a.ln`
+  when `anchorLineNos = true` so line-number links remain dim gutter indicators instead
+  of taking on content link underlines and hover glows.
+- **Definition list glow in CRT mode.** Added `<dt>` and `<dd>` to phosphor text glow
+  rules and `effects-disabled` resets.
+
 ## [1.0.4] - 2026-08-23
 
 Gallery-readiness pass ahead of submitting the theme to themes.gohugo.io.
@@ -310,7 +360,8 @@ developed in the open on `main` and this entry consolidates that history.
   to every downstream site. Sites create their own as documented.
 - Dead `layouts/page/` templates the 0.146 template system no longer resolves.
 
-[Unreleased]: https://github.com/wthouse/scanlines/compare/v1.0.4...HEAD
+[Unreleased]: https://github.com/wthouse/scanlines/compare/v1.0.5...HEAD
+[1.0.5]: https://github.com/wthouse/scanlines/compare/v1.0.4...v1.0.5
 [1.0.4]: https://github.com/wthouse/scanlines/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/wthouse/scanlines/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/wthouse/scanlines/compare/v1.0.1...v1.0.2
