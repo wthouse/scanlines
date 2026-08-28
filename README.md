@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/wthouse/scanlines/main/images/logo.svg" alt="Scanlines" width="480">
+  <img src="https://raw.githubusercontent.com/wthouse/scanlines/main/images/logo.svg" alt="Scanlines" width="100%">
 </p>
 
 [![Build](https://github.com/wthouse/scanlines/actions/workflows/build.yml/badge.svg)](https://github.com/wthouse/scanlines/actions/workflows/build.yml)
