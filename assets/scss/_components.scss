@@ -17,7 +17,6 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   cursor: pointer;
-  transition: all 0.2s ease;
 
   &::before {
     content: "[ ";
@@ -74,7 +73,6 @@
     &::before {
       content: "> ";
       color: var(--color-fg-dim);
-      transition: color 0.2s ease;
     }
 
     &:hover {
@@ -171,7 +169,6 @@
   justify-content: center;
   padding: var(--spacing-xs);
   color: var(--color-fg);
-  transition: color 0.2s ease;
 
   &:hover:not(:focus-visible),
   &:focus:not(:focus-visible) {
@@ -271,7 +268,6 @@
   padding: var(--spacing-sm) 0;
   text-decoration: none;
   max-width: 45%;
-  transition: color 0.2s ease;
 
   &:hover,
   &:focus {
@@ -349,7 +345,6 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-size: 0.9rem;
-  transition: color 0.2s ease;
 
   &::before {
     content: "[ ";
@@ -513,7 +508,6 @@
   &::before {
     content: "> ";
     color: var(--color-fg-dim);
-    transition: color 0.2s ease;
   }
 
   &:hover {
@@ -624,7 +618,6 @@
   letter-spacing: 0.05em;
   font-size: 0.9rem;
   text-decoration: none;
-  transition: color 0.2s ease;
 
   &::before {
     content: "[ ";

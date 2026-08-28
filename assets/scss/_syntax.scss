@@ -116,6 +116,20 @@
   padding-right: var(--spacing-sm);
   user-select: none;
   text-align: right;
+
+  // When anchorLineNos = true, Chroma emits <a> inside or around .ln / .lnt (.lnlinks).
+  // Prevent content link styles (underline, link color, reverse video) from leaking into the gutter.
+  a,
+  &.lnlinks {
+    color: inherit;
+    text-decoration: none;
+    outline: none;
+  }
+}
+
+.lnlinks {
+  color: var(--color-fg-dim);
+  text-decoration: none;
 }
 
 .hl {

@@ -135,6 +135,7 @@
   h1, h2, h3, h4, h5, h6,
   p, li, a, span, td, th,
   code, pre, blockquote,
+  dt, dd, figcaption,
   .site-title, .nav-link {
     text-shadow:
       0 0 calc(var(--glow-intensity, 0.8) * 2px) var(--color-glow),
@@ -162,6 +163,7 @@
     h1, h2, h3, h4, h5, h6,
     p, li, a, span, td, th,
     code, pre, blockquote,
+    dt, dd, figcaption,
     .site-title, .nav-link,
     .ascii-header {
       text-shadow: none;

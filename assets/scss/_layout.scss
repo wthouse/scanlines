@@ -166,7 +166,6 @@
   margin: 0;
   padding: 0;
   overflow-x: auto;
-  transition: filter 0.2s ease;
   background: transparent;
   border: none;
   box-shadow: none;
@@ -245,7 +244,6 @@
   background: var(--color-bg-secondary);
   cursor: pointer;
   margin-bottom: var(--spacing-sm);
-  transition: border-color 0.2s ease, color 0.2s ease;
 
   &:hover,
   &:focus {
