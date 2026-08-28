@@ -1,156 +1,103 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 746 194">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 746 220" width="100%" height="100%">
   <title>Scanlines</title>
-  <rect x="0.75" y="0.75" width="744.5" height="192.5" rx="14" fill="#0D0A00" stroke="#4D3600" stroke-width="1.5"/>
-  <g transform="translate(28,28)">
-    
-  <defs><filter id="glowCardFinal" x="-60%" y="-60%" width="220%" height="220%">
-      <feGaussianBlur stdDeviation="1.1" result="b1"/>
-      <feGaussianBlur in="SourceGraphic" stdDeviation="2.6" result="b2"/>
-      <feMerge><feMergeNode in="b2"/><feMergeNode in="b1"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter></defs>
-  <path d="M 60.0 28.0 L 34.0 28.0 L 34.0 110.0 L 60.0 110.0" fill="none" stroke="#FFB000" stroke-width="5.5" stroke-linecap="square" filter="url(#glowCardFinal)"/>
-  <circle cx="95.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="105.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="115.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="125.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="85.0" cy="49.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="85.0" cy="59.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="95.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="105.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="115.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="125.0" cy="79.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="125.0" cy="89.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="85.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="95.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="105.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="115.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="155.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="165.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="175.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="185.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="145.0" cy="49.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="145.0" cy="59.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="145.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="145.0" cy="79.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="145.0" cy="89.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="155.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="165.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="175.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="185.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="215.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="225.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="235.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="205.0" cy="49.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="245.0" cy="49.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="205.0" cy="59.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="245.0" cy="59.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="205.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="215.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="225.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="235.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="245.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="205.0" cy="79.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="245.0" cy="79.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="205.0" cy="89.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="245.0" cy="89.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="205.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="245.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="265.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="305.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="265.0" cy="49.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="275.0" cy="49.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="305.0" cy="49.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="265.0" cy="59.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="285.0" cy="59.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="305.0" cy="59.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="265.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="285.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="305.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="265.0" cy="79.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="295.0" cy="79.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="305.0" cy="79.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="265.0" cy="89.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="305.0" cy="89.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="265.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="305.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="325.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="325.0" cy="49.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="325.0" cy="59.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="325.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="325.0" cy="79.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="325.0" cy="89.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="325.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="335.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="345.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="355.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="365.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="385.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="395.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="405.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="415.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="425.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="405.0" cy="49.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="405.0" cy="59.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="405.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="405.0" cy="79.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="405.0" cy="89.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="385.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="395.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="405.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="415.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="425.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="445.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="485.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="445.0" cy="49.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="455.0" cy="49.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="485.0" cy="49.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="445.0" cy="59.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="465.0" cy="59.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="485.0" cy="59.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="445.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="465.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="485.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="445.0" cy="79.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="475.0" cy="79.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="485.0" cy="79.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="445.0" cy="89.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="485.0" cy="89.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="445.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="485.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="505.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="515.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="525.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="535.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="545.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="505.0" cy="49.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="505.0" cy="59.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="505.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="515.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="525.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="535.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="505.0" cy="79.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="505.0" cy="89.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="505.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="515.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="525.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="535.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="545.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="575.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="585.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="595.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="605.0" cy="39.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="565.0" cy="49.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="565.0" cy="59.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="575.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="585.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="595.0" cy="69.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="605.0" cy="79.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="605.0" cy="89.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="565.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="575.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="585.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-    <circle cx="595.0" cy="99.0" r="3.4" fill="#FFB000" filter="url(#glowCardFinal)"/>
-  <path d="M 630.0 28.0 L 656.0 28.0 L 656.0 110.0 L 630.0 110.0" fill="none" stroke="#FFB000" stroke-width="5.5" stroke-linecap="square" filter="url(#glowCardFinal)"/>
+  <defs>
+    <!-- CRT Phosphor Glow Filter -->
+    <filter id="crtGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.2" result="blur1"/>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4.0" result="blur2"/>
+      <feMerge>
+        <feMergeNode in="blur2"/>
+        <feMergeNode in="blur1"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
 
+    <!-- Subtle glow for UI text -->
+    <filter id="dimGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.0" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- CRT Curvature Vignette Gradient -->
+    <radialGradient id="crtVignette" cx="50%" cy="50%" r="65%">
+      <stop offset="0%" stop-color="#332000" stop-opacity="0.4"/>
+      <stop offset="60%" stop-color="#0a0700" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.85"/>
+    </radialGradient>
+
+    <!-- CRT Horizontal Scanlines Pattern -->
+    <pattern id="scanlinePattern" width="746" height="4" patternUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="746" height="2" fill="#000000" opacity="0.35"/>
+      <rect x="0" y="2" width="746" height="2" fill="#ffb000" opacity="0.03"/>
+    </pattern>
+
+    <!-- Terminal Bezel Gradient -->
+    <linearGradient id="bezelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#24201c"/>
+      <stop offset="50%" stop-color="#181512"/>
+      <stop offset="100%" stop-color="#100e0c"/>
+    </linearGradient>
+
+    <style>
+      @keyframes cursorBlink {
+        0%, 49% { opacity: 1; }
+        50%, 100% { opacity: 0; }
+      }
+      .blinking-cursor {
+        animation: cursorBlink 1.1s infinite;
+      }
+      .term-text {
+        font-family: 'Glass TTY VT220', 'Fira Code', 'Courier New', Courier, ui-monospace, monospace;
+        font-weight: bold;
+      }
+      .term-dim {
+        font-family: 'Courier New', Courier, ui-monospace, monospace;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+      }
+    </style>
+  </defs>
+
+  <!-- Outer Hardware Bezel -->
+  <rect x="2" y="2" width="742" height="216" rx="16" fill="url(#bezelGrad)" stroke="#3d352e" stroke-width="2"/>
+  <rect x="5" y="5" width="736" height="210" rx="14" fill="none" stroke="#0a0807" stroke-width="1.5"/>
+
+  <!-- Bezel Accents / Screws -->
+  <circle cx="16" cy="16" r="2.5" fill="#3a322b" stroke="#181512" stroke-width="1"/>
+  <circle cx="730" cy="16" r="2.5" fill="#3a322b" stroke="#181512" stroke-width="1"/>
+  <circle cx="16" cy="204" r="2.5" fill="#3a322b" stroke="#181512" stroke-width="1"/>
+  <circle cx="730" cy="204" r="2.5" fill="#3a322b" stroke="#181512" stroke-width="1"/>
+
+  <!-- CRT Screen Surface -->
+  <rect x="24" y="20" width="698" height="180" rx="10" fill="#0c0900" stroke="#422f00" stroke-width="1.5"/>
+  <rect x="24" y="20" width="698" height="180" rx="10" fill="url(#crtVignette)"/>
+
+  <!-- Top Status / Header -->
+  <g filter="url(#dimGlow)">
+    <text x="44" y="44" class="term-dim" font-size="11" fill="#996a00">DEC VT220 · 80x24 · CRT PHOSPHOR</text>
+    <text x="702" y="44" class="term-dim" font-size="11" fill="#996a00" text-anchor="end">P3 AMBER</text>
   </g>
+  <line x1="44" y1="52" x2="702" y2="52" stroke="#473100" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Main Center Banner: [ > SCANLINES █ ] -->
+  <g filter="url(#crtGlow)">
+    <text x="373" y="125" class="term-text" font-size="44" fill="#FFB000" text-anchor="middle" letter-spacing="3">[ &gt; SCANLINES <tspan class="blinking-cursor" fill="#FFB000">█</tspan> ]</text>
+  </g>
+
+  <!-- Bottom 25th-Line Status Bar (Authentic VT220/VT320 terminal telemetry) -->
+  <line x1="44" y1="164" x2="702" y2="164" stroke="#473100" stroke-width="1" stroke-dasharray="4,4"/>
+  <g filter="url(#dimGlow)">
+    <text x="44" y="183" class="term-dim" font-size="11" fill="#996a00">[ STATUS: READY ]</text>
+    <text x="373" y="183" class="term-dim" font-size="11" fill="#996a00" text-anchor="middle">9600 BAUD · 8-N-1 · NO SCROLL</text>
+    <text x="702" y="183" class="term-dim" font-size="11" fill="#996a00" text-anchor="end">ONLINE</text>
+  </g>
+
+  <!-- CRT Scanlines Overlay (Across Entire Screen) -->
+  <rect x="24" y="20" width="698" height="180" rx="10" fill="url(#scanlinePattern)" pointer-events="none"/>
+
+  <!-- Glass Highlight Reflection (diagonal subtle sheen) -->
+  <path d="M 28 24 L 260 24 L 140 196 L 28 196 Z" fill="#ffffff" opacity="0.015" pointer-events="none"/>
 </svg>
