@@ -5,7 +5,7 @@ All notable changes to the Scanlines theme are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.7] - 2026-11-03
 
 ### Fixed
 
@@ -23,6 +23,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   shells out to a separate `sass` binary rather than bundling one.
   Contributors building locally now need Dart Sass on `PATH` too — see
   `CONTRIBUTING.md`.
+- **The `.RawSummary` fix above broke the theme's 0.146.0 floor.**
+  `.RawSummary` doesn't exist on `page.Page` before Hugo 0.169.0 — it was
+  added in that same release alongside the `.Params.summary` deprecation —
+  so referencing it directly failed the build on the min-version matrix leg
+  with a hard template error rather than a warning. `index.html` and
+  `_default/section.html` now go through a new `manual-summary.html`
+  partial that picks `.RawSummary` or the deprecated `.Params.summary`
+  based on `hugo.Version.Compare`, verified against both 0.146.0 and
+  0.169.0 before release.
 
 ## [1.0.6] - 2026-11-03
 
