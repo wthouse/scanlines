@@ -47,7 +47,7 @@
               {{- end }}
               {{- end }}
             </div>
-            {{- with .RawSummary }}
+            {{- with partial "manual-summary.html" . }}
             <p class="post-list-excerpt">{{ . }}</p>
             {{- else }}
             {{- with .Description }}
