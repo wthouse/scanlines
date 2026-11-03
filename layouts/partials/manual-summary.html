@@ -1,0 +1,12 @@
+{{- /* The manually-set front matter `summary`, or empty if none was given.
+
+       .RawSummary was added in Hugo 0.169.0 alongside the deprecation of
+       .Params.summary for this purpose. Older Hugo (the theme's floor is
+       0.146.0) has no .RawSummary field at all — accessing it there is a
+       hard template error, not a no-op — so this picks the accessor that
+       exists for the running version instead of hard-coding the new one. */ -}}
+{{- if le (hugo.Version.Compare "0.169.0") 0 -}}
+  {{- .RawSummary -}}
+{{- else -}}
+  {{- .Params.summary -}}
+{{- end -}}
