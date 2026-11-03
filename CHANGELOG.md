@@ -5,6 +5,25 @@ All notable changes to the Scanlines theme are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- **CI green again after the Hugo "latest" matrix leg started failing.**
+  Hugo 0.169.0 deprecated `.Params.description` (use `.Description`) and
+  `.Params.summary` (use `.RawSummary`), which `article-header.html`,
+  `index.html` and `_default/section.html` still used. The exampleSite's
+  SCSS pipeline also warned on every build because `toCSS` had no
+  `transpiler` set, so Hugo's extended binary used its bundled, deprecated
+  libsass instead of Dart Sass. Switched the pipeline to `transpiler =
+  "dartsass"`, converted `assets/scss/*.scss` from `@import` to `@use`
+  (required for the dartsass transpiler, and `@import` is itself deprecated
+  in Dart Sass), and added a Dart Sass install step to both CI
+  (`.github/workflows/build.yml`) and `scripts/build-demo.sh`, since Hugo
+  shells out to a separate `sass` binary rather than bundling one.
+  Contributors building locally now need Dart Sass on `PATH` too — see
+  `CONTRIBUTING.md`.
+
 ## [1.0.6] - 2026-11-03
 
 ### Fixed

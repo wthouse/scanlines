@@ -125,6 +125,18 @@ fi
 "$HUGO_BIN" version
 
 # ---------------------------------------------------------------------------
+# Dart Sass. Hugo's SCSS pipeline here uses the dartsass transpiler, which
+# shells out to a `sass` binary rather than bundling one. Without it on PATH,
+# Hugo falls back to the deprecated bundled libsass, which trips the
+# warnings-are-errors check in build() below.
+# ---------------------------------------------------------------------------
+if ! command -v sass >/dev/null 2>&1; then
+  echo "==> no Dart Sass on PATH, installing sass-embedded"
+  npm install --global sass-embedded
+fi
+sass --version
+
+# ---------------------------------------------------------------------------
 # Scheme switcher, injected through the theme's own documented extension hooks.
 # Generated here so exampleSite stays a clean starter config in the repo.
 #

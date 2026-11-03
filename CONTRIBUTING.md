@@ -15,7 +15,12 @@ opinionated — the guidelines below are short on purpose.
 ## Pull requests
 
 1. Fork the repo, create a branch off `main`.
-2. Test against `exampleSite/`:
+2. Install [Dart Sass](https://sass-lang.com/install/) (`npm install -g sass-embedded`
+   or equivalent) and make sure `sass` is on your `PATH`. Hugo's SCSS pipeline
+   here uses the `dartsass` transpiler, which shells out to that binary rather
+   than bundling one; without it on `PATH`, Hugo falls back to the deprecated
+   bundled libsass, which fails the no-warnings check below.
+3. Test against `exampleSite/`:
 
    ```bash
    cd exampleSite
@@ -30,12 +35,12 @@ opinionated — the guidelines below are short on purpose.
    `exampleSite/` is also the public demo (see below). Keep it building
    cleanly and keep its config a sane starting point for a new site —
    people copy it verbatim.
-3. Keep changes focused. One feature or fix per PR.
-4. If you're adding a config option, update `README.md`, `INSTALLATION.md` and
+4. Keep changes focused. One feature or fix per PR.
+5. If you're adding a config option, update `README.md`, `INSTALLATION.md` and
    `exampleSite/hugo.toml` — all three carry a configuration reference, and they
    drift apart if you only touch one.
-5. Avoid introducing JavaScript. The theme intentionally has none.
-6. Avoid external dependencies (CDN fonts, analytics scripts, tracking
+6. Avoid introducing JavaScript. The theme intentionally has none.
+7. Avoid external dependencies (CDN fonts, analytics scripts, tracking
    pixels, etc.). Everything should be self-hosted.
 
 ## Translations

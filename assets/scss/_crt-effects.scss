@@ -7,6 +7,7 @@
 // - Dot stretching creating bold character appearance
 // - Brightness falloff at screen edges (cos^4 pattern)
 // =============================================================================
+@use "variables" as *;
 
 // -----------------------------------------------------------------------------
 // CRT Overlay Container
