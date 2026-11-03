@@ -268,7 +268,7 @@ has no effect:
   linkedin = ""
   mastodon = ""              # Full URL for Mastodon
   medium = ""                # Username (without @)
-  hackthebox = ""            # Profile UUID
+  hackthebox = ""            # Numeric user ID (from app.hackthebox.com/public/users/<id>)
   bluesky = ""               # Handle (e.g., "you.bsky.social")
   youtube = ""               # Channel handle (without @)
   discord = ""               # User ID
