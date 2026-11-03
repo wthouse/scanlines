@@ -22,7 +22,7 @@
 {{- end -}}
 
 {{- /* Process SCSS with Hugo Pipes */ -}}
-{{- $options := dict "targetPath" "css/main.css" "outputStyle" "compressed" -}}
+{{- $options := dict "targetPath" "css/main.css" "outputStyle" "compressed" "transpiler" "dartsass" -}}
 {{- $style := resources.Get "scss/main.scss" | toCSS $options -}}
 {{- if hugo.IsProduction -}}
   {{- $style = $style | minify | fingerprint -}}

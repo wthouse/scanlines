@@ -2,10 +2,10 @@
 // A retro-inspired Hugo theme emulating DEC VT100/VT220 terminals
 
 // Import partials in order
-@import "variables";
-@import "base";
-@import "layout";
-@import "components";
-@import "crt-effects";
-@import "syntax";
-@import "toc";
+@use "variables";
+@use "base";
+@use "layout";
+@use "components";
+@use "crt-effects";
+@use "syntax";
+@use "toc";

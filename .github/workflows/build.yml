@@ -38,6 +38,17 @@ jobs:
           hugo-version: ${{ matrix.hugo-version }}
           extended: true
 
+      - name: Setup Node (for Dart Sass)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # Hugo's dartsass transpiler shells out to a Dart Sass binary rather than
+      # bundling one — install it so SCSS builds without the libsass
+      # deprecation warning the bundled fallback emits.
+      - name: Install Dart Sass
+        run: npm install -g sass-embedded
+
       - name: Build exampleSite, fail on any warning
         run: |
           set -euo pipefail
